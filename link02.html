@@ -1,0 +1,232 @@
+<!-- link02.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<title>第二關：八卦與方位(後天)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+    position: relative;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #answers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: none;
+    margin: 5px;
+    min-width: 80px;
+    text-align: center;
+    background-color: #e0e0e0;
+    transition: outline 0.3s;
+  }
+  /* 方位底色設定 */
+  .answer[data-answer="東"] { background-color: #ffcccc; }
+  .answer[data-answer="西"] { background-color: #ccccff; }
+  .answer[data-answer="南"] { background-color: #ffcc99; }
+  .answer[data-answer="北"] { background-color: #99ccff; }
+  .answer[data-answer="東北"] { background-color: #ff9999; }
+  .answer[data-answer="東南"] { background-color: #ffff99; }
+  .answer[data-answer="西北"] { background-color: #cccccc; }
+  .answer[data-answer="西南"] { background-color: #99ff99; }
+
+  /* 選中樣式 */
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+  }
+  /* 返回首頁按鈕樣式 */
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<button id="backHome" onclick="location.href='menu.html'">返回首頁</button>
+
+<h1>第二關：八卦與方位</h1>
+
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="answers">
+    <div class="answer" data-answer="東">東</div>
+    <div class="answer" data-answer="西">西</div>
+    <div class="answer" data-answer="南">南</div>
+    <div class="answer" data-answer="北">北</div>
+    <div class="answer" data-answer="東北">東北</div>
+    <div class="answer" data-answer="東南">東南</div>
+    <div class="answer" data-answer="西北">西北</div>
+    <div class="answer" data-answer="西南">西南</div>
+  </div>
+  <div id="buttons">
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+const 八卦 = ['乾 ☰', '兌 ☱', '離 ☲', '震 ☳', '巽 ☴', '坎 ☵', '艮 ☶', '坤 ☷'];
+// 方位對應八卦
+const 配對 = {
+  '乾 ☰': '東北',
+  '兌 ☱': '西南',
+  '離 ☲': '東南',
+  '震 ☳': '東',
+  '巽 ☴': '西',
+  '坎 ☵': '北',
+  '艮 ☶': '西北',
+  '坤 ☷': '南'
+};
+
+let currentQuestion = null;
+let previousQuestion = null;
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const answerDivs = document.querySelectorAll('.answer');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+
+function init() {
+  // 初始化：設定按鈕狀態
+  startBtn.disabled = false;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+  document.querySelectorAll('.answer').forEach(d => {
+    d.classList.remove('selected', 'bordered');
+  });
+  questionDiv.innerHTML = '點擊「開始」來挑戰！';
+  currentQuestion = null;
+  previousQuestion = null;
+  selectedAnswer = null;
+}
+
+// 開始按鈕事件
+startBtn.addEventListener('click', () => {
+  init();
+  nextQuestion();
+  startBtn.disabled = true;
+});
+
+// 選擇答案
+answerDivs.forEach(div => {
+  div.addEventListener('click', () => {
+    answerDivs.forEach(d => d.classList.remove('selected'));
+    div.classList.add('selected');
+    selectedAnswer = div.dataset.answer;
+    confirmBtn.disabled = false;
+  });
+});
+
+// 確定答案
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const correctAnswer = 配對[currentQuestion];
+  if (selectedAnswer === correctAnswer) {
+    resultDiv.innerHTML = '答對了！';
+  } else {
+    resultDiv.innerHTML = `答錯了！正確答案是：${correctAnswer}`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion;
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題，避免重複
+function nextQuestion() {
+  let newQuestion;
+  const available = 八卦.filter(q => q !== previousQuestion);
+  if (available.length === 1) {
+    newQuestion = available[0];
+  } else {
+    do {
+      const index = Math.floor(Math.random() * available.length);
+      newQuestion = available[index];
+    } while (newQuestion === previousQuestion);
+  }
+  currentQuestion = newQuestion;
+  questionDiv.innerHTML = `請連結八卦：<strong>${currentQuestion}</strong>`;
+  answerDivs.forEach(d => d.classList.remove('selected'));
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+
+  // 重置樣式
+  answerDivs.forEach(d => d.classList.remove('bordered'));
+  // 針對金的答案加入邊框
+  answerDivs.forEach(d => {
+    if (d.dataset.answer === '金') {
+      d.classList.add('bordered');
+    }
+  });
+}
+
+// 初始化
+init();
+</script>
+
+</body>
+</html>

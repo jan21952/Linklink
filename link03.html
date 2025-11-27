@@ -1,0 +1,247 @@
+<!-- link03.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<title>第三關：地支與五行</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #answers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: none;
+  }
+  /* 特別設定金的答案框 */
+  .answer[data-answer="金"] {
+    background: #ffffff; /* 白色背景 */
+    color: #000; /* 黑字 */
+  }
+  /* 加黑框的金答案 */
+  .answer[data-answer="金"].bordered {
+    border: 3px solid #000; /* 黑色邊框 */
+  }
+  /* 其他五行底色設定 */
+  .answer[data-answer="火"] {
+    background: #ff0000;
+    color: #fff;
+  }
+  .answer[data-answer="木"] {
+    background: #008000;
+    color: #fff;
+  }
+  .answer[data-answer="水"] {
+    background: #000000;
+    color: #fff;
+  }
+  .answer[data-answer="土"] {
+    background: #8b4513;
+    color: #fff;
+  }
+
+  /* 選中樣式 */
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+  }
+  /* 返回首頁按鈕樣式 */
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<button id="backHome" onclick="location.href='menu.html'">返回首頁</button>
+
+<h1>連連看：八卦對應五行</h1>
+
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="answers">
+    <div class="answer" data-answer="金">金</div>
+    <div class="answer" data-answer="火">火</div>
+    <div class="answer" data-answer="木">木</div>
+    <div class="answer" data-answer="水">水</div>
+    <div class="answer" data-answer="土">土</div>
+  </div>
+  <div id="buttons">
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+const 八卦 = ['子（鼠）', '丑（牛）', '寅（虎）', '卯（兔）', '辰（龍）', '巳（蛇）', '午（馬）', '未（羊）', '申（猴）', '酉（雞）', '戌（狗）', '亥（豬）'];
+const 五行 = ['金', '金', '火', '木', '木', '水', '土'];
+// 八卦對應五行
+const 配對 = {
+  '子（鼠）': '水',
+  '丑（牛）': '土',
+  '寅（虎）': '木',
+  '卯（兔）': '木',
+  '辰（龍）': '土',
+  '巳（蛇）': '火',
+  '午（馬）': '火',
+  '未（羊）': '土',
+  '申（猴）': '金',
+  '酉（雞）': '金',
+  '戌（狗）': '土',
+  '亥（豬）': '水'
+};
+
+let currentQuestion = null;
+let previousQuestion = null; // 儲存上一題
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const answerDivs = document.querySelectorAll('.answer');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+
+function shuffle(array) {
+  for (let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+// 開始按鈕事件
+startBtn.addEventListener('click', () => {
+  previousQuestion = null; // 重置上一題
+  nextQuestion();
+  startBtn.disabled = true;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+});
+
+// 選擇答案
+answerDivs.forEach(div => {
+  div.addEventListener('click', () => {
+    answerDivs.forEach(d => {
+      d.classList.remove('selected');
+    });
+    div.classList.add('selected');
+    selectedAnswer = div.dataset.answer;
+    confirmBtn.disabled = false;
+  });
+});
+
+// 確定答案
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const correctAnswer = 配對[currentQuestion];
+  if (selectedAnswer === correctAnswer) {
+    resultDiv.innerHTML = '答對了！';
+  } else {
+    resultDiv.innerHTML = `答錯了！正確答案是：${correctAnswer}`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion; // 記錄上一題
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題，避免重複
+function nextQuestion() {
+  let newQuestion;
+  // 如果全部八卦都用過，重置
+  const available = 八卦.filter(q => q !== previousQuestion);
+  
+  // 若剩下的題目都和上一題一樣（只有一個），則直接用那個
+  if (available.length === 1) {
+    newQuestion = available[0];
+  } else {
+    // 隨機挑選，避免和上一題相同
+    do {
+      const index = Math.floor(Math.random() * available.length);
+      newQuestion = available[index];
+    } while (newQuestion === previousQuestion);
+  }
+
+  currentQuestion = newQuestion;
+  questionDiv.innerHTML = `請連結八卦：<strong>${currentQuestion}</strong>`;
+  answerDivs.forEach(d => {
+    d.classList.remove('selected');
+  });
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+
+  // 重置金的邊框
+  answerDivs.forEach(d => {
+    d.classList.remove('bordered');
+    if (d.dataset.answer === '金') {
+      d.classList.add('bordered');
+    }
+  });
+}
+
+// 初始化
+// 你可以點擊「開始」來開始遊戲
+</script>
+
+</body>
+</html>
