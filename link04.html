@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<title>尋找世爻</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #hint {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  #guaArea {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .yao {
+    font-size: 72px;
+    margin: -40px 0;
+  }
+  #answers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: none;
+    background: #e0e0e0;
+  }
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+  }
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  .marker {
+    color: red;
+    font-size: 32px;
+    margin: -40px 0;
+  }
+  #rangeSelect {
+
+    font-size: 28px; 
+
+    padding: 10px 20px;
+
+    margin-right: 20px;
+
+  }
+</style>
+</head>
+<body>
+
+<button id="backHome" onclick="location.href='index.html'">返回首頁</button>
+
+<h1>連連看：尋找世爻 (測試版)</h1>
+
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="hint"></div>
+  <div id="guaArea"></div>
+  <div id="answers">
+    <div class="answer" data-answer="1">1</div>
+    <div class="answer" data-answer="2">2</div>
+    <div class="answer" data-answer="3">3</div>
+    <div class="answer" data-answer="4">4</div>
+    <div class="answer" data-answer="5">5</div>
+    <div class="answer" data-answer="6">6</div>
+  </div>
+  <div id="buttons">
+    <select id="rangeSelect">
+      <option value="all">全部範圍</option>
+      <option value="乾宮">乾宮</option>
+      <option value="震宮">震宮</option>
+      <option value="坎宮">坎宮</option>
+      <option value="艮宮">艮宮</option>
+      <option value="坤宮">坤宮</option>
+      <option value="兌宮">兌宮</option>
+      <option value="離宮">離宮</option>
+      <option value="巽宮">巽宮</option>
+    </select>
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+// 測試版：匯入前 16 題 (乾宮 1–8，震宮 9–16)
+const guaData = [
+  // 乾宮 1–8
+  {卦名:"乾為天", 世位:6, 應位:3, 爻:["⚊","⚊","⚊","⚊","⚊","⚊"], 宮位:"乾宮", 宮序:1, 爻語:"0", 爻圖:"○○○", 易經序:1},
+  {卦名:"天風姤", 世位:1, 應位:4, 爻:["⚋","⚊","⚊","⚊","⚊","⚊"], 宮位:"乾宮", 宮序:2, 爻語:"1-4", 爻圖:"╳○○", 易經序:8},
+  {卦名:"天山遯", 世位:2, 應位:5, 爻:["⚋","⚋","⚊","⚊","⚊","⚊"], 宮位:"乾宮", 宮序:3, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:4},
+  {卦名:"天地否", 世位:3, 應位:6, 爻:["⚋","⚋","⚋","⚊","⚊","⚊"], 宮位:"乾宮", 宮序:4, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:2},
+  {卦名:"風地觀", 世位:4, 應位:1, 爻:["⚋","⚋","⚋","⚋","⚊","⚊"], 宮位:"乾宮", 宮序:5, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:58},
+  {卦名:"山地剝", 世位:5, 應位:2, 爻:["⚋","⚋","⚋","⚋","⚋","⚊"], 宮位:"乾宮", 宮序:6, 爻語:"3-6", 爻圖:"○○╳", 易經序:26},
+  {卦名:"火地晉", 世位:4, 應位:1, 爻:["⚋","⚋","⚋","⚊","⚋","⚊"], 宮位:"乾宮", 宮序:7, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:34},
+  {卦名:"火天大有", 世位:3, 應位:6, 爻:["⚊","⚊","⚊","⚊","⚋","⚊"], 宮位:"乾宮", 宮序:8, 爻語:"2-5", 爻圖:"○╳○", 易經序:33},
+
+  // 震宮 9–16
+  {卦名:"震為雷", 世位:6, 應位:3, 爻:["⚊","⚋","⚋","⚊","⚋","⚋"], 宮位:"震宮", 宮序:9, 爻語:"0", 爻圖:"○○○", 易經序:55},
+  {卦名:"雷地豫", 世位:1, 應位:4, 爻:["⚋","⚋","⚋","⚊","⚋","⚋"], 宮位:"震宮", 宮序:10, 爻語:"1-4", 爻圖:"╳○○", 易經序:50},
+  {卦名:"雷水解", 世位:2, 應位:5, 爻:["⚋","⚊","⚋","⚊","⚋","⚋"], 宮位:"震宮", 宮序:11, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:54},
+  {卦名:"雷風恆", 世位:3, 應位:6, 爻:["⚋","⚊","⚊","⚊","⚋","⚋"], 宮位:"震宮", 宮序:12, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:56},
+  {卦名:"地風升", 世位:4, 應位:1, 爻:["⚋","⚊","⚊","⚋","⚋","⚋"], 宮位:"震宮", 宮序:13, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:16},
+  {卦名:"水風井", 世位:5, 應位:2, 爻:["⚋","⚊","⚊","⚋","⚊","⚋"], 宮位:"震宮", 宮序:14, 爻語:"3-6", 爻圖:"○○╳", 易經序:48},
+  {卦名:"澤風大過", 世位:4, 應位:1, 爻:["⚋","⚊","⚊","⚊","⚊","⚋"], 宮位:"震宮", 宮序:15, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:24},
+  {卦名:"澤雷隨", 世位:3, 應位:6, 爻:["⚊","⚋","⚋","⚊","⚊","⚋"], 宮位:"震宮", 宮序:16, 爻語:"2-5", 爻圖:"○╳○", 易經序:23},
+  // 坎宮 17–24
+  {卦名:"坎為水", 世位:6, 應位:3, 爻:["⚋","⚊","⚋","⚋","⚊","⚋"], 宮位:"坎宮", 宮序:17, 爻語:"0", 爻圖:"○○○", 易經序:46},
+  {卦名:"水澤節", 世位:1, 應位:4, 爻:["⚊","⚊","⚋","⚋","⚊","⚋"], 宮位:"坎宮", 宮序:18, 爻語:"1-4", 爻圖:"╳○○", 易經序:43},
+  {卦名:"水雷屯", 世位:2, 應位:5, 爻:["⚊","⚋","⚋","⚋","⚊","⚋"], 宮位:"坎宮", 宮序:19, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:47},
+  {卦名:"水火既濟", 世位:3, 應位:6, 爻:["⚊","⚋","⚊","⚋","⚊","⚋"], 宮位:"坎宮", 宮序:20, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:45},
+  {卦名:"澤火革", 世位:4, 應位:1, 爻:["⚊","⚋","⚊","⚊","⚊","⚋"], 宮位:"坎宮", 宮序:21, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:21},
+  {卦名:"雷火豐", 世位:5, 應位:2, 爻:["⚊","⚋","⚊","⚊","⚋","⚋"], 宮位:"坎宮", 宮序:22, 爻語:"3-6", 爻圖:"○○╳", 易經序:53},
+  {卦名:"地火明夷", 世位:4, 應位:1, 爻:["⚊","⚋","⚊","⚋","⚋","⚋"], 宮位:"坎宮", 宮序:23, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:13},
+  {卦名:"地水師", 世位:3, 應位:6, 爻:["⚋","⚊","⚋","⚋","⚋","⚋"], 宮位:"坎宮", 宮序:24, 爻語:"2-5", 爻圖:"○╳○", 易經序:14},
+
+  // 艮宮 25–32
+  {卦名:"艮為山", 世位:6, 應位:3, 爻:["⚋","⚋","⚊","⚋","⚋","⚊"], 宮位:"艮宮", 宮序:25, 爻語:"0", 爻圖:"○○○", 易經序:28},
+  {卦名:"山火賁", 世位:1, 應位:4, 爻:["⚊","⚋","⚊","⚋","⚋","⚊"], 宮位:"艮宮", 宮序:26, 爻語:"1-4", 爻圖:"╳○○", 易經序:29},
+  {卦名:"山天大畜", 世位:2, 應位:5,爻:["⚊","⚊","⚊","⚋","⚋","⚊"], 宮位:"艮宮", 宮序:27, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:25},
+  {卦名:"山澤損", 世位:3, 應位:6, 爻:["⚊","⚊","⚋","⚋","⚋","⚊"], 宮位:"艮宮", 宮序:28, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:27},
+  {卦名:"火澤睽", 世位:4, 應位:1, 爻:["⚊","⚊","⚋","⚊","⚋","⚊"], 宮位:"艮宮", 宮序:29, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:35},
+  {卦名:"天澤履", 世位:5, 應位:2, 爻:["⚊","⚊","⚋","⚊","⚊","⚊"], 宮位:"艮宮", 宮序:30, 爻語:"3-6", 爻圖:"○○╳", 易經序:3},
+  {卦名:"風澤中孚", 世位:4, 應位:1, 爻:["⚊","⚊","⚋","⚋","⚊","⚊"], 宮位:"艮宮", 宮序:31, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:59},
+  {卦名:"風山漸", 世位:3, 應位:6, 爻:["⚋","⚋","⚊","⚋","⚊","⚊"], 宮位:"艮宮", 宮序:32, 爻語:"2-5", 爻圖:"○╳○", 易經序:60},
+
+  // 坤宮 33–40
+  {卦名:"坤為地", 世位:6, 應位:3, 爻:["⚋","⚋","⚋","⚋","⚋","⚋"], 宮位:"坤宮", 宮序:33, 爻語:"0", 爻圖:"○○○", 易經序:10},
+  {卦名:"地雷復", 世位:1, 應位:4, 爻:["⚊","⚋","⚋","⚋","⚋","⚋"], 宮位:"坤宮", 宮序:34, 爻語:"1-4", 爻圖:"╳○○", 易經序:15},
+  {卦名:"地澤臨", 世位:2, 應位:5, 爻:["⚊","⚊","⚋","⚋","⚋","⚋"], 宮位:"坤宮", 宮序:35, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:11},
+  {卦名:"地天泰", 世位:3, 應位:6, 爻:["⚊","⚊","⚊","⚋","⚋","⚋"], 宮位:"坤宮", 宮序:36, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:9},
+  {卦名:"雷天大壯", 世位:4, 應位:1, 爻:["⚊","⚊","⚊","⚊","⚋","⚋"], 宮位:"坤宮", 宮序:37, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:49},
+  {卦名:"澤天夬", 世位:5, 應位:2, 爻:["⚊","⚊","⚊","⚊","⚊","⚋"], 宮位:"坤宮", 宮序:38, 爻語:"3-6", 爻圖:"○○╳", 易經序:17},
+  {卦名:"水天需", 世位:4, 應位:1, 爻:["⚊","⚊","⚊","⚋","⚊","⚋"], 宮位:"坤宮", 宮序:39, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:41},
+  {卦名:"水地比", 世位:3, 應位:6, 爻:["⚋","⚋","⚋","⚋","⚊","⚋"], 宮位:"坤宮", 宮序:40, 爻語:"2-5", 爻圖:"○╳○", 易經序:42},
+
+  // 兌宮 41–48
+  {卦名:"兌為澤", 世位:6, 應位:3, 爻:["⚊","⚊","⚋","⚊","⚊","⚋"], 宮位:"兌宮", 宮序:41, 爻語:"0", 爻圖:"○○○", 易經序:19},
+  {卦名:"澤水困", 世位:1, 應位:4, 爻:["⚋","⚊","⚋","⚊","⚊","⚋"], 宮位:"兌宮", 宮序:42, 爻語:"1-4", 爻圖:"╳○○", 易經序:22},
+  {卦名:"澤地萃", 世位:2, 應位:5, 爻:["⚋","⚋","⚋","⚊","⚊","⚋"], 宮位:"兌宮", 宮序:43, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:18},
+  {卦名:"澤山咸", 世位:3, 應位:6, 爻:["⚋","⚋","⚊","⚊","⚊","⚋"], 宮位:"兌宮", 宮序:44, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:20},
+  {卦名:"水山蹇", 世位:4, 應位:1, 爻:["⚋","⚋","⚊","⚋","⚊","⚋"], 宮位:"兌宮", 宮序:45, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:44},
+  {卦名:"地山謙", 世位:5, 應位:2, 爻:["⚋","⚋","⚊","⚋","⚋","⚋"], 宮位:"兌宮", 宮序:46, 爻語:"3-6", 爻圖:"○○╳", 易經序:12},
+  {卦名:"雷山小過", 世位:4, 應位:1, 爻:["⚋","⚋","⚊","⚊","⚋","⚋"], 宮位:"兌宮", 宮序:47, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:52},
+  {卦名:"雷澤歸妹", 世位:3, 應位:6, 爻:["⚊","⚊","⚋","⚊","⚋","⚋"], 宮位:"兌宮", 宮序:48, 爻語:"2-5", 爻圖:"○╳○", 易經序:51},
+
+  // 離宮 49–56
+  {卦名:"離為火", 世位:6, 應位:3, 爻:["⚊","⚋","⚊","⚊","⚋","⚊"], 宮位:"離宮", 宮序:49, 爻語:"0", 爻圖:"○○○", 易經序:37},
+  {卦名:"火山旅", 世位:1, 應位:4, 爻:["⚋","⚋","⚊","⚊","⚋","⚊"], 宮位:"離宮", 宮序:50, 爻語:"1-4", 爻圖:"╳○○", 易經序:36},
+  {卦名:"火風鼎", 世位:2, 應位:5, 爻:["⚋","⚊","⚊","⚊","⚋","⚊"], 宮位:"離宮", 宮序:51, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:40},
+  {卦名:"火水未濟", 世位:3, 應位:6,爻:["⚋","⚊","⚋","⚊","⚋","⚊"], 宮位:"離宮", 宮序:52, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:38},
+  {卦名:"山水蒙", 世位:4, 應位:1, 爻:["⚋","⚊","⚋","⚋","⚋","⚊"], 宮位:"離宮", 宮序:53, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:30},
+  {卦名:"風水渙", 世位:5, 應位:2, 爻:["⚋","⚊","⚋","⚋","⚊","⚊"], 宮位:"離宮", 宮序:54, 爻語:"3-6", 爻圖:"○○╳", 易經序:62},
+  {卦名:"天水訟", 世位:4, 應位:1, 爻:["⚋","⚊","⚋","⚊","⚊","⚊"], 宮位:"離宮", 宮序:55, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:6},
+  {卦名:"天火同人", 世位:3, 應位:6, 爻:["⚊","⚋","⚊","⚊","⚊","⚊"], 宮位:"離宮", 宮序:56, 爻語:"2-5", 爻圖:"○╳○", 易經序:5},
+
+  // 巽宮 57–64
+  {卦名:"巽為風", 世位:6, 應位:3, 爻:["⚋","⚊","⚊","⚋","⚊","⚊"], 宮位:"巽宮", 宮序:57, 爻語:"0", 爻圖:"○○○", 易經序:64},
+  {卦名:"風天小畜", 世位:1, 應位:4, 爻:["⚊","⚊","⚊","⚋","⚊","⚊"], 宮位:"巽宮", 宮序:58, 爻語:"1-4", 爻圖:"╳○○", 易經序:57},
+  {卦名:"風火家人", 世位:2, 應位:5, 爻:["⚊","⚋","⚊","⚋","⚊","⚊"], 宮位:"巽宮", 宮序:59, 爻語:"1-4,2-5", 爻圖:"╳╳○", 易經序:61},
+  {卦名:"風雷益", 世位:3, 應位:6, 爻:["⚊","⚋","⚋","⚋","⚊","⚊"], 宮位:"巽宮", 宮序:60, 爻語:"1-4,2-5,3-6", 爻圖:"╳╳╳", 易經序:63},
+  {卦名:"天雷無妄", 世位:4, 應位:1, 爻:["⚊","⚋","⚋","⚊","⚊","⚊"], 宮位:"巽宮", 宮序:61, 爻語:"2-5,3-6", 爻圖:"○╳╳", 易經序:7},
+  {卦名:"火雷噬嗑", 世位:5, 應位:2, 爻:["⚊","⚋","⚋","⚊","⚋","⚊"], 宮位:"巽宮", 宮序:62, 爻語:"3-6", 爻圖:"○○╳", 易經序:39},
+  {卦名:"山雷頤", 世位:4, 應位:1, 爻:["⚊","⚋","⚋","⚋","⚋","⚊"], 宮位:"巽宮", 宮序:63, 爻語:"1-4,3-6", 爻圖:"╳○╳", 易經序:31},
+  {卦名:"山風蠱", 世位:3, 應位:6, 爻:["⚋","⚊","⚊","⚋","⚋","⚊"], 宮位:"巽宮", 宮序:64, 爻語:"2-5", 爻圖:"○╳○", 易經序:32}
+];
+
+let currentQuestion = null;
+let previousQuestion = null;
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const hintDiv = document.getElementById('hint');
+const guaArea = document.getElementById('guaArea');
+const answerDivs = document.querySelectorAll('.answer');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+const rangeSelect = document.getElementById('rangeSelect');
+
+// 開始
+startBtn.addEventListener('click', () => {
+  previousQuestion = null;
+  nextQuestion();
+  startBtn.disabled = true;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+});
+
+// 選擇答案
+answerDivs.forEach(div => {
+  div.addEventListener('click', () => {
+    answerDivs.forEach(d => d.classList.remove('selected'));
+    div.classList.add('selected');
+    selectedAnswer = parseInt(div.dataset.answer);
+    confirmBtn.disabled = false;
+  });
+});
+
+// 確定
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const correctAnswer = currentQuestion.世位;
+  if (selectedAnswer === correctAnswer) {
+    resultDiv.innerHTML = '答對了！';
+    const yaoDivs = document.querySelectorAll('.yao');
+
+    // 清除舊標記
+    document.querySelectorAll('.marker').forEach(m => m.remove());
+
+    // 世爻標記
+    const shiIndex = 6 - correctAnswer; // 顯示 6→1
+    const shiMarker = document.createElement('div');
+    shiMarker.className = "marker";
+    shiMarker.innerHTML = "世";
+    yaoDivs[shiIndex].appendChild(shiMarker);
+
+    // 應爻標記 (直接使用 應位 欄)
+    const yingIndex = 6 - currentQuestion.應位;
+    const yingMarker = document.createElement('div');
+    yingMarker.className = "marker";
+    yingMarker.innerHTML = "應";
+    yaoDivs[yingIndex].appendChild(yingMarker);
+  } else {
+    resultDiv.innerHTML = `答錯了！正確答案是：${correctAnswer}`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion;
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題（依範圍）
+function nextQuestion() {
+  // 建立範圍題庫
+  const range = rangeSelect.value;
+  let pool = [];
+  if (range === 'all') {
+    pool = guaData;
+  } else {
+    pool = guaData.filter(q => q.宮位 === range);
+  }
+  // 若範圍太小，至少保證有題目
+  if (pool.length === 0) {
+    pool = guaData;
+  }
+
+  // 避免與上一題相同
+  let newQuestion = null;
+  if (pool.length === 1) {
+    newQuestion = pool[0];
+  } else {
+    do {
+      const index = Math.floor(Math.random() * pool.length);
+      newQuestion = pool[index];
+    } while (previousQuestion && newQuestion.卦名 === previousQuestion.卦名);
+  }
+
+  currentQuestion = newQuestion;
+
+  // 題目與提示
+  questionDiv.innerHTML = `請問卦名 <strong>${currentQuestion.卦名}</strong> 的世爻在哪裡？`;
+  hintDiv.innerHTML = `(提示：${currentQuestion.爻語},${currentQuestion.爻圖})`;
+
+  // 顯示爻象 (6到1)
+  guaArea.innerHTML = "";
+  for (let i = 5; i >= 0; i--) {
+    const div = document.createElement('div');
+    div.className = "yao";
+    div.innerHTML = currentQuestion.爻[i];
+    guaArea.appendChild(div);
+  }
+
+  // 重置選擇與按鈕狀態、清除標記
+  answerDivs.forEach(d => d.classList.remove('selected'));
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+  document.querySelectorAll('.marker').forEach(m => m.remove());
+}
+</script>
+
+</body>
+</html>
