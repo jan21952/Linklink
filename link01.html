@@ -101,6 +101,27 @@
     color: #fff;
     cursor: pointer;
   }
+  /* 手機版調整：字體加倍 */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+    #answers {
+      /* 原本的 display: flex 已經在電腦版區塊定義 */
+      flex-wrap: wrap; /* 關鍵：讓子元素在空間不足時換行 */
+      justify-content: space-around; /* 讓換行後的按鈕保持分佈 */
+      gap: 10px; /* 加入間隔，讓按鈕之間不至於太擁擠 (可選) */
+    }
+    .answer {
+      /* 確保按鈕有足夠的寬度，讓它們能分成兩行 (3 個一排) */
+      font-size: 20px;
+      padding: 15px 25px;
+      /* 關鍵：設定一個允許換行的寬度 */
+      /* 讓每個按鈕佔據大約 45% 的寬度 */
+      /*手動取消 flex-basis: 45%; */
+      margin: 5px 0; /* 調整上下間距 */
+    }
+  }
 </style>
 </head>
 <body>
