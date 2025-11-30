@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>五行的相生與相剋</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #hint {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  #guaArea {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .yao {
+    font-size: 28px;
+    margin: 10px 0;
+  }
+  #answers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: none;
+    background: #e0e0e0;
+  }
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #rangeSelect {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin-right: 20px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+  }
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  .marker {
+    color: red;
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  /* 答案區五行顏色設定 */
+  .answer[data-answer="金"] {
+    background: #ffffff; /* 白底 */
+    color: #000;         /* 黑字 */
+    border: 3px solid #000; /* 黑邊框 */
+  }
+  .answer[data-answer="火"] {
+    background: #ff0000; /* 紅底 */
+    color: #fff;         /* 白字 */
+  }
+  .answer[data-answer="木"] {
+    background: #008000; /* 綠底 */
+    color: #fff;         /* 白字 */
+  }
+  .answer[data-answer="水"] {
+    background: #000000; /* 黑底 */
+    color: #fff;         /* 白字 */
+  }
+  .answer[data-answer="土"] {
+    background: #8b4513; /* 棕底 */
+    color: #fff;         /* 白字 */
+  }
+
+  /* 選中樣式 */
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+
+</style>
+</head>
+<body>
+
+<button id="backHome" onclick="location.href='index.html'">返回首頁</button>
+<br>
+<h1>五行的相生與相剋</h1>
+
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="hint"></div>
+  <div id="guaArea"></div>
+  <div id="answers"></div>
+  <div id="buttons">
+    <select id="rangeSelect">
+      <option value="all">全部</option>
+      <option value="相生">相生</option>
+      <option value="相剋">相剋</option>
+    </select>
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+const 五行 = ['金', '木', '水', '火', '土'];
+const 相生 = { '金': '水', '水': '木', '木': '火', '火': '土', '土': '金' };
+const 相剋 = { '金': '木', '水': '火', '木': '土', '火': '金', '土': '水' };
+
+// 相生說明 (依照題目的五行)
+const 生說明 = {
+  '木': '木材燃燒可產生火',
+  '火': '火焚燒後化為灰燼，成為土的養分。',
+  '土': '萬物埋於土中，最終孕育出金屬礦藏。',
+  '金': '金屬冷卻時會凝結成水滴。',
+  '水': '水滋養萬物，使樹木得以生長。'
+};
+
+// 相剋說明 (依照題目的五行)
+const 剋說明 = {
+  '木': '土衰遇木，必遭傾陷',
+  '火': '金衰遇火，必見銷鎔',
+  '土': '水弱逢土，必為淤塞',
+  '金': '木弱逢金，必為砍折',
+  '水': '火弱逢水，必為熄滅'
+};
+
+let currentQuestion = null;
+let previousQuestion = null;
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const hintDiv = document.getElementById('hint');
+const guaArea = document.getElementById('guaArea');
+const answersDiv = document.getElementById('answers');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+const rangeSelect = document.getElementById('rangeSelect');
+
+// 開始
+startBtn.addEventListener('click', () => {
+  previousQuestion = null;
+  nextQuestion();
+  startBtn.disabled = true;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+});
+
+// 確定
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const { type, from, to } = currentQuestion;
+  if (selectedAnswer === to) {
+    resultDiv.innerHTML = '答對了！';
+    // 顯示題目五行的說明文字
+    let 說明文字 = (type === '相生') ? 生說明[from] : 剋說明[from];
+    guaArea.innerHTML = `<div class="yao">${from} → ${to}</div><div class="marker">${說明文字}</div>`;
+  } else {
+    resultDiv.innerHTML = `答錯了！正確答案是：${to}`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion;
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題
+function nextQuestion() {
+  const range = rangeSelect.value;
+  let pool = [];
+
+  五行.forEach(el => {
+    if (range === 'all' || range === '相生') {
+      pool.push({ type: '相生', from: el, to: 相生[el] });
+    }
+    if (range === 'all' || range === '相剋') {
+      pool.push({ type: '相剋', from: el, to: 相剋[el] });
+    }
+  });
+
+  // 避免與上一題相同
+  let newQuestion = null;
+  do {
+    const index = Math.floor(Math.random() * pool.length);
+    newQuestion = pool[index];
+  } while (previousQuestion && newQuestion.from === previousQuestion.from && newQuestion.type === previousQuestion.type);
+
+  currentQuestion = newQuestion;
+
+  // 題目
+  questionDiv.innerHTML = `請問 <strong>${currentQuestion.from}</strong> 在${currentQuestion.type}中對應的是哪一個？`;
+
+  // 固定提示語
+
+  hintDiv.innerHTML = '五行最初被稱為五材，包含了木、火、土、金、水這五種元素，古人認為萬物皆由這五種基本元素所構成';
+
+  // 顯示選項
+  answersDiv.innerHTML = '';
+  五行.forEach(el => {
+    const div = document.createElement('div');
+    div.className = 'answer';
+    div.innerHTML = el;
+    div.dataset.answer = el;
+    div.addEventListener('click', () => {
+      document.querySelectorAll('.answer').forEach(d => d.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedAnswer = el;
+      confirmBtn.disabled = false;
+    });
+    answersDiv.appendChild(div);
+  });
+
+  guaArea.innerHTML = '';
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+}
+</script>
+
+
+
+</body>
+</html>
