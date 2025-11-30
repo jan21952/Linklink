@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>八卦的符號</title>
+<style>
+  /*手動改題目區的本文,不是style */
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #hint {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+  }
+  #guaArea {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .yao {
+    font-size: 72px;
+    margin: 0px 0;
+  }
+  #answers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 每排 4 個 */
+    gap: 10px; /* 按鈕間距 */
+    margin-bottom: 20px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 36px;
+    user-select: none;
+    border: none;
+    background: #e0e0e0;
+    line-height: 1;
+    text-align: center;
+  }
+  .answer.selected {
+    outline: 3px solid #333;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+  }
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  /* 手機版調整：字體加倍 */
+  @media (max-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+    h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+    #question {
+      font-size: 24px;
+    }
+    #hint {
+      font-size: 18px;
+    }
+    .yao {
+      font-size: 72px;
+      margin: -40px 0;
+    }
+    #answers {
+      grid-template-columns: repeat(2, 1fr); /* 手機版每排 2 個 */
+    }
+    .answer {
+      font-size: 32px;
+      padding: 12px 20px;
+    }
+  }
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+<button id="backHome" onclick="location.href='index.html'">返回首頁</button>
+<br>
+<h1>連連看：八卦的符號（第五關）</h1>
+<h2>提示語為宋代朱熹在《周易本義》中寫了一首《八卦取象歌》幫助人們記住八卦的符號</h1>
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="hint"></div>
+  <div id="guaArea"></div>
+
+  <div id="answers">
+    <div class="answer" data-answer="☰">☰</div>
+    <div class="answer" data-answer="☱">☱</div>
+    <div class="answer" data-answer="☲">☲</div>
+    <div class="answer" data-answer="☳">☳</div>
+    <div class="answer" data-answer="☴">☴</div>
+    <div class="answer" data-answer="☵">☵</div>
+    <div class="answer" data-answer="☶">☶</div>
+    <div class="answer" data-answer="☷">☷</div>
+  </div>
+
+  <div id="buttons">
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+/**
+ * 題目區:
+ * 乾卦(自然象徵為天), 兌卦(自然象徵為澤), 離卦(自然象徵為火), 震卦(自然象徵為雷),
+ * 巽卦(自然象徵為風), 坎卦(自然象徵為水), 艮卦(自然象徵為山), 坤卦(自然象徵為地)
+ * 提示語:
+ * 乾三連, 兌上缺, 離中虛, 震仰盂, 巽下斷, 坎中滿, 艮覆碗, 坤六斷
+ * 答案區符號:
+ * ☰, ☱, ☲, ☳, ☴, ☵, ☶, ☷
+ */
+
+const trigramData = [
+  {卦名:"乾卦", 自然:"天", 符號:"☰", 提示:"乾三連"},
+  {卦名:"兌卦", 自然:"澤", 符號:"☱", 提示:"兌上缺"},
+  {卦名:"離卦", 自然:"火", 符號:"☲", 提示:"離中虛"},
+  {卦名:"震卦", 自然:"雷", 符號:"☳", 提示:"震仰盂"},
+  {卦名:"巽卦", 自然:"風", 符號:"☴", 提示:"巽下斷"},
+  {卦名:"坎卦", 自然:"水", 符號:"☵", 提示:"坎中滿"},
+  {卦名:"艮卦", 自然:"山", 符號:"☶", 提示:"艮覆碗"},
+  {卦名:"坤卦", 自然:"地", 符號:"☷", 提示:"坤六斷"},
+];
+
+let currentQuestion = null;
+let previousQuestion = null;
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const hintDiv = document.getElementById('hint');
+const guaArea = document.getElementById('guaArea');
+const answerDivs = document.querySelectorAll('.answer');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+
+// 開始
+startBtn.addEventListener('click', () => {
+  previousQuestion = null;
+  nextQuestion();
+  startBtn.disabled = true;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+});
+
+// 選擇答案
+answerDivs.forEach(div => {
+  div.addEventListener('click', () => {
+    answerDivs.forEach(d => d.classList.remove('selected'));
+    div.classList.add('selected');
+    selectedAnswer = div.dataset.answer;
+    confirmBtn.disabled = false;
+  });
+});
+
+// 確定
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const correctAnswer = currentQuestion.符號;
+  if (selectedAnswer === correctAnswer) {
+    resultDiv.innerHTML = '答對了！';
+    // 顯示正確卦象符號的大型展示
+    guaArea.innerHTML = '';
+    const display = document.createElement('div');
+    display.className = 'yao';
+    display.textContent = correctAnswer;
+    guaArea.appendChild(display);
+  } else {
+    resultDiv.innerHTML = `答錯了！正確答案是：${correctAnswer}`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion;
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題
+function nextQuestion() {
+  // 避免與上一題相同
+  let newQuestion = null;
+  if (trigramData.length === 1) {
+    newQuestion = trigramData[0];
+  } else {
+    do {
+      const index = Math.floor(Math.random() * trigramData.length);
+      newQuestion = trigramData[index];
+    } while (previousQuestion && newQuestion.卦名 === previousQuestion.卦名);
+  }
+
+  currentQuestion = newQuestion;
+
+  // 題目與提示
+  /* questionDiv.innerHTML = `請問 <strong>${currentQuestion.卦名}</strong>（自然象徵為<strong>${currentQuestion.自然}</strong>）的符號是？`; */
+  questionDiv.innerHTML = `請問 <strong>${currentQuestion.卦名}</strong>的符號是什麼？`; 
+  hintDiv.innerHTML = `(提示：${currentQuestion.提示})`;
+
+  // 區域展示：給玩家語境（顯示卦名與自然象徵）
+  guaArea.innerHTML = `
+    <div style="font-size:22px; margin-bottom:10px;">
+      卦名：<strong>${currentQuestion.卦名}</strong>
+    </div>
+    <div style="font-size:20px; color:#333;">
+      自然象徵：<strong>${currentQuestion.自然}</strong>
+    </div>
+  `;
+
+  // 重置選擇與按鈕狀態
+  answerDivs.forEach(d => d.classList.remove('selected'));
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+}
+</script>
+
+</body>
+</html>
