@@ -155,6 +155,7 @@
   <div id="buttons">
     <select id="rangeSelect">
       <option value="all">全部範圍</option>
+      <option value="純卦">純卦</option>
       <option value="乾宮">乾宮</option>
       <option value="震宮">震宮</option>
       <option value="坎宮">坎宮</option>
@@ -252,16 +253,24 @@ function nextQuestion() {
   // 依下拉選單篩選題庫
   const range = rangeSelect.value;
   let pool = [];
+
   if (range === 'all') {
     pool = guaData;
+  } else if (range === '純卦') {
+    // 各宮位的第一個（資料中每個宮位的首條）
+    const palaceOrder = ['乾宮','震宮','坎宮','艮宮','坤宮','兌宮','離宮','巽宮'];
+    pool = palaceOrder
+      .map(p => guaData.find(q => q.宮位 === p))
+      .filter(Boolean); // 去除找不到的情況
   } else {
     pool = guaData.filter(q => q.宮位 === range);
   }
+
   if (pool.length === 0) {
     pool = guaData; // 保底
   }
 
-  // 隨機抽一題
+  // 隨機抽一題（從篩選後的集合中）
   const index = Math.floor(Math.random() * pool.length);
   currentQuestion = pool[index];
 
