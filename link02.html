@@ -1,10 +1,9 @@
-﻿<!-- link02.html -->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>連連看：八卦與方位(後天)</title>
+<title>連連看：八卦與方位</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -57,7 +56,6 @@
   .answer[data-answer="西北"] { background-color: #cccccc; }
   .answer[data-answer="西南"] { background-color: #99ff99; }
 
-  /* 選中樣式 */
   .answer.selected {
     outline: 3px solid #333;
   }
@@ -78,7 +76,6 @@
     font-size: 20px;
     height: 24px;
   }
-  /* 返回首頁按鈕樣式 */
   #backHome {
     position: absolute;
     top: 20px;
@@ -91,26 +88,33 @@
     color: #fff;
     cursor: pointer;
   }
-  /* 手機版調整：字體加倍 */
+  /* 題目顏色 */
+  .blue { color: blue; }
+  .red { color: red; }
+
+  #rangeSelect {
+    font-size: 32px; /* 放大 2 倍 */
+    padding: 10px 20px;
+    margin-right: 20px;
+  }
+
   @media (max-width: 768px) {
-    body {
-      font-size: 16px;
-    }
+    body { font-size: 16px; }
     #answers {
-      /* 原本的 display: flex 已經在電腦版區塊定義 */
-      flex-wrap: wrap; /* 關鍵：讓子元素在空間不足時換行 */
-      justify-content: space-around; /* 讓換行後的按鈕保持分佈 */
-      gap: 10px; /* 加入間隔，讓按鈕之間不至於太擁擠 (可選) */
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 10px;
     }
     .answer {
-      /* 確保按鈕有足夠的寬度，讓它們能分成兩行 (3 個一排) */
       font-size: 20px;
       padding: 15px 25px;
-      /* 關鍵：設定一個允許換行的寬度 */
-      /* 讓每個按鈕佔據大約 45% 的寬度 */
-      /*手動取消 flex-basis: 45%; */
-      margin: 5px 0; /* 調整上下間距 */
+      margin: 5px 0;
     }
+  }
+  #rangeSelect {
+    font-size: 32px; /* 放大 2 倍 */
+    padding: 10px 20px;
+    margin-right: 20px;
   }
 </style>
 </head>
@@ -118,7 +122,7 @@
 
 <button id="backHome" onclick="location.href='index.html'">返回首頁</button>
 <br>
-<h1>連連看：八卦與方位</h1>
+<h1>連連看：八卦與方位(先天與後天)</h1>
 
 <div id="game">
   <div id="question">點擊「開始」來挑戰！</div>
@@ -133,6 +137,11 @@
     <div class="answer" data-answer="西南">西南</div>
   </div>
   <div id="buttons">
+    <select id="rangeSelect">
+    <!-- <option value="all">全部範圍</option> -->      
+      <option value="先天">先天</option>
+      <option value="後天">後天</option>
+    </select>
     <button id="startBtn">開始</button>
     <button id="confirmBtn" disabled>確定</button>
     <button id="nextBtn" disabled>下一題</button>
@@ -141,113 +150,90 @@
 </div>
 
 <script>
-const 八卦 = ['乾 ☰', '兌 ☱', '離 ☲', '震 ☳', '巽 ☴', '坎 ☵', '艮 ☶', '坤 ☷'];
-// 方位對應八卦
-const 配對 = {
-  '乾 ☰': '東北',
-  '兌 ☱': '西南',
-  '離 ☲': '東南',
-  '震 ☳': '東',
-  '巽 ☴': '西',
-  '坎 ☵': '北',
-  '艮 ☶': '西北',
-  '坤 ☷': '南'
+const 八卦 = ['乾 ☰','坤 ☷','離 ☲','坎 ☵','震 ☳','兌 ☱','巽 ☴','艮 ☶'];
+
+// 先天方位
+const 先天配對 = {
+  '乾 ☰':'南','坤 ☷':'北','離 ☲':'東','坎 ☵':'西',
+  '震 ☳':'東南','兌 ☱':'西北','巽 ☴':'東北','艮 ☶':'西南'
+};
+// 後天方位
+const 後天配對 = {
+  '乾 ☰':'西北','坤 ☷':'西南','離 ☲':'南','坎 ☵':'北',
+  '震 ☳':'東','兌 ☱':'西','巽 ☴':'東南','艮 ☶':'東北'
 };
 
-let currentQuestion = null;
-let previousQuestion = null;
-let selectedAnswer = null;
+let currentQuestion=null, previousQuestion=null, selectedAnswer=null, currentRange='先天';
 
-const questionDiv = document.getElementById('question');
-const answerDivs = document.querySelectorAll('.answer');
-const startBtn = document.getElementById('startBtn');
-const confirmBtn = document.getElementById('confirmBtn');
-const nextBtn = document.getElementById('nextBtn');
-const resultDiv = document.getElementById('result');
+const questionDiv=document.getElementById('question');
+const answerDivs=document.querySelectorAll('.answer');
+const startBtn=document.getElementById('startBtn');
+const confirmBtn=document.getElementById('confirmBtn');
+const nextBtn=document.getElementById('nextBtn');
+const resultDiv=document.getElementById('result');
+const rangeSelect=document.getElementById('rangeSelect');
 
-function init() {
-  // 初始化：設定按鈕狀態
-  startBtn.disabled = false;
-  confirmBtn.disabled = true;
-  nextBtn.disabled = true;
-  resultDiv.innerHTML = '';
-  document.querySelectorAll('.answer').forEach(d => {
-    d.classList.remove('selected', 'bordered');
-  });
-  questionDiv.innerHTML = '點擊「開始」來挑戰！';
-  currentQuestion = null;
-  previousQuestion = null;
-  selectedAnswer = null;
-}
-
-// 開始按鈕事件
-startBtn.addEventListener('click', () => {
-  init();
+startBtn.addEventListener('click',()=>{
+  previousQuestion=null;
   nextQuestion();
-  startBtn.disabled = true;
+  startBtn.disabled=true;
+  confirmBtn.disabled=true;
+  nextBtn.disabled=true;
+  resultDiv.innerHTML='';
 });
 
-// 選擇答案
-answerDivs.forEach(div => {
-  div.addEventListener('click', () => {
-    answerDivs.forEach(d => d.classList.remove('selected'));
+rangeSelect.addEventListener('change',()=>{
+  currentRange=rangeSelect.value;
+});
+
+answerDivs.forEach(div=>{
+  div.addEventListener('click',()=>{
+    answerDivs.forEach(d=>d.classList.remove('selected'));
     div.classList.add('selected');
-    selectedAnswer = div.dataset.answer;
-    confirmBtn.disabled = false;
+    selectedAnswer=div.dataset.answer;
+    confirmBtn.disabled=false;
   });
 });
 
-// 確定答案
-confirmBtn.addEventListener('click', () => {
-  if (!currentQuestion || !selectedAnswer) return;
-  const correctAnswer = 配對[currentQuestion];
-  if (selectedAnswer === correctAnswer) {
-    resultDiv.innerHTML = '答對了！';
-  } else {
-    resultDiv.innerHTML = `答錯了！正確答案是：${correctAnswer}`;
+confirmBtn.addEventListener('click',()=>{
+  if(!currentQuestion||!selectedAnswer)return;
+  let correctAnswer;
+  if(currentRange==='先天'){ correctAnswer=先天配對[currentQuestion]; }
+  else if(currentRange==='後天'){ correctAnswer=後天配對[currentQuestion]; }
+  else {
+    // 全部範圍隨機選一種
+    correctAnswer=Math.random()>0.5?先天配對[currentQuestion]:後天配對[currentQuestion];
   }
-  confirmBtn.disabled = true;
-  nextBtn.disabled = false;
+  if(selectedAnswer===correctAnswer){
+    resultDiv.innerHTML='答對了！';
+  } else {
+    resultDiv.innerHTML=`答錯了！正確答案是：${correctAnswer}`;
+  }
+  confirmBtn.disabled=true;
+  nextBtn.disabled=false;
 });
 
-// 下一題
-nextBtn.addEventListener('click', () => {
-  previousQuestion = currentQuestion;
+nextBtn.addEventListener('click',()=>{
+  previousQuestion=currentQuestion;
   nextQuestion();
-  resultDiv.innerHTML = '';
-  nextBtn.disabled = true;
+  resultDiv.innerHTML='';
+  nextBtn.disabled=true;
 });
 
-// 產生新題，避免重複
-function nextQuestion() {
+function nextQuestion(){
+  let pool=八卦;
   let newQuestion;
-  const available = 八卦.filter(q => q !== previousQuestion);
-  if (available.length === 1) {
-    newQuestion = available[0];
-  } else {
-    do {
-      const index = Math.floor(Math.random() * available.length);
-      newQuestion = available[index];
-    } while (newQuestion === previousQuestion);
-  }
-  currentQuestion = newQuestion;
-  questionDiv.innerHTML = `請連結八卦：<strong>${currentQuestion}</strong>`;
-  answerDivs.forEach(d => d.classList.remove('selected'));
-  selectedAnswer = null;
-  confirmBtn.disabled = true;
-
-  // 重置樣式
-  answerDivs.forEach(d => d.classList.remove('bordered'));
-  // 針對金的答案加入邊框
-  answerDivs.forEach(d => {
-    if (d.dataset.answer === '金') {
-      d.classList.add('bordered');
-    }
-  });
+  do{
+    const index=Math.floor(Math.random()*pool.length);
+    newQuestion=pool[index];
+  }while(newQuestion===previousQuestion);
+  currentQuestion=newQuestion;
+  let colorClass=(currentRange==='先天')?'blue':(currentRange==='後天')?'red':'';
+  questionDiv.innerHTML=`請連結八卦：<strong class="${colorClass}">${currentQuestion} (${currentRange})</strong>`;
+  answerDivs.forEach(d=>d.classList.remove('selected'));
+  selectedAnswer=null;
+  confirmBtn.disabled=true;
 }
-
-// 初始化
-init();
 </script>
 
 </body>
