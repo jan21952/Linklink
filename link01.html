@@ -50,16 +50,16 @@
     border: 3px solid #000; /* 黑色邊框 */
   }
   /* 其他五行底色設定 */
-  .answer[data-answer="火"] {
-    background: #ff0000;
+  .answer[data-answer="水"] {
+    background: #000000;
     color: #fff;
   }
   .answer[data-answer="木"] {
     background: #008000;
     color: #fff;
   }
-  .answer[data-answer="水"] {
-    background: #000000;
+  .answer[data-answer="火"] {
+    background: #ff0000;
     color: #fff;
   }
   .answer[data-answer="土"] {
@@ -134,9 +134,9 @@
   <div id="question">點擊「開始」來挑戰！</div>
   <div id="answers">
     <div class="answer" data-answer="金">金</div>
-    <div class="answer" data-answer="火">火</div>
-    <div class="answer" data-answer="木">木</div>
     <div class="answer" data-answer="水">水</div>
+    <div class="answer" data-answer="木">木</div>
+    <div class="answer" data-answer="火">火</div>
     <div class="answer" data-answer="土">土</div>
   </div>
   <div id="buttons">
@@ -149,7 +149,7 @@
 
 <script>
 const 八卦 = ['乾 ☰', '兌 ☱', '離 ☲', '震 ☳', '巽 ☴', '坎 ☵', '艮 ☶', '坤 ☷'];
-const 五行 = ['金', '金', '火', '木', '木', '水', '土'];
+const 五行 = ['金', '金', '火', '木', '木', '水', '土', '土'];
 // 八卦對應五行
 const 配對 = {
   '乾 ☰': '金',
