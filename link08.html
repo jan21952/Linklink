@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>二十四山三元龍連連看</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    margin: 20px;
+  }
+  h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+  #game {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background: #fff;
+  }
+  #question {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #hint {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;    
+    /* 這裡改成 center */
+    /* text-align: left;*/
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  #guaArea {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    min-height: 30px;
+  }
+  .yao {
+    font-size: 28px;
+    margin: 10px 0;
+  }
+  #answers {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .answer {
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    border: none;
+    background: #e0e0e0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  .answer.selected {
+    outline: 3px solid #333;
+    background: #aaffaa;
+  }
+  #buttons {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #rangeSelect {
+    font-size: 20px;
+    padding: 10px 15px;
+    margin-right: 15px;
+    border-radius: 8px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 20px;
+    height: 24px;
+    font-weight: bold;
+  }
+  #backHome {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+  }
+  .marker {
+    color: blue;
+    font-size: 20px;
+    margin-top: 5px;
+  }
+</style>
+</head>
+<body>
+
+<button id="backHome" onclick="location.href='index.html'">返回首頁</button>
+<br>
+<h1>二十四山三元龍連連看</h1>
+
+<div id="game">
+  <div id="question">點擊「開始」來挑戰！</div>
+  <div id="hint"></div>
+  <div id="guaArea"></div>
+  <div id="answers"></div>
+  <div id="buttons">
+    <select id="rangeSelect">
+      <option value="all">全部</option>
+      <option value="地元龍">地元龍</option>
+      <option value="天元龍">天元龍</option>
+      <option value="人元龍">人元龍</option>
+      <option value="東到西南">東到西南 (木火土)</option>
+      <option value="西到東北">西到東北 (金水土)</option>
+    </select>
+    <button id="startBtn">開始</button>
+    <button id="confirmBtn" disabled>確定</button>
+    <button id="nextBtn" disabled>下一題</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+// 二十四山與三元龍的對應關係 (以及其所屬的大範圍方向)
+const 三元龍對應 = {
+    // 北方 (坎卦, 子旺)
+    '壬': {龍: '地元龍', 範圍: '西到東北'}, '子': {龍: '天元龍', 範圍: '西到東北'}, '癸': {龍: '人元龍', 範圍: '西到東北'},
+    // 東北 (艮卦, 丑長生、寅祿)
+    '丑': {龍: '地元龍', 範圍: '西到東北'}, '艮': {龍: '天元龍', 範圍: '西到東北'}, '寅': {龍: '人元龍', 範圍: '西到東北'},
+    // 東方 (震卦, 卯旺)
+    '甲': {龍: '地元龍', 範圍: '東到西南'}, '卯': {龍: '天元龍', 範圍: '東到西南'}, '乙': {龍: '人元龍', 範圍: '東到西南'},
+    // 東南 (巽卦, 辰墓、巳祿)
+    '辰': {龍: '地元龍', 範圍: '東到西南'}, '巽': {龍: '天元龍', 範圍: '東到西南'}, '巳': {龍: '人元龍', 範圍: '東到西南'},
+    // 南方 (離卦, 午旺)
+    '丙': {龍: '地元龍', 範圍: '東到西南'}, '午': {龍: '天元龍', 範圍: '東到西南'}, '丁': {龍: '人元龍', 範圍: '東到西南'},
+    // 西南 (坤卦, 未墓、申祿)
+    '未': {龍: '地元龍', 範圍: '東到西南'}, '坤': {龍: '天元龍', 範圍: '東到西南'}, '申': {龍: '人元龍', 範圍: '東到西南'},
+    // 西方 (兌卦, 酉旺)
+    '庚': {龍: '地元龍', 範圍: '西到東北'}, '酉': {龍: '天元龍', 範圍: '西到東北'}, '辛': {龍: '人元龍', 範圍: '西到東北'},
+    // 西北 (乾卦, 戌墓、亥長生)
+    '戌': {龍: '地元龍', 範圍: '西到東北'}, '乾': {龍: '天元龍', 範圍: '西到東北'}, '亥': {龍: '人元龍', 範圍: '西到東北'}
+};
+
+const 山名列表 = Object.keys(三元龍對應);
+const 答案選項 = ['地元龍', '天元龍', '人元龍'];
+const 提示文字 = `
+    <ul>
+        <ul>天元龍由四帝旺與四維卦組成</ul>
+        <ul>地元龍由四陽干與四墓庫組成</ul>
+        <ul>人元龍由四陰干與四長生組成</ul>
+    </ul>
+`;
+
+let currentQuestion = null;
+let previousQuestion = null;
+let selectedAnswer = null;
+
+const questionDiv = document.getElementById('question');
+const hintDiv = document.getElementById('hint');
+const guaArea = document.getElementById('guaArea');
+const answersDiv = document.getElementById('answers');
+const startBtn = document.getElementById('startBtn');
+const confirmBtn = document.getElementById('confirmBtn');
+const nextBtn = document.getElementById('nextBtn');
+const resultDiv = document.getElementById('result');
+const rangeSelect = document.getElementById('rangeSelect');
+
+// 設定提示語
+hintDiv.innerHTML = 提示文字;
+
+// 開始
+startBtn.addEventListener('click', () => {
+  previousQuestion = null;
+  nextQuestion();
+  startBtn.disabled = true;
+  confirmBtn.disabled = true;
+  nextBtn.disabled = true;
+  resultDiv.innerHTML = '';
+});
+
+// 確定
+confirmBtn.addEventListener('click', () => {
+  if (!currentQuestion || !selectedAnswer) return;
+  const { 山名, 正確答案 } = currentQuestion;
+  if (selectedAnswer === 正確答案) {
+    resultDiv.innerHTML = '✅ 答對了！';
+    guaArea.innerHTML = `<div class="yao">「${山名}」屬於 ${正確答案}</div>`;
+  } else {
+    resultDiv.innerHTML = `❌ 答錯了！正確答案是：${正確答案}`;
+    guaArea.innerHTML = `<div class="yao">「${山名}」的正確分類是 ${正確答案}</div>`;
+  }
+  confirmBtn.disabled = true;
+  nextBtn.disabled = false;
+});
+
+// 下一題
+nextBtn.addEventListener('click', () => {
+  previousQuestion = currentQuestion;
+  nextQuestion();
+  resultDiv.innerHTML = '';
+  nextBtn.disabled = true;
+});
+
+// 產生新題 (關鍵修改區)
+function nextQuestion() {
+  const range = rangeSelect.value;
+  let pool = [];
+
+  if (range === 'all' || range === '地元龍' || range === '天元龍' || range === '人元龍') {
+    // 處理原有的三元龍和全部選項
+    if (range === 'all') {
+      pool = [...山名列表];
+    } else {
+      pool = 山名列表.filter(山名 => 三元龍對應[山名].龍 === range);
+    }
+  } else if (range === '東到西南') {
+    // 處理東到西南 (卯, 辰巳, 午, 未申)
+    pool = 山名列表.filter(山名 => 三元龍對應[山名].範圍 === '東到西南');
+  } else if (range === '西到東北') {
+    // 處理西到東北 (酉, 戌亥, 子, 丑寅)
+    pool = 山名列表.filter(山名 => 三元龍對應[山名].範圍 === '西到東北');
+  }
+
+  // 避免與上一題相同
+  let new山名 = null;
+  do {
+    const index = Math.floor(Math.random() * pool.length);
+    new山名 = pool[index];
+  } while (previousQuestion && new山名 === previousQuestion.山名);
+
+  const 正確答案 = 三元龍對應[new山名].龍;
+  currentQuestion = { 山名: new山名, 正確答案: 正確答案 };
+
+  // 題目
+  questionDiv.innerHTML = `請問 **${currentQuestion.山名}** 屬於哪一類？`;
+
+  // 顯示選項
+  answersDiv.innerHTML = '';
+  答案選項.forEach(el => {
+    const div = document.createElement('div');
+    div.className = 'answer';
+    div.innerHTML = el;
+    div.dataset.answer = el;
+    div.addEventListener('click', () => {
+      document.querySelectorAll('.answer').forEach(d => d.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedAnswer = el;
+      confirmBtn.disabled = false;
+    });
+    answersDiv.appendChild(div);
+  });
+
+  guaArea.innerHTML = '';
+  selectedAnswer = null;
+  confirmBtn.disabled = true;
+}
+</script>
+
+</body>
+</html>
