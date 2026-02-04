@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>易經八卦對戰牌（練習版）</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f0f8ff; margin: 20px; text-align: center; }
+  h1 { font-size: 32px; }
+  #game { max-width: 800px; margin: 0 auto; padding: 20px; border: 2px solid #333; border-radius: 10px; background: #fff; }
+  #battle { font-size: 48px; margin: 20px 0; min-height: 60px; }
+  .hand { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; }
+  .card { padding: 15px 20px; border-radius: 8px; cursor: pointer; font-size: 24px; background: #e0e0e0; border: 2px solid #333; user-select: none; }
+  .card:hover { background: #d0d0d0; }
+  .card.selected { outline: 4px solid gold; }
+  .card.disabled { opacity: 0.5; cursor: not-allowed; }
+  .player1 { color: blue; } .player2 { color: red; }
+  button { padding: 12px 24px; font-size: 18px; margin: 10px; border-radius: 8px; cursor: pointer; background: #333; color: #fff; border: none; }
+  #score { font-size: 24px; font-weight: bold; }
+  #aiToggle { font-size: 16px; }
+  @media (max-width: 768px) { .card { font-size: 20px; padding: 12px 16px; } }
+</style>
+</head>
+<body>
+<button onclick="location.href='index.html'">返回首頁</button><br><br>
+<h1>易經八卦對戰牌（練習版）</h1>
+<div id="game">
+  <div id="score">藍方(AI): 0分 | 牌: 28 | 紅方(玩家): 0分 | 牌: 28</div>
+  <div id="battle">點擊「新遊戲」開始練習！</div>
+  <div id="p1Hand" class="hand player1"></div>
+  <div id="p2Hand" class="hand player2"></div>
+  <button id="newGame">新遊戲</button>
+<!--取消預設
+  <label><input type="checkbox" id="aiToggle" checked> 單人練習模式 (AI先出牌)</label>
+-->
+  <label><input type="checkbox" id="aiToggle" checked> 單人練習模式 (AI先出牌)</label>
+</div>
+
+<script>
+// 牌庫: {符號, 卦名, 五行, 值}
+const guaList = [
+  {符: '☰', 名: '乾', 行: '金'}, {符: '☱', 名: '兌', 行: '金'},
+  {符: '☵', 名: '坎', 行: '水'},
+  {符: '☳', 名: '震', 行: '木'}, {符: '☴', 名: '巽', 行: '木'},
+  {符: '☲', 名: '離', 行: '火'},
+  {符: '☶', 名: '艮', 行: '土'}, {符: '☷', 名: '坤', 行: '土'}
+];
+let deck = [], p1Hand = [], p2Hand = [], p1Card = null, p2Card = null, scores = [0,0], cardCounts = [28,28];
+
+// 屬性表
+const sheng = {金:'水', 水:'木', 木:'火', 火:'土', 土:'金'};
+const ke = {金:'木', 木:'土', 土:'水', 水:'火', 火:'金'};
+const chong = {乾:'坤', 坤:'乾', 坎:'離', 離:'坎', 震:'艮', 艮:'震', 巽:'兌', 兌:'巽'};
+
+function initDeck() {
+  deck = [];
+  guaList.forEach(gua => {
+    for(let v=1; v<=7; v++) deck.push({...gua, 值: v});
+  });
+  shuffle(deck);
+  p1Hand = deck.splice(0,28); 
+  p2Hand = deck.splice(0,28); 
+  cardCounts = [p1Hand.length, p2Hand.length];
+}
+
+function shuffle(arr) { 
+  for(let i=arr.length-1; i>0; i--) { 
+    let j=Math.floor(Math.random()*i); 
+    [arr[i],arr[j]]=[arr[j],arr[i]]; 
+  } 
+}
+
+function renderHand(handId, hand, disabled = false) {
+  const cls = disabled ? 'card disabled' : 'card';
+  document.getElementById(handId).innerHTML = hand.map((card,i) => 
+    `<div class="${cls}" onclick="selectCard('${handId}',${i})">${card.符}${card.名}<br>${card.行}${card.值}</div>`
+  ).join('');
+}
+
+function renderHands() {
+  const isAI = document.getElementById('aiToggle').checked;
+  renderHand('p1Hand', p1Hand, isAI || !!p1Card);
+  renderHand('p2Hand', p2Hand, !!p2Card || (!p1Card && !isAI));
+  document.getElementById('score').innerHTML = `藍方(AI): ${scores[0]}分 | 牌:${cardCounts[0]} | 紅方(玩家): ${scores[1]}分 | 牌:${cardCounts[1]}`;
+}
+
+function selectCard(handId, idx) {
+  const isAI = document.getElementById('aiToggle').checked;
+  
+  if (handId === 'p1Hand' && isAI) return;
+  if (handId === 'p2Hand' && !p1Card) return;
+  if (p1Card && p2Card) return;
+  
+  const hand = handId === 'p1Hand' ? p1Hand : p2Hand;
+  const card = hand.splice(idx, 1)[0];
+  
+  if (handId === 'p1Hand') {
+    p1Card = card;
+  } else {
+    p2Card = card;
+  }
+  
+  renderHands();
+  updateBattle();
+  
+  if (p1Card && p2Card) {
+    setTimeout(battleResult, 800);
+  }
+}
+
+function updateBattle() {
+  const isAI = document.getElementById('aiToggle').checked;
+  let html = '';
+  
+  if (p1Card && p2Card) {
+    html = `${p1Card.符} vs ${p2Card.符}`;
+  } else if (p1Card) {
+    html = `${p1Card.符} (請練習出紅牌！)`;
+  } else if (isAI) {
+    html = 'AI正在出牌...';
+  } else {
+    html = '藍方先出牌！';
+  }
+  
+  document.getElementById('battle').innerHTML = html;
+}
+
+function aiPlay() {
+  if (p1Hand.length === 0) return;
+  
+  const idx = Math.floor(Math.random() * p1Hand.length);
+  p1Card = p1Hand.splice(idx, 1)[0];
+  
+  renderHands();
+  updateBattle();
+  
+  // 不自動戰鬥，等玩家出紅牌
+}
+
+function battleResult() {
+  const c1 = p1Card, c2 = p2Card;
+  let winner = 0, points = 0;
+  
+  if (c1.名 === c2.名) {
+    if (c1.值 > c2.值) { winner = 1; points = c1.值 - c2.值 + 1; }
+    else if (c1.值 < c2.值) { winner = 2; points = c2.值 - c1.值 + 1; }
+    else { return handleTie('同卦同值平手！'); }
+  }
+  else if (c1.行 === c2.行) {
+    return handleTie('同五行平手！');
+  }
+  else if (chong[c1.名] === c2.名) {
+    scores[0]--; scores[1]--;
+    cardCounts[0]--; cardCounts[1]--;
+    alert('⚡ 相沖互消！雙方各扣1分，牌丟棄');
+  }
+  else {
+    if (sheng[c1.行] === c2.行) { winner = 2; points = 2; }
+    else if (ke[c1.行] === c2.行) { winner = 1; points = 3; }
+    else if (sheng[c2.行] === c1.行) { winner = 1; points = 2; }
+    else if (ke[c2.行] === c1.行) { winner = 2; points = 3; }
+    else { return handleTie('無生剋關聯，回牌！'); }
+  }
+  
+  if (winner) {
+    scores[winner-1] += points;
+    const winHand = winner === 1 ? p1Hand : p2Hand;
+    winHand.push(c1, c2);
+    cardCounts[0] = p1Hand.length;
+    cardCounts[1] = p2Hand.length;
+    shuffle(winHand);
+    alert(`${winner === 1 ? '🔵藍(AI)' : '🔴紅(玩家)'}方勝！+${points}分 (吃兩張牌)`);
+  }
+  
+  checkWin();
+  resetTurn();
+}
+
+function handleTie(msg) {
+  p1Hand.unshift(p1Card);
+  p2Hand.unshift(p2Card);
+  shuffle(p1Hand);
+  shuffle(p2Hand);
+  alert(msg);
+  resetTurn();
+}
+
+function resetTurn() {
+  p1Card = null; 
+  p2Card = null;
+  renderHands();
+  updateBattle();
+  
+  const isAI = document.getElementById('aiToggle').checked;
+  if (isAI && p1Hand.length > 0) {
+    setTimeout(aiPlay, 800);  // 延遲一點，讓畫面先更新
+  }
+}
+
+function checkWin() {
+  if (scores[0] >= 30 || cardCounts[1] <= 0) { 
+    alert('藍方(AI)勝利！練習結束，重新開始？'); 
+    resetGame(); 
+  }
+  else if (scores[1] >= 30 || cardCounts[0] <= 0) { 
+    alert('紅方(玩家)勝利！恭喜練習成功！'); 
+    resetGame(); 
+  }
+}
+
+function resetGame() { 
+  scores = [0,0]; 
+  p1Card = null; 
+  p2Card = null; 
+  initDeck(); 
+  renderHands(); 
+  updateBattle(); 
+  
+  // 重置後如果單人模式，立即讓AI出第一張
+  const isAI = document.getElementById('aiToggle').checked;
+  if (isAI) {
+    setTimeout(aiPlay, 500);
+  }
+}
+
+document.getElementById('newGame').onclick = resetGame;
+
+document.getElementById('aiToggle').onchange = function() {
+  resetGame();  // 切換模式直接重開遊戲
+};
+
+renderHands();
+updateBattle();
+</script>
+</body>
+</html>
