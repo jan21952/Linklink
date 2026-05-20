@@ -2,56 +2,51 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, 
-
-initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>相簿</title>
-  <link 
-
-href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4
-
-/css/lightbox.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
   <style>
-    body { font-family: "Microsoft JhengHei", sans-serif; 
-
-margin: 0; padding: 20px; background: #f4f6f9; }
+    body { 
+      font-family: "Microsoft JhengHei", sans-serif; 
+      margin: 0; padding: 20px; background: #f4f6f9; 
+    }
     .header { text-align: center; margin-bottom: 25px; }
-    .gallery { display: grid; grid-template-columns: repeat
-
-(auto-fill, minmax(190px, 1fr)); gap: 15px; max-width: 
-
-1400px; margin: 0 auto; }
-    .gallery a img { width: 100%; height: 190px; object-fit: 
-
-cover; border-radius: 10px; }
-    .error { color: red; text-align: center; padding: 30px; 
-
-background: #fee; border-radius: 10px; margin: 20px auto; 
-
-max-width: 800px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery a img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .gallery a:hover img { 
+      transform: scale(1.05); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .back { margin: 20px 0; text-align: center; font-size: 18px; }
+    .error { color: red; text-align: center; padding: 30px; background: #fee; border-radius: 10px; margin: 20px auto; max-width: 800px; }
   </style>
 </head>
 <body>
   <div class="header">
     <h1 id="title">載入中...</h1>
-    <div class="back"><a href="index_al.html">← 返回相簿列表
-
-</a></div>
+    <div class="back"><a href="index_al.html">← 返回相簿列表</a></div>
   </div>
 
-  <div id="debug" style="text-align:center; margin:15px; 
-
-font-size:14px;"></div>
+  <div id="debug" style="text-align:center; margin:15px; font-size:14px; color:#666;"></div>
   <div class="gallery" id="gallery"></div>
 
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/
-
-js/lightbox.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
   <script>
     const OWNER = "jan21952";
-    const REPO = "Linklink";
+    const REPO = "Linklink";        // ← 已改成正確名稱
     const BASE_PATH = "static/images";
 
     async function loadAlbum() {
@@ -60,76 +55,46 @@ js/lightbox.min.js"></script>
       const dir = params.get('dir');
 
       if (!dir) {
-        document.getElementById('title').textContent = "錯誤
-
-：未指定相簿";
+        document.getElementById('title').textContent = "錯誤：未指定相簿";
         return;
       }
 
-      document.getElementById('title').textContent = dir + " 
-
-- 載入中...";
+      document.getElementById('title').textContent = dir + " - 載入中...";
+      debug.innerHTML = `正在讀取: ${BASE_PATH}/${dir}`;
 
       try {
-        debug.innerHTML = `正在嘗試讀取: ${BASE_PATH}/${dir}
-
-<br>API 網址: https://api.github.com/repos/${OWNER}/
-
-${REPO}/contents/${BASE_PATH}/${dir}`;
-
-        const res = await fetch
-
-(`https://api.github.com/repos/${OWNER}/${REPO}/contents/
-
-${BASE_PATH}/${dir}`);
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`);
         
         if (!res.ok) {
-          if (res.status === 404) {
-            throw new Error(`找不到資料夾：<br><b>
-
-${BASE_PATH}/${dir}</b><br>請確認路徑是否正確`);
-          } else if (res.status === 403) {
-            throw new Error("GitHub API 速率限制，請稍後再試
-
-（或等待1小時）");
-          } else {
-            throw new Error(`HTTP 錯誤 ${res.status}`);
-          }
+          throw new Error(`HTTP 錯誤 ${res.status} - 找不到資料夾`);
         }
 
         let files = await res.json();
 
-        files = files.filter(f => f.type === "file" && /\.
-
-(jpg|jpeg|png|gif|webp)$/i.test(f.name))
-                     .sort((a,b) => a.name.localeCompare
-
-(b.name));
+        files = files
+          .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
+          .sort((a, b) => a.name.localeCompare(b.name));
 
         if (files.length === 0) {
-          throw new Error("資料夾內沒有找到圖片檔案");
+          throw new Error("此資料夾內沒有圖片");
         }
 
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = "";
 
         files.forEach(file => {
-          const url = `https://raw.githubusercontent.com/
-
-${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
+          const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
+          
           const a = document.createElement('a');
           a.href = url;
           a.setAttribute('data-lightbox', 'album');
           a.setAttribute('data-title', file.name);
-          a.innerHTML = `<img src="${url}" alt="${file.name}" 
-
-loading="lazy">`;
+          a.innerHTML = `<img src="${url}" alt="${file.name}" loading="lazy">`;
           gallery.appendChild(a);
         });
 
-        document.getElementById('title').textContent = `
-
-${dir} (${files.length} 張)`;
+        document.getElementById('title').textContent = `${dir} (${files.length} 張照片)`;
+        debug.innerHTML = `成功載入 ${files.length} 張照片`;
 
         // Lightbox 設定
         setTimeout(() => {
@@ -142,9 +107,7 @@ ${dir} (${files.length} 張)`;
 
       } catch (e) {
         document.getElementById('title').textContent = dir;
-        document.getElementById('gallery').innerHTML = `<div 
-
-class="error">${e.message}</div>`;
+        document.getElementById('gallery').innerHTML = `<div class="error">❌ ${e.message}</div>`;
         console.error(e);
       }
     }
