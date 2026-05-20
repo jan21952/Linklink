@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -6,24 +6,30 @@
   <title>相簿</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
   <style>
-    body { font-family: "Microsoft JhengHei", sans-serif; margin: 0; padding: 20px; background: #f4f6f9; }
-    .header { text-align: center; margin-bottom: 20px; }
+    body { 
+      font-family: "Microsoft JhengHei", sans-serif; 
+      margin: 0; padding: 20px; background: #f4f6f9; 
+    }
+    .header { text-align: center; margin-bottom: 25px; }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
       gap: 15px;
       max-width: 1400px;
       margin: 0 auto;
     }
     .gallery a img {
       width: 100%;
-      height: 180px;
+      height: 190px;
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       transition: all 0.3s;
     }
-    .gallery a:hover img { transform: scale(1.06); }
+    .gallery a:hover img { 
+      transform: scale(1.05); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
     .back { margin: 20px 0; text-align: center; font-size: 18px; }
   </style>
 </head>
@@ -44,6 +50,7 @@
     async function loadAlbum() {
       const params = new URLSearchParams(location.search);
       const dir = params.get('dir');
+
       if (!dir) {
         document.getElementById('title').textContent = "錯誤：未指定相簿";
         return;
@@ -53,28 +60,40 @@
 
       try {
         const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`);
-        if (!res.ok) throw new Error("無法讀取此相簿");
-        
-        const files = await res.json();
+        if (!res.ok) throw new Error("無法讀取相簿");
+
+        let files = await res.json();
+
+        // 過濾圖片並排序
+        files = files
+          .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
+          .sort((a, b) => a.name.localeCompare(b.name));
+
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = "";
 
-        // 只保留圖片檔
-        files
-          .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
-          .forEach(file => {
-            const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
-            
-            const a = document.createElement('a');
-            a.href = url;
-            a.setAttribute('data-lightbox', 'album');
-            a.setAttribute('data-title', file.name);
-            a.innerHTML = `<img src="${url}" alt="${file.name}" loading="lazy">`;
-            gallery.appendChild(a);
-          });
+        files.forEach(file => {
+          const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
+          
+          const a = document.createElement('a');
+          a.href = url;
+          a.setAttribute('data-lightbox', 'album');     // 重要：同一個 group 名稱
+          a.setAttribute('data-title', file.name);
+          a.innerHTML = `<img src="${url}" alt="${file.name}" loading="lazy">`;
+          gallery.appendChild(a);
+        });
+
+        // Lightbox 設定（加強上一張 / 下一張）
+        lightbox.option({
+          resizeDuration: 200,
+          wrapAround: true,           // 最後一張可直接跳到第一張
+          showImageNumberLabel: true, // 顯示 1 / 30
+          albumLabel: "第 %1 張 / 共 %2 張"
+        });
 
       } catch (e) {
-        document.getElementById('gallery').innerHTML = `<p style="color:red;text-align:center;">❌ 無法載入照片<br>${e.message}</p>`;
+        document.getElementById('gallery').innerHTML = 
+          `<p style="color:red;text-align:center;">❌ 無法載入照片<br>${e.message}</p>`;
       }
     }
 
