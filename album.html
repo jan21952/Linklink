@@ -31,7 +31,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
     .back { margin: 20px 0; text-align: center; font-size: 18px; }
-    .error { color: red; text-align: center; padding: 30px; background: #fee; border-radius: 10px; margin: 20px auto; max-width: 800px; }
   </style>
 </head>
 <body>
@@ -40,17 +39,15 @@
     <div class="back"><a href="index_al.html">← 返回相簿列表</a></div>
   </div>
 
-  <div id="debug" style="text-align:center; margin:15px; font-size:14px; color:#666;"></div>
   <div class="gallery" id="gallery"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
   <script>
     const OWNER = "jan21952";
-    const REPO = "Linklink";        // ← 已改成正確名稱
+    const REPO = "Linklink";
     const BASE_PATH = "static/images";
 
     async function loadAlbum() {
-      const debug = document.getElementById('debug');
       const params = new URLSearchParams(location.search);
       const dir = params.get('dir');
 
@@ -60,24 +57,16 @@
       }
 
       document.getElementById('title').textContent = dir + " - 載入中...";
-      debug.innerHTML = `正在讀取: ${BASE_PATH}/${dir}`;
 
       try {
         const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`);
-        
-        if (!res.ok) {
-          throw new Error(`HTTP 錯誤 ${res.status} - 找不到資料夾`);
-        }
+        if (!res.ok) throw new Error("無法讀取相簿");
 
         let files = await res.json();
 
         files = files
           .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
           .sort((a, b) => a.name.localeCompare(b.name));
-
-        if (files.length === 0) {
-          throw new Error("此資料夾內沒有圖片");
-        }
 
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = "";
@@ -87,28 +76,37 @@
           
           const a = document.createElement('a');
           a.href = url;
-          a.setAttribute('data-lightbox', 'album');
+          a.setAttribute('data-lightbox', 'album');   // 必須相同名稱才能群組切換
           a.setAttribute('data-title', file.name);
           a.innerHTML = `<img src="${url}" alt="${file.name}" loading="lazy">`;
           gallery.appendChild(a);
         });
 
-        document.getElementById('title').textContent = `${dir} (${files.length} 張照片)`;
-        debug.innerHTML = `成功載入 ${files.length} 張照片`;
+        document.getElementById('title').textContent = `${dir} (${files.length} 張)`;
 
-        // Lightbox 設定
-        setTimeout(() => {
+        // === 重點修正：Lightbox 設定 ===
+        function initLightbox() {
           lightbox.option({
             resizeDuration: 200,
-            wrapAround: true,
-            albumLabel: "第 %1 張 / 共 %2 張"
+            wrapAround: true,              // 循環播放（最後一張接第一張）
+            showImageNumberLabel: true,
+            albumLabel: "第 %1 張 / 共 %2 張",
+            fadeDuration: 300,
+            imageFadeDuration: 300
           });
-        }, 300);
+        }
+
+        // 多重確保設定生效
+        if (typeof lightbox !== "undefined") {
+          initLightbox();
+        } else {
+          // 如果還沒載入完成，就等一下再設定
+          setTimeout(initLightbox, 800);
+        }
 
       } catch (e) {
         document.getElementById('title').textContent = dir;
-        document.getElementById('gallery').innerHTML = `<div class="error">❌ ${e.message}</div>`;
-        console.error(e);
+        document.getElementById('gallery').innerHTML = `<p style="color:red;text-align:center;padding:30px;">❌ 載入失敗<br>${e.message}</p>`;
       }
     }
 
