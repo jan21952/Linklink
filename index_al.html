@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的相簿</title>
+  <style>
+    body { font-family: "Microsoft JhengHei", Arial, sans-serif; margin: 0; padding: 20px; background: #f4f6f9; }
+    h1 { text-align: center; color: #2c3e50; }
+    ul { list-style: none; padding: 0; max-width: 900px; margin: 30px auto; }
+    li { margin: 10px 0; }
+    a { 
+      display: block; padding: 16px 20px; background: white; 
+      border-radius: 10px; text-decoration: none; color: #34495e;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08); transition: all 0.3s;
+    }
+    a:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+  <h1>📸 我的生活相簿</h1>
+  <ul id="albumList">載入中...</ul>
+
+  <script>
+    const OWNER = "jan21952";
+    const REPO = "Solitaire";
+    const BASE_PATH = "static/images";
+
+    async function loadAlbums() {
+      const list = document.getElementById('albumList');
+      try {
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}`);
+        if (!res.ok) throw new Error("無法存取資料夾");
+        
+        const folders = await res.json();
+        
+        list.innerHTML = "";
+        folders
+          .filter(item => item.type === "dir")
+          .sort((a,b) => b.name.localeCompare(a.name)) // 最新在前
+          .forEach(folder => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+              <a href="album.html?dir=${encodeURIComponent(folder.name)}">
+                📁 ${folder.name}
+              </a>
+            `;
+            list.appendChild(li);
+          });
+
+      } catch (err) {
+        list.innerHTML = `<p style="color:red;text-align:center;">❌ 無法載入相簿列表<br>${err.message}</p>`;
+        console.error(err);
+      }
+    }
+
+    loadAlbums();
+  </script>
+</body>
+</html>
