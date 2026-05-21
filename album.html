@@ -2,97 +2,43 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, 
-
-initial-scale=1.0">
-  <title>相簿26 - 114Y</title>
-  <link 
-
-href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4
-
-/css/lightbox.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>114Y 相簿27</title>
   <style>
-    body { 
-      font-family: "Microsoft JhengHei", sans-serif; 
-      margin: 20px; background: #f4f6f9; 
-    }
-    h1 { text-align: center; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 
-
-1fr));
-      gap: 15px;
-      max-width: 1200px;
-      margin: 30px auto;
-    }
-    .gallery a img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .gallery a:hover img { transform: scale(1.05); }
+    body { font-family: "Microsoft JhengHei", sans-serif; margin: 20px; background: #f4f6f9; text-align: center; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; max-width: 1200px; margin: 30px auto; }
+    img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
   </style>
 </head>
 <body>
   <h1>114Y 相簿</h1>
-  <p style="text-align:center;"><a href="index_al.html">← 返
+  <p><a href="index_al.html">← 返回相簿列表</a></p>
 
-回相簿列表</a></p>
-
-  <div id="debug" style="background:#fff; padding:15px; 
-
-border:3px solid #27ae60; border-radius:10px; margin:20px 
-
-auto; max-width:800px;">
+  <div id="debug" style="background:#fff; padding:20px; margin:20px auto; max-width:800px; border:4px solid #e74c3c; border-radius:10px;">
     載入中...
   </div>
 
   <div class="gallery" id="gallery"></div>
 
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/
-
-js/lightbox.min.js"></script>
-
   <script>
-    document.getElementById('debug').innerHTML = "✅ 
+    // 強制執行
+    document.getElementById("debug").innerHTML = "✅ JavaScript 已執行！<br>正在顯示照片...";
 
-JavaScript 執行成功！<br>";
+    const files = ["1140629.jpg"];   // 先放一張測試
 
-    // 直接硬碼幾張圖片（先測試燈箱是否正常）
-    const gallery = document.getElementById('gallery');
-    const images = [
-      "1140629.jpg",
-      // 請把你 114Y 資料夾裡面的檔名加在下面
-    ];
+    const gallery = document.getElementById("gallery");
 
-    images.forEach(filename => {
-      const url = 
-
-`https://raw.githubusercontent.com/jan21952/Linklink/main/sta
-
-tic/images/114Y/${filename}`;
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('data-lightbox', 'album');
-      a.innerHTML = `<img src="${url}" loading="lazy">`;
-      gallery.appendChild(a);
+    files.forEach(name => {
+      const url = "https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/114Y/" + name;
+      gallery.innerHTML += `
+        <a href="${url}" data-lightbox="album">
+          <img src="${url}" alt="${name}">
+        </a>`;
     });
 
-    document.getElementById('debug').innerHTML += "✅ 已顯示
-
-測試縮圖<br>點擊圖片測試燈箱";
-
-    // Lightbox 設定
-    lightbox.option({
-      wrapAround: true,
-      showImageNumberLabel: true,
-      albumLabel: "第 %1 張 / 共 %2 張"
-    });
+    document.getElementById("debug").innerHTML += "<br>✅ 縮圖已顯示！點擊可放大";
   </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
 </body>
 </html>
