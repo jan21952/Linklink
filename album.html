@@ -5,14 +5,7 @@
   <meta name="viewport" content="width=device-width, 
 
 initial-scale=1.0">
-  <title>相簿14</title>
-  
-  <link rel="stylesheet" 
-
-href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
-
-/photoswipe.min.css">
-  
+  <title>相簿15</title>
   <style>
     body { 
       font-family: "Microsoft JhengHei", sans-serif; 
@@ -44,6 +37,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
     .back { margin: 20px 0; text-align: center; font-size: 
 
 18px; }
+    .debug { 
+      background: #fff; padding: 15px; border-radius: 8px; 
+      margin: 15px 0; font-size: 14px; border: 1px solid 
+
+#ddd;
+    }
   </style>
 </head>
 <body>
@@ -54,18 +53,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
 </a></div>
   </div>
 
+  <div id="debug" class="debug">除錯資訊...</div>
   <div class="gallery" id="gallery"></div>
-
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
-
-photoswipe.min.js"></script>
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
-
-photoswipe-lightbox.min.js"></script>
 
   <script>
     const OWNER = "jan21952";
@@ -73,29 +62,36 @@ photoswipe-lightbox.min.js"></script>
     const BASE_PATH = "static/images";
 
     async function loadAlbum() {
+      const debug = document.getElementById('debug');
+      const title = document.getElementById('title');
+      const gallery = document.getElementById('gallery');
+
       const params = new URLSearchParams(location.search);
       const dir = params.get('dir');
 
-      if (!dir) {
-        document.getElementById('title').textContent = "錯誤
+      debug.innerHTML = `📁 相簿: ${dir}`;
 
-：未指定相簿";
+      if (!dir) {
+        title.textContent = "錯誤：未指定相簿";
         return;
       }
 
-      document.getElementById('title').textContent = dir + " 
-
-- 載入中...";
-
       try {
+        debug.innerHTML += `<br>🔍 正在取得檔案列表...`;
+        
         const res = await fetch
 
 (`https://api.github.com/repos/${OWNER}/${REPO}/contents/
 
 ${BASE_PATH}/${dir}`);
-        if (!res.ok) throw new Error("無法讀取相簿");
+        debug.innerHTML += `<br>📡 API 狀態: ${res.status}`;
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         let files = await res.json();
+        debug.innerHTML += `<br>✅ 取得 ${files.length} 個項
+
+目`;
 
         files = files
           .filter(file => file.type === "file" && /\.(jpg|
@@ -103,12 +99,14 @@ ${BASE_PATH}/${dir}`);
 jpeg|png|gif|webp)$/i.test(file.name))
           .sort((a, b) => a.name.localeCompare(b.name));
 
-        const gallery = document.getElementById('gallery');
+        debug.innerHTML += `<br>🖼️ 找到 ${files.length} 張
+
+圖片`;
+
         gallery.innerHTML = "";
+        title.textContent = `${dir} (${files.length} 張)`;
 
-        const items = [];
-
-        files.forEach((file, index) => {
+        files.forEach(file => {
           const url = `https://raw.githubusercontent.com/
 
 ${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
@@ -117,36 +115,24 @@ ${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
           img.src = url;
           img.alt = file.name;
           img.loading = "lazy";
-          gallery.appendChild(img);
-
-          items.push({
-            src: url,
-            width: 2000,
-            height: 1400
+          
+          // 點擊直接在新分頁開啟大圖（最穩定方式）
+          img.addEventListener('click', () => {
+            window.open(url, '_blank');
           });
+          
+          gallery.appendChild(img);
         });
 
-        document.getElementById('title').textContent = `
+        debug.innerHTML += `<br>🎉 完成！點擊縮圖可在新分頁放
 
-${dir} (${files.length} 張)`;
-
-        // 初始化 PhotoSwipe 燈箱
-        const lightbox = new PhotoSwipeLightbox({
-          dataSource: items,
-          pswpModule: PhotoSwipe,
-          wheelToZoom: true,
-          arrowPrev: true,
-          arrowNext: true,
-          zoom: true,
-          closeOnScroll: false
-        });
-
-        lightbox.init();
+大觀看`;
 
       } catch (err) {
-        document.getElementById('title').textContent = dir;
+        debug.innerHTML += `<br><strong style="color:red;">❌ 
+
+錯誤：${err.message}</strong>`;
         console.error(err);
-        alert("載入失敗：" + err.message);
       }
     }
 
