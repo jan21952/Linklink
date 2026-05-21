@@ -2,76 +2,16 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, 
-
-initial-scale=1.0">
-  <title>相簿09</title>
-  
-  <link rel="stylesheet" 
-
-href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
-
-/photoswipe.min.css">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相簿10</title>
   <style>
-    body { 
-      font-family: "Microsoft JhengHei", sans-serif; 
-      margin: 0; padding: 20px; background: #f4f6f9; 
-    }
-    .header { text-align: center; margin-bottom: 25px; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 
-
-1fr));
-      gap: 15px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .gallery img {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s;
-      cursor: zoom-in;
-    }
-    .gallery img:hover { 
-      transform: scale(1.05); 
-    }
-    .back { margin: 20px 0; text-align: center; font-size: 
-
-18px; }
-    .debug { margin: 15px 0; padding: 15px; background: 
-
-#f0f0f0; border-radius: 8px; font-size: 14px; }
-    .error { color: red; padding: 20px; background: #fee; 
-
-border-radius: 10px; }
+    body { font-family: "Microsoft JhengHei", sans-serif; margin: 20px; background: #f4f6f9; }
+    .debug { background: #fff; padding: 15px; border: 1px solid #ccc; border-radius: 8px; margin: 20px 0; white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1 id="title">載入中...</h1>
-    <div class="back"><a href="index_al.html">← 返回相簿列表
-
-</a></div>
-  </div>
-
-  <div id="debug" class="debug">除錯資訊載入中...</div>
-  <div class="gallery" id="gallery"></div>
-
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
-
-photoswipe.min.js"></script>
-  <script 
-
-src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
-
-photoswipe-lightbox.min.js"></script>
+  <h1 id="title">載入中...</h1>
+  <div class="debug" id="debug">除錯資訊初始化...</div>
 
   <script>
     const OWNER = "jan21952";
@@ -79,108 +19,41 @@ photoswipe-lightbox.min.js"></script>
     const BASE_PATH = "static/images";
 
     async function loadAlbum() {
-      const debugEl = document.getElementById('debug');
-      const params = new URLSearchParams(location.search);
+      const debug = document.getElementById('debug');
+      const params = new URLSearchParams(window.location.search);
       const dir = params.get('dir');
 
-      debugEl.innerHTML += `<br>📁 正在載入相簿: ${dir}`;
+      debug.innerHTML += `\n\n📁 相簿名稱: ${dir}`;
 
       if (!dir) {
-        document.getElementById('title').textContent = "錯誤
-
-：未指定相簿";
+        document.getElementById('title').textContent = "錯誤：未帶 dir 參數";
         return;
       }
 
       try {
-        const apiUrl = `https://api.github.com/repos/
+        const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`;
+        debug.innerHTML += `\n🔗 正在呼叫: ${url}`;
 
-${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`;
-        debugEl.innerHTML += `<br>🔗 API 網址: ${apiUrl}`;
+        const res = await fetch(url);
+        debug.innerHTML += `\n📡 回應狀態: ${res.status}`;
 
-        const res = await fetch(apiUrl);
-        
-        debugEl.innerHTML += `<br>📡 API 狀態: ${res.status} 
+        if (!res.ok) throw new Error(`HTTP 錯誤 ${res.status}`);
 
-${res.statusText}`;
+        const files = await res.json();
+        debug.innerHTML += `\n✅ 成功取得 ${files.length} 個項目`;
 
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status} - 無法讀取資料
+        const images = files.filter(f => f.type === "file" && /\.(jpe?g|png|gif|webp)$/i.test(f.name));
+        debug.innerHTML += `\n🖼️ 圖片數量: ${images.length}`;
 
-夾`);
-        }
+        document.getElementById('title').textContent = `${dir} (${images.length} 張)`;
 
-        let files = await res.json();
-        debugEl.innerHTML += `<br>✅ 成功取得 ${files.length} 
-
-個檔案`;
-
-        files = files
-          .filter(file => file.type === "file" && /\.(jpg|
-
-jpeg|png|gif|webp)$/i.test(file.name))
-          .sort((a, b) => a.name.localeCompare(b.name));
-
-        debugEl.innerHTML += `<br>🖼️ 找到 ${files.length} 
-
-張圖片`;
-
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = "";
-
-        const imageData = [];
-
-        files.forEach((file, index) => {
-          const url = `https://raw.githubusercontent.com/
-
-${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
-          
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = file.name;
-          img.loading = "lazy";
-          
-          img.addEventListener('click', () => {
-            lightbox.loadAndOpen(index);
-          });
-          
-          gallery.appendChild(img);
-          imageData.push({ src: url, width: 2000, height: 
-
-1400 });
-        });
-
-        document.getElementById('title').textContent = `
-
-${dir} (${files.length} 張)`;
-        debugEl.innerHTML += `<br>🎉 全部縮圖載入完成！`;
-
-        // 初始化 PhotoSwipe
-        window.lightbox = new PhotoSwipeLightbox({
-          gallery: '#gallery',
-          children: 'img',
-          pswpModule: PhotoSwipe,
-          wheelToZoom: true,
-        });
-
-        window.lightbox.init();
-        debugEl.innerHTML += `<br>✅ PhotoSwipe 初始化完成`;
-
-      } catch (e) {
-        console.error(e);
-        document.getElementById('title').textContent = dir || 
-
-"錯誤";
-        document.getElementById('gallery').innerHTML = `<div 
-
-class="error">❌ ${e.message}</div>`;
-        debugEl.innerHTML += `<br><strong 
-
-style="color:red;">❌ 錯誤：${e.message}</strong>`;
+      } catch (err) {
+        debug.innerHTML += `\n❌ 錯誤: ${err.message}`;
+        console.error(err);
       }
     }
 
-    window.addEventListener('load', loadAlbum);
+    window.onload = loadAlbum;
   </script>
 </body>
 </html>
