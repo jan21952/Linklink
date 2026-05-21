@@ -2,10 +2,16 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>相簿11</title>
+  <meta name="viewport" content="width=device-width, 
+
+initial-scale=1.0">
+  <title>相簿12</title>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/photoswipe.min.css">
+  <link rel="stylesheet" 
+
+href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
+
+/photoswipe.min.css">
   
   <style>
     body { 
@@ -15,7 +21,9 @@
     .header { text-align: center; margin-bottom: 25px; }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(190px, 
+
+1fr));
       gap: 15px;
       max-width: 1400px;
       margin: 0 auto;
@@ -33,24 +41,39 @@
       transform: scale(1.05); 
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
-    .back { margin: 20px 0; text-align: center; font-size: 18px; }
+    .back { margin: 20px 0; text-align: center; font-size: 
+
+18px; }
     .debug { 
       background: #fff; padding: 12px; border-radius: 8px; 
-      margin: 15px 0; font-size: 14px; border: 1px solid #ddd;
+      margin: 15px 0; font-size: 14px; border: 1px solid 
+
+#ddd;
     }
   </style>
 </head>
 <body>
   <div class="header">
     <h1 id="title">載入中...</h1>
-    <div class="back"><a href="index_al.html">← 返回相簿列表</a></div>
+    <div class="back"><a href="index_al.html">← 返回相簿列表
+
+</a></div>
   </div>
 
   <div id="debug" class="debug">除錯資訊...</div>
   <div class="gallery" id="gallery"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/photoswipe.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/photoswipe-lightbox.min.js"></script>
+  <!-- PhotoSwipe -->
+  <script 
+
+src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
+
+photoswipe.min.js"></script>
+  <script 
+
+src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
+
+photoswipe-lightbox.min.js"></script>
 
   <script>
     const OWNER = "jan21952";
@@ -67,51 +90,89 @@
       if (!dir) return;
 
       try {
-        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`);
+        const res = await fetch
+
+(`https://api.github.com/repos/${OWNER}/${REPO}/contents/
+
+${BASE_PATH}/${dir}`);
         if (!res.ok) throw new Error("API 讀取失敗");
 
         let files = await res.json();
 
         files = files
-          .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
+          .filter(file => file.type === "file" && /\.(jpg|
+
+jpeg|png|gif|webp)$/i.test(file.name))
           .sort((a, b) => a.name.localeCompare(b.name));
 
-        debug.innerHTML += `<br>✅ 找到 ${files.length} 張圖片`;
+        debug.innerHTML += `<br>✅ 找到 ${files.length} 張圖
+
+片`;
 
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = "";
 
-        const imageElements = [];
-
         files.forEach((file, index) => {
-          const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
+          const url = `https://raw.githubusercontent.com/
+
+${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
           
           const img = document.createElement('img');
           img.src = url;
           img.alt = file.name;
           img.loading = "lazy";
-          
-          img.onclick = () => lightbox.loadAndOpen(index);
+          img.onclick = () => openPhoto(index);   // 使用全域
+
+函數
           
           gallery.appendChild(img);
-          imageElements.push(img);
         });
 
-        document.getElementById('title').textContent = `${dir} (${files.length} 張)`;
-        debug.innerHTML += `<br>🎉 縮圖已全部顯示`;
+        document.getElementById('title').textContent = `
+
+${dir} (${files.length} 張)`;
+        debug.innerHTML += `<br>🎉 縮圖載入完成`;
 
         // 初始化 PhotoSwipe
-        window.lightbox = new PhotoSwipeLightbox({
-          gallery: '#gallery',
-          children: 'img',
-          pswpModule: PhotoSwipe,
-          wheelToZoom: true,
-        });
-        window.lightbox.init();
+        initPhotoSwipe(files, dir);
 
       } catch (err) {
         debug.innerHTML += `<br>❌ 錯誤: ${err.message}`;
         console.error(err);
+      }
+    }
+
+    // PhotoSwipe 初始化
+    function initPhotoSwipe(files, dir) {
+      const items = files.map(file => {
+        const url = 
+
+`https://raw.githubusercontent.com/jan21952/Linklink/main/sta
+
+tic/images/${dir}/${file.name}`;
+        return {
+          src: url,
+          width: 2000,
+          height: 1400
+        };
+      });
+
+      const lightbox = new PhotoSwipeLightbox({
+        dataSource: items,
+        pswpModule: PhotoSwipe,
+        wheelToZoom: true,
+        arrowPrev: true,
+        arrowNext: true
+      });
+
+      lightbox.init();
+      window.currentLightbox = lightbox;   // 存起來方便除錯
+      debug.innerHTML += `<br>✅ PhotoSwipe 初始化成功`;
+    }
+
+    function openPhoto(index) {
+      if (window.currentLightbox) {
+        window.currentLightbox.loadAndOpen(index);
       }
     }
 
