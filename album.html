@@ -5,103 +5,63 @@
   <meta name="viewport" content="width=device-width, 
 
 initial-scale=1.0">
-  <title>相簿29</title>
+  <title>114Y 相簿30</title>
   <style>
     body { 
       font-family: "Microsoft JhengHei", sans-serif; 
-      margin: 20px; background: #f4f6f9; 
+      margin: 20px; background: #f4f6f9; text-align: center; 
     }
-    .header { text-align: center; margin-bottom: 20px; }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 
+      grid-template-columns: repeat(auto-fill, minmax(200px, 
 
 1fr));
       gap: 15px;
       max-width: 1400px;
-      margin: 0 auto;
+      margin: 30px auto;
     }
     .gallery a img {
       width: 100%;
-      height: 190px;
+      height: 200px;
       object-fit: cover;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: 0.3s;
     }
     .gallery a:hover img { transform: scale(1.05); }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1 id="title">載入中...</h1>
-    <a href="index_al.html">← 返回相簿列表</a>
-  </div>
-
-  <div id="debug" 
-
-style="background:#fff;padding:15px;border:3px solid 
-
-#27ae60;border-radius:10px;margin:15px 0;">
-    載入中...
-  </div>
+  <h1>114Y 相簿</h1>
+  <p><a href="index_al.html">← 返回相簿列表</a></p>
 
   <div class="gallery" id="gallery"></div>
 
   <script>
-    const debug = document.getElementById('debug');
-    debug.innerHTML = "✅ JavaScript 執行中...";
+    const gallery = document.getElementById('gallery');
 
-    const params = new URLSearchParams(location.search);
-    const dir = params.get('dir');
+    // === 請把你 114Y 資料夾裡的檔名加到下面陣列中 ===
+    const imageFiles = [
+      "1140629.jpg","1140630-1.jpg"
+      // "另一張.jpg",
+      // "第三張.png",
+      // ...繼續新增
+    ];
 
-    if (!dir) {
-      document.getElementById('title').textContent = "錯誤：
-
-未指定相簿";
-      debug.innerHTML += "<br>❌ 沒有 dir 參數";
-    } else {
-      document.getElementById('title').textContent = dir;
-      debug.innerHTML += `<br>📁 正在載入 ${dir}...`;
-
-      fetch
-
-(`https://api.github.com/repos/jan21952/Linklink/contents/sta
-
-tic/images/${dir}`)
-        .then(res => res.json())
-        .then(files => {
-          const images = files.filter(f => f.type === "file" 
-
-&& /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name));
-          
-          debug.innerHTML += `<br>✅ 找到 ${images.length} 張
-
-照片`;
-
-          const gallery = document.getElementById('gallery');
-          gallery.innerHTML = "";
-
-          images.forEach(file => {
-            const url = 
+    imageFiles.forEach(filename => {
+      const url = 
 
 `https://raw.githubusercontent.com/jan21952/Linklink/main/sta
 
-tic/images/${dir}/${file.name}`;
-            gallery.innerHTML += `
-              <a href="${url}" target="_blank">
-                <img src="${url}" loading="lazy" 
+tic/images/114Y/${filename}`;
+      gallery.innerHTML += `
+        <a href="${url}" target="_blank">
+          <img src="${url}" alt="${filename}">
+        </a>`;
+    });
 
-alt="${file.name}">
-              </a>`;
-          });
-
-          debug.innerHTML += "<br>🎉 載入完成！點擊縮圖可放大
-
-";
-        })
-        .catch(err => {
-          debug.innerHTML += `<br>❌ 錯誤: ${err.message}`;
-        });
+    if (imageFiles.length === 0) {
+      gallery.innerHTML = "<p>請在程式碼中加入檔名</p>";
     }
   </script>
 </body>
