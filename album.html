@@ -5,144 +5,91 @@
   <meta name="viewport" content="width=device-width, 
 
 initial-scale=1.0">
-  <title>相簿16</title>
+  <title>相簿17</title>
   <style>
-    body { 
-      font-family: "Microsoft JhengHei", sans-serif; 
-      margin: 20px; background: #f4f6f9; line-height: 1.6; 
-    }
-    .header { text-align: center; margin-bottom: 25px; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 
+    body { font-family: "Microsoft JhengHei", sans-serif; 
 
-1fr));
-      gap: 12px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+margin: 20px; background: #f4f6f9; }
     .debug { 
-      background: #fff; padding: 15px; border: 2px solid 
+      background: #fff; padding: 20px; border: 3px solid 
 
 #333; 
-      border-radius: 8px; margin: 15px 0; font-size: 14px; 
-      white-space: pre-wrap;
+      border-radius: 10px; margin: 20px 0; font-size: 15px; 
     }
-    .error { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1 id="title">載入中...</h1>
-    <div class="back"><a href="index_al.html">← 返回相簿列表
-
-</a></div>
-  </div>
+  <h1 id="title">載入中...</h1>
+  <a href="index_al.html">← 返回相簿列表</a>
 
   <div id="debug" class="debug">除錯資訊初始化...</div>
-  <div class="gallery" id="gallery"></div>
 
   <script>
-    console.log("=== album.html 開始執行 ===");
+    console.log("=== V17 開始執行 ===");
+
+    const debug = document.getElementById('debug');
+    const title = document.getElementById('title');
+
+    debug.innerHTML += "\n✅ JavaScript 已成功執行";
 
     const OWNER = "jan21952";
     const REPO = "Linklink";
     const BASE_PATH = "static/images";
 
-    async function loadAlbum() {
-      const debug = document.getElementById('debug');
-      const title = document.getElementById('title');
-      const gallery = document.getElementById('gallery');
+    // 取得 dir 參數
+    const params = new URLSearchParams(location.search);
+    const dir = params.get('dir');
 
-      const params = new URLSearchParams(location.search);
-      const dir = params.get('dir');
+    debug.innerHTML += `\n📁 相簿: ${dir || '未取得'}`;
 
-      debug.innerHTML = `📁 相簿名稱: ${dir || '未取得'}\n`;
+    if (!dir) {
+      title.textContent = "錯誤：未指定相簿";
+      debug.innerHTML += "\n❌ 沒有 dir 參數";
+    } else {
+      title.textContent = dir + " - 正在載入...";
+      
+      debug.innerHTML += "\n🔍 開始呼叫 GitHub API...";
 
-      if (!dir) {
-        title.textContent = "錯誤：未指定相簿";
-        debug.innerHTML += "❌ 未取得 dir 參數";
-        return;
-      }
+      fetch(`https://api.github.com/repos/${OWNER}/
 
-      try {
-        debug.innerHTML += `🔗 API 網址: 
+${REPO}/contents/${BASE_PATH}/${dir}`)
+        .then(res => {
+          debug.innerHTML += `\n📡 API 狀態: ${res.status}`;
+          return res.json();
+        })
+        .then(files => {
+          debug.innerHTML += `\n✅ 取得 ${files.length} 個項
 
-https://api.github.com/repos/${OWNER}/${REPO}/contents/
+目`;
 
-${BASE_PATH}/${dir}\n`;
-        
-        const res = await fetch
+          const images = files.filter(f => f.type === "file" 
 
-(`https://api.github.com/repos/${OWNER}/${REPO}/contents/
+&& /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name));
+          debug.innerHTML += `\n🖼️ 找到 ${images.length} 張
 
-${BASE_PATH}/${dir}`);
-        
-        debug.innerHTML += `📡 API 狀態碼: ${res.status} 
+圖片`;
 
-${res.statusText}\n`;
-
-        if (!res.ok) {
-          throw new Error(`HTTP 錯誤 ${res.status}`);
-        }
-
-        const files = await res.json();
-        debug.innerHTML += `✅ 成功取得 ${files.length} 個項
-
-目\n`;
-
-        const images = files.filter(f => 
-          f.type === "file" && /\.(jpg|jpeg|png|gif|
-
-webp)$/i.test(f.name)
-        );
-
-        debug.innerHTML += `🖼️ 過濾後找到 ${images.length} 
-
-張圖片\n`;
-
-        if (images.length === 0) {
-          throw new Error("此資料夾內沒有圖片");
-        }
-
-        gallery.innerHTML = "";
-        title.textContent = `${dir} (${images.length} 張)`;
-
-        images.forEach(file => {
-          const url = `https://raw.githubusercontent.com/
+          const galleryHTML = images.map(file => {
+            const url = `https://raw.githubusercontent.com/
 
 ${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = file.name;
-          img.loading = "lazy";
-          img.onclick = () => window.open(url, '_blank');
-          gallery.appendChild(img);
+            return `<img src="${url}" style="width:180px; 
+
+margin:8px; border-radius:8px;" loading="lazy">`;
+          }).join('');
+
+          document.body.innerHTML += `<div style="margin-
+
+top:20px;">${galleryHTML}</div>`;
+          
+          title.textContent = `${dir} (${images.length} 張)`;
+          debug.innerHTML += "\n🎉 縮圖已顯示完成！";
+        })
+        .catch(err => {
+          debug.innerHTML += `\n❌ 錯誤: ${err.message}`;
+          console.error(err);
         });
-
-        debug.innerHTML += `🎉 縮圖載入完成！點擊可在新分頁看
-
-大圖`;
-
-      } catch (err) {
-        debug.innerHTML += `\n❌ 發生錯誤：${err.message}\n`;
-        console.error(err);
-        title.textContent = dir || "載入失敗";
-      }
     }
-
-    // 確保頁面載入後執行
-    window.addEventListener('load', () => {
-      console.log("頁面 load 事件觸發");
-      loadAlbum();
-    });
   </script>
 </body>
 </html>
