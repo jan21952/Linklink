@@ -2,94 +2,94 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, 
-
-initial-scale=1.0">
-  <title>相簿17</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相簿18</title>
   <style>
-    body { font-family: "Microsoft JhengHei", sans-serif; 
-
-margin: 20px; background: #f4f6f9; }
-    .debug { 
-      background: #fff; padding: 20px; border: 3px solid 
-
-#333; 
-      border-radius: 10px; margin: 20px 0; font-size: 15px; 
+    body { 
+      font-family: "Microsoft JhengHei", sans-serif; 
+      margin: 0; padding: 20px; background: #f4f6f9; 
     }
+    .header { text-align: center; margin-bottom: 25px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 15px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gallery a {
+      display: block;
+    }
+    .gallery img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .gallery a:hover img { 
+      transform: scale(1.05); 
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .back { margin: 20px 0; text-align: center; font-size: 18px; }
   </style>
 </head>
 <body>
-  <h1 id="title">載入中...</h1>
-  <a href="index_al.html">← 返回相簿列表</a>
+  <div class="header">
+    <h1 id="title">載入中...</h1>
+    <div class="back"><a href="index_al.html">← 返回相簿列表</a></div>
+  </div>
 
-  <div id="debug" class="debug">除錯資訊初始化...</div>
+  <div class="gallery" id="gallery"></div>
 
   <script>
-    console.log("=== V17 開始執行 ===");
-
-    const debug = document.getElementById('debug');
-    const title = document.getElementById('title');
-
-    debug.innerHTML += "\n✅ JavaScript 已成功執行";
-
     const OWNER = "jan21952";
     const REPO = "Linklink";
     const BASE_PATH = "static/images";
 
-    // 取得 dir 參數
-    const params = new URLSearchParams(location.search);
-    const dir = params.get('dir');
+    async function loadAlbum() {
+      const params = new URLSearchParams(location.search);
+      const dir = params.get('dir');
 
-    debug.innerHTML += `\n📁 相簿: ${dir || '未取得'}`;
+      if (!dir) {
+        document.getElementById('title').textContent = "錯誤：未指定相簿";
+        return;
+      }
 
-    if (!dir) {
-      title.textContent = "錯誤：未指定相簿";
-      debug.innerHTML += "\n❌ 沒有 dir 參數";
-    } else {
-      title.textContent = dir + " - 正在載入...";
-      
-      debug.innerHTML += "\n🔍 開始呼叫 GitHub API...";
+      try {
+        const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`);
+        if (!res.ok) throw new Error("無法讀取相簿");
 
-      fetch(`https://api.github.com/repos/${OWNER}/
+        let files = await res.json();
 
-${REPO}/contents/${BASE_PATH}/${dir}`)
-        .then(res => {
-          debug.innerHTML += `\n📡 API 狀態: ${res.status}`;
-          return res.json();
-        })
-        .then(files => {
-          debug.innerHTML += `\n✅ 取得 ${files.length} 個項
+        files = files
+          .filter(file => file.type === "file" && /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
+          .sort((a, b) => a.name.localeCompare(b.name));
 
-目`;
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = "";
 
-          const images = files.filter(f => f.type === "file" 
-
-&& /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name));
-          debug.innerHTML += `\n🖼️ 找到 ${images.length} 張
-
-圖片`;
-
-          const galleryHTML = images.map(file => {
-            const url = `https://raw.githubusercontent.com/
-
-${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
-            return `<img src="${url}" style="width:180px; 
-
-margin:8px; border-radius:8px;" loading="lazy">`;
-          }).join('');
-
-          document.body.innerHTML += `<div style="margin-
-
-top:20px;">${galleryHTML}</div>`;
+        files.forEach(file => {
+          const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
           
-          title.textContent = `${dir} (${images.length} 張)`;
-          debug.innerHTML += "\n🎉 縮圖已顯示完成！";
-        })
-        .catch(err => {
-          debug.innerHTML += `\n❌ 錯誤: ${err.message}`;
-          console.error(err);
+          const a = document.createElement('a');
+          a.href = url;
+          a.target = "_blank";           // 在新分頁開啟
+          a.innerHTML = `<img src="${url}" alt="${file.name}" loading="lazy">`;
+          
+          gallery.appendChild(a);
         });
+
+        document.getElementById('title').textContent = `${dir} (${files.length} 張)`;
+
+      } catch (err) {
+        document.getElementById('title').textContent = dir + " - 載入失敗";
+        console.error(err);
+      }
     }
+
+    window.addEventListener('load', loadAlbum);
   </script>
 </body>
 </html>
