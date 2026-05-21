@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, 
 
 initial-scale=1.0">
-  <title>相簿08</title>
+  <title>相簿09</title>
   
-  <!-- PhotoSwipe CSS -->
   <link rel="stylesheet" 
 
 href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
@@ -40,11 +39,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
     }
     .gallery img:hover { 
       transform: scale(1.05); 
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
     .back { margin: 20px 0; text-align: center; font-size: 
 
 18px; }
+    .debug { margin: 15px 0; padding: 15px; background: 
+
+#f0f0f0; border-radius: 8px; font-size: 14px; }
+    .error { color: red; padding: 20px; background: #fee; 
+
+border-radius: 10px; }
   </style>
 </head>
 <body>
@@ -55,9 +59,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3
 </a></div>
   </div>
 
+  <div id="debug" class="debug">除錯資訊載入中...</div>
   <div class="gallery" id="gallery"></div>
 
-  <!-- PhotoSwipe JS -->
   <script 
 
 src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.3/
@@ -75,8 +79,11 @@ photoswipe-lightbox.min.js"></script>
     const BASE_PATH = "static/images";
 
     async function loadAlbum() {
+      const debugEl = document.getElementById('debug');
       const params = new URLSearchParams(location.search);
       const dir = params.get('dir');
+
+      debugEl.innerHTML += `<br>📁 正在載入相簿: ${dir}`;
 
       if (!dir) {
         document.getElementById('title').textContent = "錯誤
@@ -85,25 +92,38 @@ photoswipe-lightbox.min.js"></script>
         return;
       }
 
-      document.getElementById('title').textContent = dir + " 
-
-- 載入中...";
-
       try {
-        const res = await fetch
+        const apiUrl = `https://api.github.com/repos/
 
-(`https://api.github.com/repos/${OWNER}/${REPO}/contents/
+${OWNER}/${REPO}/contents/${BASE_PATH}/${dir}`;
+        debugEl.innerHTML += `<br>🔗 API 網址: ${apiUrl}`;
 
-${BASE_PATH}/${dir}`);
-        if (!res.ok) throw new Error("無法讀取相簿");
+        const res = await fetch(apiUrl);
+        
+        debugEl.innerHTML += `<br>📡 API 狀態: ${res.status} 
+
+${res.statusText}`;
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} - 無法讀取資料
+
+夾`);
+        }
 
         let files = await res.json();
+        debugEl.innerHTML += `<br>✅ 成功取得 ${files.length} 
+
+個檔案`;
 
         files = files
           .filter(file => file.type === "file" && /\.(jpg|
 
 jpeg|png|gif|webp)$/i.test(file.name))
           .sort((a, b) => a.name.localeCompare(b.name));
+
+        debugEl.innerHTML += `<br>🖼️ 找到 ${files.length} 
+
+張圖片`;
 
         const gallery = document.getElementById('gallery');
         gallery.innerHTML = "";
@@ -120,21 +140,20 @@ ${OWNER}/${REPO}/main/${BASE_PATH}/${dir}/${file.name}`;
           img.alt = file.name;
           img.loading = "lazy";
           
-          // 點擊圖片時開啟 PhotoSwipe
           img.addEventListener('click', () => {
             lightbox.loadAndOpen(index);
           });
           
           gallery.appendChild(img);
-          
-          imageData.push({ src: url, width: 1920, height: 
+          imageData.push({ src: url, width: 2000, height: 
 
-1080 }); // 寬高可大一點讓它自動適應
+1400 });
         });
 
         document.getElementById('title').textContent = `
 
 ${dir} (${files.length} 張)`;
+        debugEl.innerHTML += `<br>🎉 全部縮圖載入完成！`;
 
         // 初始化 PhotoSwipe
         window.lightbox = new PhotoSwipeLightbox({
@@ -142,20 +161,22 @@ ${dir} (${files.length} 張)`;
           children: 'img',
           pswpModule: PhotoSwipe,
           wheelToZoom: true,
-          arrowPrev: true,
-          arrowNext: true,
-          zoom: true
         });
 
         window.lightbox.init();
+        debugEl.innerHTML += `<br>✅ PhotoSwipe 初始化完成`;
 
       } catch (e) {
-        document.getElementById('title').textContent = dir;
-        document.getElementById('gallery').innerHTML = `<p 
+        console.error(e);
+        document.getElementById('title').textContent = dir || 
 
-style="color:red;text-align:center;padding:40px;">❌ 載入失敗
+"錯誤";
+        document.getElementById('gallery').innerHTML = `<div 
 
-<br>${e.message}</p>`;
+class="error">❌ ${e.message}</div>`;
+        debugEl.innerHTML += `<br><strong 
+
+style="color:red;">❌ 錯誤：${e.message}</strong>`;
       }
     }
 
