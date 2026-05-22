@@ -1,183 +1,35 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, 
+<div class="gallery" id="gallery"></div>
 
-initial-scale=1.0">
-  <title>相簿顯示 + 上/下一張33B2</title>
-  <style>
-    body { font-family: "Microsoft JhengHei", sans-serif; 
+<script>
+  const OWNER = "jan21952";
+  const REPO = "Linklink";
+  const BASE_PATH = "static/images";
+  const DIR = "114Y";
 
-margin: 20px; background: #f4f6f9; }
-    .header { text-align: center; margin-bottom: 25px; }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 
+  const files = ["1140629.jpg", "1140630.jpg", "1140631.jpg"]; // 手動列出檔案
 
-1fr));
-      gap: 15px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .gallery img {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-    .gallery img:hover { transform: scale(1.05); box-shadow: 
+  const gallery = document.getElementById('gallery');
+  files.forEach((name, index) => {
+    const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${DIR}/${name}`;
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = name;
+    img.loading = "lazy";
+    img.addEventListener('click', () => showImage(index));
+    gallery.appendChild(img);
+  });
 
-0 8px 20px rgba(0,0,0,0.15); }
-    .viewer { text-align: center; margin-top: 30px; }
-    .viewer img { max-width: 90%; max-height: 80vh; border-
+  let currentIndex = 0;
+  function showImage(index) {
+    currentIndex = index;
+    const viewer = document.getElementById('viewer');
+    viewer.src = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${BASE_PATH}/${DIR}/${files[index]}`;
+    document.getElementById('viewerBox').style.display = "block";
+    updateButtons();
+  }
 
-radius: 10px; }
-    .controls { margin-top: 10px; }
-    .controls button {
-      margin: 0 10px;
-      padding: 8px 16px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      background: #0078d7;
-      color: white;
-      cursor: pointer;
-    }
-    .controls button:disabled { background: #ccc; cursor: 
-
-not-allowed; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1 id="title">載入中...</h1>
-    <div class="back"><a href="index_al.html">← 返回相簿列表
-
-</a></div>
-  </div>
-
-  <div class="gallery" id="gallery"></div>
-
-  <div class="viewer" id="viewerBox" style="display:none;">
-    <img id="viewer" alt="大圖">
-    <div class="controls">
-      <button id="prevBtn">上一張</button>
-      <button id="nextBtn">下一張</button>
-    </div>
-  </div>
-
-  <script>
-    const OWNER = "jan21952";
-    const REPO = "Linklink";
-    const BASE_PATH = "static/images";
-
-    let files = [];
-    let currentIndex = 0;
-    let currentDir = "";
-
-    async function loadAlbum() {
-      const params = new URLSearchParams(location.search);
-      currentDir = params.get('dir');
-
-      if (!currentDir) {
-        document.getElementById('title').textContent = "錯誤
-
-：未指定相簿";
-        return;
-      }
-
-      document.getElementById('title').textContent = 
-
-currentDir;
-
-      try {
-        const res = await fetch
-
-(`https://api.github.com/repos/${OWNER}/${REPO}/contents/
-
-${BASE_PATH}/${currentDir}`);
-        if (!res.ok) throw new Error("讀取失敗");
-
-        files = await res.json();
-        files = files.filter(file => file.type === "file" && 
-
-/\.(jpg|jpeg|png|gif|webp)$/i.test(file.name))
-                     .sort((a, b) => a.name.localeCompare
-
-(b.name));
-
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = "";
-
-        files.forEach((file, index) => {
-          const url = `https://raw.githubusercontent.com/
-
-${OWNER}/${REPO}/main/${BASE_PATH}/${currentDir}/
-
-${file.name}`;
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = file.name;
-          img.loading = "lazy";
-          img.addEventListener('click', () => showImage
-
-(index));
-          gallery.appendChild(img);
-        });
-
-        document.getElementById('title').textContent = `
-
-${currentDir} (${files.length} 張)`;
-
-      } catch (err) {
-        document.getElementById('title').textContent = 
-
-currentDir + " - 載入失敗";
-        console.error(err);
-      }
-    }
-
-    function showImage(index) {
-      currentIndex = index;
-      const viewerBox = document.getElementById('viewerBox');
-      const viewer = document.getElementById('viewer');
-      viewer.src = `https://raw.githubusercontent.com/
-
-${OWNER}/${REPO}/main/${BASE_PATH}/${currentDir}/${files
-
-[index].name}`;
-      viewerBox.style.display = "block";
-      updateButtons();
-    }
-
-    function updateButtons() {
-      document.getElementById('prevBtn').disabled = 
-
-(currentIndex === 0);
-      document.getElementById('nextBtn').disabled = 
-
-(currentIndex === files.length - 1);
-    }
-
-    document.getElementById('prevBtn').addEventListener
-
-('click', () => {
-      if (currentIndex > 0) showImage(currentIndex - 1);
-    });
-
-    document.getElementById('nextBtn').addEventListener
-
-('click', () => {
-      if (currentIndex < files.length - 1) showImage
-
-(currentIndex + 1);
-    });
-
-    window.addEventListener('load', loadAlbum);
-  </script>
-</body>
-</html>
+  function updateButtons() {
+    document.getElementById('prevBtn').disabled = (currentIndex === 0);
+    document.getElementById('nextBtn').disabled = (currentIndex === files.length - 1);
+  }
+</script>
