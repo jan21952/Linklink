@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☯ 增刪卜易相簿 - 進階搜尋版</title>
+  <style>
+    body { 
+      font-family: "Microsoft JhengHei", Arial, sans-serif; 
+      margin: 0; padding: 20px; 
+      background: linear-gradient(135deg, #f4f6f9, #e8f0f7); 
+    }
+    h1 { text-align: center; color: #2c3e50; margin-bottom: 10px; }
+    .subtitle { text-align: center; color: #555; margin-bottom: 25px; }
+    
+    .controls {
+      max-width: 1200px;
+      margin: 0 auto 25px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+    }
+    
+    .filter-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #34495e;
+    }
+    .filter-group input, .filter-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    
+    .search-btn {
+      padding: 12px 24px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      align-self: end;
+    }
+    
+    .result-count {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 18px;
+      color: #2980b9;
+    }
+    
+    .result-list {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .result-item {
+      padding: 14px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .result-item:hover {
+      background: #f8f9fa;
+      transform: translateX(5px);
+    }
+    .result-item:last-child { border-bottom: none; }
+    
+    .item-num { width: 60px; font-weight: bold; color: #e74c3c; }
+    .item-name { flex: 1; }
+    .item-gua { font-size: 15px; color: #2c3e50; }
+    .item-info { font-size: 14px; color: #7f8c8d; }
+    
+    .pagination {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .pagination button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .pagination button:disabled { background: #bdc3c7; cursor: not-allowed; }
+    
+    .viewer {
+      text-align: center;
+      margin: 30px auto;
+      max-width: 900px;
+      display: none;
+    }
+    .viewer img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 8px 16px;
+      background: #95a5a6;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>☯ 增刪卜易相簿 - 進階搜尋</h1>
+  <p class="subtitle">快速查詢卦象 • 支援編號直達 • 完整篩選功能</p>
+
+  <div class="controls">
+    <div class="filter-group">
+      <label>🔍 編號快速查詢</label>
+      <input type="text" id="quickNum" placeholder="輸入編號如 001 或 1140629" onkeypress="if(event.key==='Enter') quickSearch()">
+    </div>
+    
+    <div class="filter-group">
+      <label>卦名（可部分輸入）</label>
+      <input type="text" id="guaFilter" placeholder="例如：大過、坤為地">
+    </div>
+    
+    <div class="filter-group">
+      <label>性質</label>
+      <select id="natureFilter">
+        <option value="">全部</option>
+        <option value="自占">自占</option>
+        <option value="他占">他占</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>類別</label>
+      <select id="categoryFilter">
+        <option value="">全部</option>
+        <option value="健康">健康</option>
+        <option value="官司">官司</option>
+        <option value="財運">財運</option>
+        <option value="事業">事業</option>
+        <option value="運勢">運勢</option>
+      </select>
+    </div>
+    
+    <button class="search-btn" onclick="applyFilters()">🔍 篩選</button>
+  </div>
+
+  <div id="resultCount" class="result-count"></div>
+
+  <div class="result-list" id="resultList"></div>
+
+  <div class="pagination" id="pagination"></div>
+
+  <div class="viewer" id="viewerBox">
+    <a href="#" class="back-btn" onclick="hideViewer()">← 返回列表</a>
+    <img id="viewerImg" alt="卦象圖">
+    <div style="margin-top:15px; font-size:14px; color:#7f8c8d;" id="viewerInfo"></div>
+  </div>
+
+  <script src="data_al.js"></script>
+  <script>
+    let allData = [];
+    let currentPage = 1;
+    const PAGE_SIZE = 20;
+    let currentFilterResults = [];
+
+    // 載入資料
+    function loadData() {
+      // 假設 data_al.js 已定義 window.iChingData
+      allData = window.iChingData || [];
+      applyFilters(); // 初始顯示全部
+    }
+
+    // 取得圖片完整路徑
+    function getImageUrl(filename) {
+      const yearMonth = filename.substring(0, 5); // 如 11409
+      const dir = `${yearMonth.substring(0,3)}Y${yearMonth.substring(3,5)}M`;
+      return `https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/${dir}/${filename}.jpg`;
+    }
+
+    // 快速編號搜尋
+    function quickSearch() {
+      const input = document.getElementById('quickNum').value.trim();
+      if (!input) return;
+      
+      const found = allData.find(item => 
+        item.id === input || item.filename === input || item.num === input
+      );
+      
+      if (found) {
+        showImage(found);
+      } else {
+        alert('找不到該編號的圖片');
+      }
+    }
+
+    // 套用篩選
+    function applyFilters() {
+      const guaText = document.getElementById('guaFilter').value.toLowerCase().trim();
+      const nature = document.getElementById('natureFilter').value;
+      const category = document.getElementById('categoryFilter').value;
+
+      currentFilterResults = allData.filter(item => {
+        const matchGua = !guaText || 
+          (item.guaName && item.guaName.toLowerCase().includes(guaText));
+        
+        const matchNature = !nature || item.nature === nature;
+        const matchCategory = !category || item.category === category;
+        
+        return matchGua && matchNature && matchCategory;
+      });
+
+      currentPage = 1;
+      renderResults();
+    }
+
+    // 渲染結果列表
+    function renderResults() {
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const pageItems = currentFilterResults.slice(start, end);
+      
+      const listEl = document.getElementById('resultList');
+      listEl.innerHTML = '';
+      
+      if (pageItems.length === 0) {
+        listEl.innerHTML = `<div style="padding:40px;text-align:center;color:#e74c3c;">沒有符合條件的結果</div>`;
+        document.getElementById('resultCount').textContent = '找到 0 筆';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      
+      pageItems.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        div.innerHTML = `
+          <div class="item-num">${item.num}</div>
+          <div class="item-name">
+            <div class="item-gua">${item.filename}　${item.guaName}</div>
+            <div class="item-info">${item.nature}　|　${item.category}</div>
+          </div>
+        `;
+        div.onclick = () => showImage(item);
+        listEl.appendChild(div);
+      });
+      
+      document.getElementById('resultCount').textContent = 
+        `找到 ${currentFilterResults.length} 筆結果（第 ${start+1} - ${Math.min(end, currentFilterResults.length)} 筆）`;
+      
+      renderPagination();
+    }
+
+    // 分頁控制
+    function renderPagination() {
+      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
+      const pagi = document.getElementById('pagination');
+      pagi.innerHTML = '';
+      
+      if (totalPages <= 1) return;
+      
+      const prev = document.createElement('button');
+      prev.textContent = '上一頁';
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => { currentPage--; renderResults(); };
+      
+      const next = document.createElement('button');
+      next.textContent = '下一頁';
+      next.disabled = currentPage === totalPages;
+      next.onclick = () => { currentPage++; renderResults(); };
+      
+      pagi.appendChild(prev);
+      pagi.innerHTML += ` 第 <b>${currentPage}</b> / ${totalPages} 頁 `;
+      pagi.appendChild(next);
+    }
+
+    // 顯示單張大圖
+    function showImage(item) {
+      const viewerBox = document.getElementById('viewerBox');
+      const img = document.getElementById('viewerImg');
+      const info = document.getElementById('viewerInfo');
+      
+      img.src = getImageUrl(item.filename);
+      info.innerHTML = `
+        <strong>${item.num}　${item.guaName}</strong><br>
+        ${item.nature}　|　${item.category}
+      `;
+      viewerBox.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function hideViewer() {
+      document.getElementById('viewerBox').style.display = 'none';
+    }
+
+    // 鍵盤支援
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") hideViewer();
+    });
+
+    // 初始化
+    window.onload = loadData;
+  </script>
+</body>
+</html>
