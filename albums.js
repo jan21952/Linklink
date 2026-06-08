@@ -1,6 +1,6 @@
 ﻿// albums.js
 const albumsData = {
-  "114Y": [
+  "114Y06M": [
     "1140629.jpg",
     "1140630-1.jpg",
     "1140630-2.jpg",
