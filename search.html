@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -87,7 +87,7 @@
     }
     .result-item:last-child { border-bottom: none; }
     
-    .item-num { width: 60px; font-weight: bold; color: #e74c3c; }
+    .item-num { width: 80px; font-weight: bold; color: #e74c3c; }
     .item-name { flex: 1; }
     .item-gua { font-size: 15px; color: #2c3e50; }
     .item-info { font-size: 14px; color: #7f8c8d; }
@@ -129,6 +129,12 @@
       text-decoration: none;
       border-radius: 6px;
     }
+
+    /* 小螢幕微調 */
+    @media (max-width: 480px) {
+      .item-num { width: 56px; font-size: 14px; }
+      .filter-group { grid-column: span 1; }
+    }
   </style>
 </head>
 <body>
@@ -143,12 +149,12 @@
     
     <div class="filter-group">
       <label>卦名（可部分輸入）</label>
-      <input type="text" id="guaFilter" placeholder="例如：大過、坤為地">
+      <input type="text" id="guaFilter" placeholder="例如：大過、坤為地" onkeypress="if(event.key==='Enter') applyFilters()">
     </div>
     
     <div class="filter-group">
       <label>性質</label>
-      <select id="natureFilter">
+      <select id="natureFilter" onchange="applyFilters()">
         <option value="">全部</option>
         <option value="自占">自占</option>
         <option value="他占">他占</option>
@@ -157,7 +163,7 @@
     
     <div class="filter-group">
       <label>類別</label>
-      <select id="categoryFilter">
+      <select id="categoryFilter" onchange="applyFilters()">
         <option value="">全部</option>
         <option value="健康">健康</option>
         <option value="官司">官司</option>
@@ -180,11 +186,14 @@
   <div class="pagination" id="pagination"></div>
 
   <div class="viewer" id="viewerBox">
-    <a href="#" class="back-btn" onclick="hideViewer()">← 返回列表</a>
-    <img id="viewerImg" alt="卦象圖">
+    <a href="#" class="back-btn" onclick="hideViewer(); return false;">← 返回列表</a>
+    <div style="margin-top:10px;">
+      <img id="viewerImg" alt="卦象圖" onerror="this.alt='圖片載入失敗'; this.style.opacity=0.6;">
+    </div>
     <div style="margin-top:15px; font-size:14px; color:#7f8c8d;" id="viewerInfo"></div>
   </div>
 
+  <!-- 請確保 data_al.js 定義 window.iChingData = [...] -->
   <script src="data_al.js"></script>
   <script>
     let allData = [];
@@ -193,23 +202,40 @@
     let currentFilterResults = [];
 
     function loadData() {
-      allData = window.iChingData || [];
+      allData = Array.isArray(window.iChingData) ? window.iChingData : [];
+      if (!allData.length) {
+        document.getElementById('resultList').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;">資料尚未載入或為空，請確認 data_al.js 是否正確提供資料。</div>';
+        document.getElementById('resultCount').textContent = '找到 0 筆';
+        return;
+      }
       applyFilters();
     }
 
     function getImageUrl(filename) {
+      if (!filename || filename.length < 5) return '';
       const yearMonth = filename.substring(0, 5);
       const dir = `${yearMonth.substring(0,3)}Y${yearMonth.substring(3,5)}M`;
       return `https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/${dir}/${filename}.jpg`;
     }
 
     function quickSearch() {
-      const input = document.getElementById('quickNum').value.trim();
-      if (!input) return;
-      
+      let input = document.getElementById('quickNum').value.trim();
+      if (!input) {
+        alert('請輸入編號再查詢');
+        return;
+      }
+
+      // 若輸入全為數字且少於 3 碼，補 0 到左側
+      if (/^\d+$/.test(input) && input.length < 3) {
+        input = input.padStart(3, '0');
+        // 更新輸入欄位顯示補0後的值
+        document.getElementById('quickNum').value = input;
+      }
+
       const found = allData.find(item => 
-        item.num === input || item.filename === input || 
-        (item.id && item.id === input)
+        (item.num && item.num.toString() === input) ||
+        (item.filename && item.filename.toString() === input) ||
+        (item.id && item.id.toString() === input)
       );
       
       if (found) {
@@ -225,9 +251,9 @@
       const category = document.getElementById('categoryFilter').value;
 
       currentFilterResults = allData.filter(item => {
-        const matchGua = !guaText || (item.guaName && item.guaName.toLowerCase().includes(guaText));
-        const matchNature = !nature || item.nature === nature;
-        const matchCategory = !category || item.category === category;
+        const matchGua = !guaText || (item.guaName && item.guaName.toLowerCase().includes(guaText)) || (item.filename && item.filename.toLowerCase().includes(guaText));
+        const matchNature = !nature || (item.nature === nature);
+        const matchCategory = !category || (item.category === category);
         return matchGua && matchNature && matchCategory;
       });
 
@@ -245,7 +271,7 @@
       
       if (pageItems.length === 0) {
         listEl.innerHTML = `<div style="padding:40px;text-align:center;color:#e74c3c;">沒有符合條件的結果</div>`;
-        document.getElementById('resultCount').textContent = '找到 0 筆';
+        document.getElementById('resultCount').textContent = `找到 ${currentFilterResults.length} 筆`;
         document.getElementById('pagination').innerHTML = '';
         return;
       }
@@ -253,15 +279,27 @@
       pageItems.forEach(item => {
         const div = document.createElement('div');
         div.className = 'result-item';
-        div.innerHTML = `
-          <div class="item-num">${item.num}</div>
-          <div class="item-name">
-            <div class="item-gua">${item.filename}　${item.guaName}</div>
-            <div class="item-info">
-              ${item.nature}　|　${item.category}　|　${item.chapter || '未分類'}
-            </div>
-          </div>
-        `;
+        const numDiv = document.createElement('div');
+        numDiv.className = 'item-num';
+        numDiv.textContent = item.num || (item.id || '—');
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'item-name';
+        
+        const guaLine = document.createElement('div');
+        guaLine.className = 'item-gua';
+        guaLine.textContent = `${item.filename || ''}　${item.guaName || ''}`;
+        
+        const infoLine = document.createElement('div');
+        infoLine.className = 'item-info';
+        infoLine.textContent = `${item.nature || '—'}　|　${item.category || '—'}　|　${item.chapter || '未分類'}`;
+        
+        nameDiv.appendChild(guaLine);
+        nameDiv.appendChild(infoLine);
+        
+        div.appendChild(numDiv);
+        div.appendChild(nameDiv);
+        
         div.onclick = () => showImage(item);
         listEl.appendChild(div);
       });
@@ -273,24 +311,31 @@
     }
 
     function renderPagination() {
-      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
+      const totalPages = Math.max(1, Math.ceil(currentFilterResults.length / PAGE_SIZE));
       const pagi = document.getElementById('pagination');
       pagi.innerHTML = '';
       
-      if (totalPages <= 1) return;
+      const infoSpan = document.createElement('span');
+      infoSpan.style.margin = '0 10px';
+      infoSpan.innerHTML = `第 <strong>${currentPage}</strong> / ${totalPages} 頁`;
+      
+      if (totalPages <= 1) {
+        pagi.appendChild(infoSpan);
+        return;
+      }
       
       const prev = document.createElement('button');
       prev.textContent = '上一頁';
       prev.disabled = currentPage === 1;
-      prev.onclick = () => { currentPage--; renderResults(); };
+      prev.onclick = () => { if (currentPage > 1) { currentPage--; renderResults(); window.scrollTo({top:0, behavior:'smooth'}); } };
       
       const next = document.createElement('button');
       next.textContent = '下一頁';
       next.disabled = currentPage === totalPages;
-      next.onclick = () => { currentPage++; renderResults(); };
+      next.onclick = () => { if (currentPage < totalPages) { currentPage++; renderResults(); window.scrollTo({top:0, behavior:'smooth'}); } };
       
       pagi.appendChild(prev);
-      pagi.innerHTML += ` 第 <b>${currentPage}</b> / ${totalPages} 頁 `;
+      pagi.appendChild(infoSpan);
       pagi.appendChild(next);
     }
 
@@ -299,23 +344,51 @@
       const img = document.getElementById('viewerImg');
       const info = document.getElementById('viewerInfo');
       
-      img.src = getImageUrl(item.filename);
+      const url = getImageUrl(item.filename || '');
+      if (!url) {
+        alert('此項目沒有可用的圖片檔名');
+        return;
+      }
+
+      // 設定 onload 以確保圖片載入後再滾動到底部
+      img.onload = () => {
+        // 小延遲確保圖片尺寸計算完成
+        setTimeout(() => {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }, 120);
+      };
+      // 若圖片載入失敗也嘗試滾動到底部（避免卡在中間）
+      img.onerror = () => {
+        setTimeout(() => {
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }, 120);
+      };
+
+      img.src = url;
+      img.alt = `${item.guaName || ''}`;
       info.innerHTML = `
-        <strong>${item.num}　${item.guaName}</strong><br>
-        ${item.nature}　|　${item.category}　|　${item.chapter || '未分類'}
+        <strong>${item.num || item.id || ''}　${item.guaName || ''}</strong><br>
+        ${item.nature || '—'}　|　${item.category || '—'}　|　${item.chapter || '未分類'}
       `;
       viewerBox.style.display = 'block';
-      window.scrollTo(0, 0);
+
+      // 若圖片很快就從快取顯示，onload 可能已觸發過，仍保險再滾動一次
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 300);
     }
 
     function hideViewer() {
       document.getElementById('viewerBox').style.display = 'none';
+      // 返回列表時滾動到最上方
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === "Escape") hideViewer();
     });
 
+    // 初始化
     window.onload = loadData;
   </script>
 </body>
