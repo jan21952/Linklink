@@ -21,7 +21,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 15px;
     }
     
@@ -39,16 +39,23 @@
       font-size: 16px;
     }
     
-    .search-btn {
-      padding: 12px 24px;
-      background: #27ae60;
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      align-self: end;
+    }
+    
+    .search-btn, .num-search-btn {
+      padding: 12px 20px;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-size: 16px;
-      align-self: end;
+      flex: 1;
     }
+    .search-btn { background: #27ae60; }
+    .num-search-btn { background: #e67e22; }
     
     .result-count {
       text-align: center;
@@ -160,7 +167,10 @@
       </select>
     </div>
     
-    <button class="search-btn" onclick="applyFilters()">🔍 篩選</button>
+    <div class="btn-group">
+      <button class="num-search-btn" onclick="quickSearch()">📌 編號查詢</button>
+      <button class="search-btn" onclick="applyFilters()">🔍 篩選</button>
+    </div>
   </div>
 
   <div id="resultCount" class="result-count"></div>
@@ -182,49 +192,42 @@
     const PAGE_SIZE = 20;
     let currentFilterResults = [];
 
-    // 載入資料
     function loadData() {
-      // 假設 data_al.js 已定義 window.iChingData
       allData = window.iChingData || [];
-      applyFilters(); // 初始顯示全部
+      applyFilters();
     }
 
-    // 取得圖片完整路徑
     function getImageUrl(filename) {
-      const yearMonth = filename.substring(0, 5); // 如 11409
+      const yearMonth = filename.substring(0, 5);
       const dir = `${yearMonth.substring(0,3)}Y${yearMonth.substring(3,5)}M`;
       return `https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/${dir}/${filename}.jpg`;
     }
 
-    // 快速編號搜尋
     function quickSearch() {
       const input = document.getElementById('quickNum').value.trim();
       if (!input) return;
       
       const found = allData.find(item => 
-        item.id === input || item.filename === input || item.num === input
+        item.num === input || item.filename === input || 
+        (item.id && item.id === input)
       );
       
       if (found) {
         showImage(found);
       } else {
-        alert('找不到該編號的圖片');
+        alert('找不到該編號的圖片，請確認後再試');
       }
     }
 
-    // 套用篩選
     function applyFilters() {
       const guaText = document.getElementById('guaFilter').value.toLowerCase().trim();
       const nature = document.getElementById('natureFilter').value;
       const category = document.getElementById('categoryFilter').value;
 
       currentFilterResults = allData.filter(item => {
-        const matchGua = !guaText || 
-          (item.guaName && item.guaName.toLowerCase().includes(guaText));
-        
+        const matchGua = !guaText || (item.guaName && item.guaName.toLowerCase().includes(guaText));
         const matchNature = !nature || item.nature === nature;
         const matchCategory = !category || item.category === category;
-        
         return matchGua && matchNature && matchCategory;
       });
 
@@ -232,7 +235,6 @@
       renderResults();
     }
 
-    // 渲染結果列表
     function renderResults() {
       const start = (currentPage - 1) * PAGE_SIZE;
       const end = start + PAGE_SIZE;
@@ -255,7 +257,9 @@
           <div class="item-num">${item.num}</div>
           <div class="item-name">
             <div class="item-gua">${item.filename}　${item.guaName}</div>
-            <div class="item-info">${item.nature}　|　${item.category}</div>
+            <div class="item-info">
+              ${item.nature}　|　${item.category}　|　${item.chapter || '未分類'}
+            </div>
           </div>
         `;
         div.onclick = () => showImage(item);
@@ -268,7 +272,6 @@
       renderPagination();
     }
 
-    // 分頁控制
     function renderPagination() {
       const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
       const pagi = document.getElementById('pagination');
@@ -291,7 +294,6 @@
       pagi.appendChild(next);
     }
 
-    // 顯示單張大圖
     function showImage(item) {
       const viewerBox = document.getElementById('viewerBox');
       const img = document.getElementById('viewerImg');
@@ -300,7 +302,7 @@
       img.src = getImageUrl(item.filename);
       info.innerHTML = `
         <strong>${item.num}　${item.guaName}</strong><br>
-        ${item.nature}　|　${item.category}
+        ${item.nature}　|　${item.category}　|　${item.chapter || '未分類'}
       `;
       viewerBox.style.display = 'block';
       window.scrollTo(0, 0);
@@ -310,12 +312,10 @@
       document.getElementById('viewerBox').style.display = 'none';
     }
 
-    // 鍵盤支援
     document.addEventListener('keydown', (e) => {
       if (e.key === "Escape") hideViewer();
     });
 
-    // 初始化
     window.onload = loadData;
   </script>
 </body>
