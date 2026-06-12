@@ -281,151 +281,151 @@
   },
   {
     "filename": "1140801",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "035",
+    "guaName": "雷天大壯",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140802",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "036",
+    "guaName": "風雷益",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "filename": "1140803",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "037",
+    "guaName": "雷風恒之豫",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "filename": "1140804",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "038",
+    "guaName": "天水訟之睽",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140805",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "039",
+    "guaName": "坤為地",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "filename": "1140806",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "040",
+    "guaName": "坤為地",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140807",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "041",
+    "guaName": "天地否之乾",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140808",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "042",
+    "guaName": "雷天大壯之巽",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140809",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "043",
+    "guaName": "巽為風之坤",
+    "nature": "自占",
+    "category": "官司",
     "chapter": ""
   },
   {
     "filename": "1140810",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "044",
+    "guaName": "風火家人之離",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140811",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "045",
+    "guaName": "坤為地之師",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140812",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "046",
+    "guaName": "風水渙之坎",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140813-1",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "047",
+    "guaName": "巽為風之乾",
+    "nature": "他占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140814",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "048",
+    "guaName": "離為火之坎",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140815",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "049",
+    "guaName": "坎為水之坤",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "filename": "1140816",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "050",
+    "guaName": "坤為地之巽",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140817",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "051",
+    "guaName": "震為雷之兌",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140818",
-    "num": "",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "052",
+    "guaName": "水地比之井",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140819",
-    "num": "",
+    "num": "053",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -433,7 +433,7 @@
   },
   {
     "filename": "1140820",
-    "num": "",
+    "num": "054",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -441,7 +441,7 @@
   },
   {
     "filename": "1140821",
-    "num": "",
+    "num": "055",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -449,7 +449,7 @@
   },
   {
     "filename": "1140822",
-    "num": "",
+    "num": "056",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -457,7 +457,7 @@
   },
   {
     "filename": "1140823",
-    "num": "",
+    "num": "057",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -465,7 +465,7 @@
   },
   {
     "filename": "1140824-1",
-    "num": "",
+    "num": "058",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -473,7 +473,7 @@
   },
   {
     "filename": "1140825",
-    "num": "",
+    "num": "059",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -481,7 +481,7 @@
   },
   {
     "filename": "1140826",
-    "num": "",
+    "num": "060",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -489,7 +489,7 @@
   },
   {
     "filename": "1140827",
-    "num": "",
+    "num": "061",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -497,7 +497,7 @@
   },
   {
     "filename": "1140828",
-    "num": "",
+    "num": "062",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -505,7 +505,7 @@
   },
   {
     "filename": "1140829",
-    "num": "",
+    "num": "063",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -513,7 +513,7 @@
   },
   {
     "filename": "1140830",
-    "num": "",
+    "num": "064",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -521,7 +521,7 @@
   },
   {
     "filename": "1140831",
-    "num": "",
+    "num": "065",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -529,7 +529,7 @@
   },
   {
     "filename": "1140901",
-    "num": "",
+    "num": "066",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -537,7 +537,7 @@
   },
   {
     "filename": "1140902",
-    "num": "",
+    "num": "067",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -545,7 +545,7 @@
   },
   {
     "filename": "1140903",
-    "num": "",
+    "num": "068",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -553,7 +553,7 @@
   },
   {
     "filename": "1140904",
-    "num": "",
+    "num": "069",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -561,7 +561,7 @@
   },
   {
     "filename": "1140905",
-    "num": "",
+    "num": "070",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -569,7 +569,7 @@
   },
   {
     "filename": "1140906",
-    "num": "",
+    "num": "071",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -577,7 +577,7 @@
   },
   {
     "filename": "1140907",
-    "num": "",
+    "num": "072",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -585,7 +585,7 @@
   },
   {
     "filename": "1140908",
-    "num": "",
+    "num": "073",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -593,7 +593,7 @@
   },
   {
     "filename": "1140909",
-    "num": "",
+    "num": "074",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -601,7 +601,7 @@
   },
   {
     "filename": "1140910",
-    "num": "",
+    "num": "075",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -609,7 +609,7 @@
   },
   {
     "filename": "1140911",
-    "num": "",
+    "num": "076",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -617,7 +617,7 @@
   },
   {
     "filename": "1140912",
-    "num": "",
+    "num": "076",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -625,7 +625,7 @@
   },
   {
     "filename": "1140913",
-    "num": "",
+    "num": "077",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -633,7 +633,7 @@
   },
   {
     "filename": "1140914",
-    "num": "",
+    "num": "078",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -641,7 +641,7 @@
   },
   {
     "filename": "1140915",
-    "num": "",
+    "num": "080",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -649,7 +649,7 @@
   },
   {
     "filename": "1140916",
-    "num": "",
+    "num": "081",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -657,7 +657,7 @@
   },
   {
     "filename": "1140917",
-    "num": "",
+    "num": "082",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -665,7 +665,7 @@
   },
   {
     "filename": "1140918",
-    "num": "",
+    "num": "083",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -673,7 +673,7 @@
   },
   {
     "filename": "1140919",
-    "num": "",
+    "num": "084",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -681,7 +681,7 @@
   },
   {
     "filename": "1140920",
-    "num": "",
+    "num": "085",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -689,7 +689,7 @@
   },
   {
     "filename": "1140921",
-    "num": "",
+    "num": "086",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -697,7 +697,7 @@
   },
   {
     "filename": "1140922",
-    "num": "",
+    "num": "087",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -705,7 +705,7 @@
   },
   {
     "filename": "1140923",
-    "num": "",
+    "num": "088",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -713,7 +713,7 @@
   },
   {
     "filename": "1140924",
-    "num": "",
+    "num": "089",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -721,7 +721,7 @@
   },
   {
     "filename": "1140925",
-    "num": "",
+    "num": "090",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -729,7 +729,7 @@
   },
   {
     "filename": "1140926",
-    "num": "",
+    "num": "091",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -737,7 +737,7 @@
   },
   {
     "filename": "1140927",
-    "num": "",
+    "num": "092",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -745,7 +745,7 @@
   },
   {
     "filename": "1140928",
-    "num": "",
+    "num": "093",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -753,7 +753,7 @@
   },
   {
     "filename": "1140929",
-    "num": "",
+    "num": "094",
     "guaName": "",
     "nature": "",
     "category": "",
@@ -761,7 +761,7 @@
   },
   {
     "filename": "1140930",
-    "num": "",
+    "num": "095",
     "guaName": "",
     "nature": "",
     "category": "",
