@@ -282,10 +282,10 @@
   {
     "filename": "1140801",
     "num": "035",
-    "guaName": "雷天大壯",
+    "guaName": "雷天大壯之泰",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140802",
@@ -293,7 +293,7 @@
     "guaName": "風雷益",
     "nature": "自占",
     "category": "財運",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140803",
@@ -301,7 +301,7 @@
     "guaName": "雷風恒之豫",
     "nature": "自占",
     "category": "財運",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140804",
@@ -309,7 +309,7 @@
     "guaName": "天水訟之睽",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140805",
@@ -317,7 +317,7 @@
     "guaName": "坤為地",
     "nature": "自占",
     "category": "財運",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140806",
@@ -325,7 +325,7 @@
     "guaName": "坤為地",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140807",
@@ -333,7 +333,7 @@
     "guaName": "天地否之乾",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140808",
@@ -341,7 +341,7 @@
     "guaName": "雷天大壯之巽",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140809",
@@ -349,7 +349,7 @@
     "guaName": "巽為風之坤",
     "nature": "自占",
     "category": "官司",
-    "chapter": ""
+    "chapter": "022.六沖章"
   },
   {
     "filename": "1140810",
@@ -357,7 +357,7 @@
     "guaName": "風火家人之離",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "023.三刑章"
   },
   {
     "filename": "1140811",
@@ -365,7 +365,7 @@
     "guaName": "坤為地之師",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "025.暗動章"
   },
   {
     "filename": "1140812",
@@ -373,7 +373,7 @@
     "guaName": "風水渙之坎",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "026.動散章"
   },
   {
     "filename": "1140813-1",
@@ -381,7 +381,7 @@
     "guaName": "巽為風之乾",
     "nature": "他占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "027.卦變生克墓絕章"
   },
   {
     "filename": "1140814",
@@ -389,7 +389,7 @@
     "guaName": "離為火之坎",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "027.卦變生克墓絕章"
   },
   {
     "filename": "1140815",
@@ -397,7 +397,7 @@
     "guaName": "坎為水之坤",
     "nature": "自占",
     "category": "財運",
-    "chapter": ""
+    "chapter": "027.卦變生克墓絕章"
   },
   {
     "filename": "1140816",
@@ -405,7 +405,7 @@
     "guaName": "坤為地之巽",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "027.卦變生克墓絕章"
   },
   {
     "filename": "1140817",
@@ -413,7 +413,7 @@
     "guaName": "震為雷之兌",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "027.卦變生克墓絕章"
   },
   {
     "filename": "1140818",
@@ -421,347 +421,595 @@
     "guaName": "水地比之井",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "028.反伏章"
   },
   {
     "filename": "1140819",
     "num": "053",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地澤臨之中孚",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "028.反伏章"
   },
   {
     "filename": "1140820",
     "num": "054",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天風姤之恆",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "028.反伏章"
   },
   {
     "filename": "1140821",
     "num": "055",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風火家人之賁",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140822",
     "num": "056",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火澤睽之損",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140823",
     "num": "057",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "山天大畜",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140824-1",
     "num": "058",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地火明夷之豐",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140825",
     "num": "059",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風地觀之否",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140826",
     "num": "060",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天澤履之中孚",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140827",
     "num": "061",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地澤臨之師",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "029.旬空章帶過"
   },
   {
     "filename": "1140828",
     "num": "062",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水火既濟之革",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "029.旬空章"
   },
   {
     "filename": "1140829",
     "num": "063",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "震為雷之豐",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "030.生旺墓絕章"
   },
   {
     "filename": "1140830",
     "num": "064",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "兌為澤之訟",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "034.月破章"
   },
   {
     "filename": "1140831",
     "num": "065",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水地比",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "034.月破章"
   },
   {
     "filename": "1140901",
     "num": "066",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "乾為天之夬",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140902",
     "num": "067",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "艮為山之觀",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140903",
     "num": "068",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "地澤臨",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140904",
     "num": "069",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "山火賁",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140905",
     "num": "070",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "水山蹇",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140906",
     "num": "071",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "地風升",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140907",
     "num": "072",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "地雷復",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140908",
     "num": "073",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "山澤損",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140909",
     "num": "074",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "風山漸之巽",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140910",
     "num": "075",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "天山遯之姤",
+    "nature": "自占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140911",
     "num": "076",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "天山遯之姤",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140912",
     "num": "076",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "火地晉之剝",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140913",
     "num": "077",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "澤水困之兌",
+    "nature": "自占",
+    "category": "官司",
     "chapter": ""
   },
   {
     "filename": "1140914",
     "num": "078",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "風地觀之萃",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140915",
-    "num": "080",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "079",
+    "guaName": "雷風恒之大過",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140916",
-    "num": "081",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "080",
+    "guaName": "水雷屯之節",
+    "nature": "自占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140917",
-    "num": "082",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "081",
+    "guaName": "火雷噬嗑之比",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140918",
-    "num": "083",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "082",
+    "guaName": "地水師之明夷",
+    "nature": "自占",
+    "category": "官司",
     "chapter": ""
   },
   {
     "filename": "1140919",
-    "num": "084",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "083",
+    "guaName": "水山蹇之旅",
+    "nature": "他占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140920",
-    "num": "085",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "084",
+    "guaName": "水澤節之需",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140921",
-    "num": "086",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "085",
+    "guaName": "天火同人之革",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "filename": "1140922",
-    "num": "087",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "086",
+    "guaName": "澤天夬之大壯",
+    "nature": "自占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140923",
-    "num": "088",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "087",
+    "guaName": "地澤臨之泰",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140924",
-    "num": "089",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "088",
+    "guaName": "乾為天之夬",
+    "nature": "自占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140925",
-    "num": "090",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "089",
+    "guaName": "天火同人之解",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140926",
-    "num": "091",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "090",
+    "guaName": "澤地萃之否",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140927",
-    "num": "092",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "091",
+    "guaName": "澤水困之解",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "filename": "1140928",
-    "num": "093",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "092",
+    "guaName": "澤雷隨之否",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "filename": "1140929",
+    "num": "093",
+    "guaName": "水雷屯之節",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": ""
+  },
+  {
+    "filename": "1140930",
     "num": "094",
+    "guaName": "天澤履之兌",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": ""
+  },
+  {
+    "filename": "1141001",
+    "num": "095",
     "guaName": "",
     "nature": "",
     "category": "",
     "chapter": ""
   },
   {
-    "filename": "1140930",
-    "num": "095",
+    "filename": "1141002",
+    "num": "096",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141003",
+    "num": "097",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141004",
+    "num": "098",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141005",
+    "num": "099",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141006",
+    "num": "100",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141007",
+    "num": "101",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141008",
+    "num": "102",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141009",
+    "num": "103",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141010",
+    "num": "104",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141011",
+    "num": "105",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141012",
+    "num": "106",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141013",
+    "num": "107",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141014",
+    "num": "108",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141015",
+    "num": "109",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141016",
+    "num": "110",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141017",
+    "num": "111",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141018",
+    "num": "112",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141019",
+    "num": "113",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141020",
+    "num": "114",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141021",
+    "num": "115",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141022",
+    "num": "116",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141023",
+    "num": "117",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141024",
+    "num": "118",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141025",
+    "num": "119",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141026",
+    "num": "120",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141027",
+    "num": "121",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141028",
+    "num": "122",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141029",
+    "num": "123",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141030",
+    "num": "124",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "filename": "1141031",
+    "num": "125",
     "guaName": "",
     "nature": "",
     "category": "",
