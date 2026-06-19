@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -59,9 +59,14 @@
     
     .result-count {
       text-align: center;
-      margin: 15px 0;
+      margin: 15px 0 10px 0;
       font-size: 18px;
       color: #2980b9;
+    }
+    
+    .top-pagination {
+      text-align: center;
+      margin-bottom: 20px;
     }
     
     .result-list {
@@ -106,45 +111,21 @@
       cursor: pointer;
     }
     .pagination button:disabled { background: #bdc3c7; cursor: not-allowed; }
-    
-    .viewer {
-      text-align: center;
-      margin: 30px auto;
-      max-width: 900px;
-      display: none;
-    }
-    .viewer img {
-      max-width: 100%;
-      max-height: 75vh;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    }
-    
-    .back-btn {
-      display: inline-block;
-      margin: 15px 0;
-      padding: 8px 16px;
-      background: #95a5a6;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-    }
 
     /* 小螢幕微調 */
     @media (max-width: 480px) {
       .item-num { width: 56px; font-size: 14px; }
-      .filter-group { grid-column: span 1; }
     }
   </style>
 </head>
 <body>
-  <h1>☯ 增刪卜易相簿 - 進階搜尋</h1>
-  <p class="subtitle">快速查詢卦象 • 支援編號直達 • 完整篩選功能</p>
+  <h1>☯ 增刪卜易相簿 - 進階搜尋版</h1>
+  <p class="subtitle">快速查詢卦象 • 支援同編號多圖 • 完整篩選功能</p>
 
   <div class="controls">
     <div class="filter-group">
-      <label>🔍 編號快速查詢</label>
-      <input type="text" id="quickNum" placeholder="輸入編號如 001 或 1140629" onkeypress="if(event.key==='Enter') quickSearch()">
+      <label>🔍 編號快速查詢（支援同編號多圖）</label>
+      <input type="text" id="quickNum" placeholder="輸入編號如 001、008 或 1140629" onkeypress="if(event.key==='Enter') quickSearch()">
     </div>
     
     <div class="filter-group">
@@ -180,20 +161,17 @@
   </div>
 
   <div id="resultCount" class="result-count"></div>
-
+  <div id="topPagination" class="top-pagination"></div>
+  
   <div class="result-list" id="resultList"></div>
-
   <div class="pagination" id="pagination"></div>
 
   <div class="viewer" id="viewerBox">
     <a href="#" class="back-btn" onclick="hideViewer(); return false;">← 返回列表</a>
-    <div style="margin-top:10px;">
-      <img id="viewerImg" alt="卦象圖" onerror="this.alt='圖片載入失敗'; this.style.opacity=0.6;">
-    </div>
+    <div id="viewerContent"></div>
     <div style="margin-top:15px; font-size:14px; color:#7f8c8d;" id="viewerInfo"></div>
   </div>
 
-  <!-- 請確保 data_al.js 定義 window.iChingData = [...] -->
   <script src="data_al.js"></script>
   <script>
     let allData = [];
@@ -205,7 +183,6 @@
       allData = Array.isArray(window.iChingData) ? window.iChingData : [];
       if (!allData.length) {
         document.getElementById('resultList').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;">資料尚未載入或為空，請確認 data_al.js 是否正確提供資料。</div>';
-        document.getElementById('resultCount').textContent = '找到 0 筆';
         return;
       }
       applyFilters();
@@ -224,22 +201,17 @@
         alert('請輸入編號再查詢');
         return;
       }
-
-      // 若輸入全為數字且少於 3 碼，補 0 到左側
       if (/^\d+$/.test(input) && input.length < 3) {
         input = input.padStart(3, '0');
-        // 更新輸入欄位顯示補0後的值
         document.getElementById('quickNum').value = input;
       }
-
-      const found = allData.find(item => 
+      const matches = allData.filter(item => 
         (item.num && item.num.toString() === input) ||
         (item.filename && item.filename.toString() === input) ||
         (item.id && item.id.toString() === input)
       );
-      
-      if (found) {
-        showImage(found);
+      if (matches.length > 0) {
+        showImages(matches);
       } else {
         alert('找不到該編號的圖片，請確認後再試');
       }
@@ -272,6 +244,7 @@
       if (pageItems.length === 0) {
         listEl.innerHTML = `<div style="padding:40px;text-align:center;color:#e74c3c;">沒有符合條件的結果</div>`;
         document.getElementById('resultCount').textContent = `找到 ${currentFilterResults.length} 筆`;
+        document.getElementById('topPagination').innerHTML = '';
         document.getElementById('pagination').innerHTML = '';
         return;
       }
@@ -300,7 +273,7 @@
         div.appendChild(numDiv);
         div.appendChild(nameDiv);
         
-        div.onclick = () => showImage(item);
+        div.onclick = () => showImages([item]);
         listEl.appendChild(div);
       });
       
@@ -311,84 +284,99 @@
     }
 
     function renderPagination() {
-      const totalPages = Math.max(1, Math.ceil(currentFilterResults.length / PAGE_SIZE));
-      const pagi = document.getElementById('pagination');
-      pagi.innerHTML = '';
-      
-      const infoSpan = document.createElement('span');
-      infoSpan.style.margin = '0 10px';
-      infoSpan.innerHTML = `第 <strong>${currentPage}</strong> / ${totalPages} 頁`;
-      
+      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
       if (totalPages <= 1) {
-        pagi.appendChild(infoSpan);
+        document.getElementById('topPagination').innerHTML = '';
+        document.getElementById('pagination').innerHTML = '';
         return;
       }
-      
-      const prev = document.createElement('button');
-      prev.textContent = '上一頁';
-      prev.disabled = currentPage === 1;
-      prev.onclick = () => { if (currentPage > 1) { currentPage--; renderResults(); window.scrollTo({top:0, behavior:'smooth'}); } };
-      
-      const next = document.createElement('button');
-      next.textContent = '下一頁';
-      next.disabled = currentPage === totalPages;
-      next.onclick = () => { if (currentPage < totalPages) { currentPage++; renderResults(); window.scrollTo({top:0, behavior:'smooth'}); } };
-      
-      pagi.appendChild(prev);
-      pagi.appendChild(infoSpan);
-      pagi.appendChild(next);
+
+      const paginationHTML = `
+        <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一頁</button>
+        <span style="margin:0 15px;font-weight:bold;color:#2c3e50;">第 ${currentPage} / ${totalPages} 頁</span>
+        <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一頁</button>
+      `;
+
+      // 上方分頁
+      document.getElementById('topPagination').innerHTML = paginationHTML;
+      // 下方分頁（保留原本的）
+      document.getElementById('pagination').innerHTML = paginationHTML;
     }
 
-    function showImage(item) {
+    function goToPage(page) {
+      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderResults();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let currentImages = [];
+    let currentImgIndex = 0;
+
+    function showImages(items) {
+      currentImages = items;
+      currentImgIndex = 0;
       const viewerBox = document.getElementById('viewerBox');
-      const img = document.getElementById('viewerImg');
-      const info = document.getElementById('viewerInfo');
-      
+      const content = document.getElementById('viewerContent');
+      content.innerHTML = `
+        <div style="margin:15px 0;">
+          <button onclick="prevImage()" style="padding:8px 16px;margin-right:10px;">← 上一張</button>
+          <button onclick="nextImage()" style="padding:8px 16px;">下一張 →</button>
+          <span id="imgCounter" style="margin-left:15px;color:#666;">1 / ${items.length}</span>
+        </div>
+        <div id="imageContainer"></div>
+      `;
+
+      updateCurrentImage();
+      viewerBox.style.display = 'block';
+      setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200);
+    }
+
+    function updateCurrentImage() {
+      const container = document.getElementById('imageContainer');
+      const item = currentImages[currentImgIndex];
       const url = getImageUrl(item.filename || '');
-      if (!url) {
-        alert('此項目沒有可用的圖片檔名');
-        return;
-      }
-
-      // 設定 onload 以確保圖片載入後再滾動到底部
-      img.onload = () => {
-        // 小延遲確保圖片尺寸計算完成
-        setTimeout(() => {
-          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }, 120);
-      };
-      // 若圖片載入失敗也嘗試滾動到底部（避免卡在中間）
-      img.onerror = () => {
-        setTimeout(() => {
-          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }, 120);
-      };
-
-      img.src = url;
-      img.alt = `${item.guaName || ''}`;
-      info.innerHTML = `
-        <strong>${item.num || item.id || ''}　${item.guaName || ''}</strong><br>
+      
+      container.innerHTML = `
+        <img src="${url}" alt="${item.guaName || ''}" style="max-width:100%;max-height:75vh;border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,0.2);" 
+             onerror="this.alt='圖片載入失敗';this.style.opacity=0.6;">
+      `;
+      
+      document.getElementById('viewerInfo').innerHTML = `
+        <strong>${item.num || item.id || ''}　${item.guaName || ''}　（${currentImgIndex+1}/${currentImages.length}）</strong><br>
         ${item.nature || '—'}　|　${item.category || '—'}　|　${item.chapter || '未分類'}
       `;
-      viewerBox.style.display = 'block';
+      document.getElementById('imgCounter').textContent = `${currentImgIndex+1} / ${currentImages.length}`;
+    }
 
-      // 若圖片很快就從快取顯示，onload 可能已觸發過，仍保險再滾動一次
-      setTimeout(() => {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-      }, 300);
+    function prevImage() {
+      if (currentImgIndex > 0) {
+        currentImgIndex--;
+        updateCurrentImage();
+      }
+    }
+
+    function nextImage() {
+      if (currentImgIndex < currentImages.length - 1) {
+        currentImgIndex++;
+        updateCurrentImage();
+      }
     }
 
     function hideViewer() {
       document.getElementById('viewerBox').style.display = 'none';
-      // 返回列表時滾動到最上方
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     document.addEventListener('keydown', (e) => {
       if (e.key === "Escape") hideViewer();
+      if (document.getElementById('viewerBox').style.display === 'block') {
+        if (e.key === "ArrowLeft") prevImage();
+        if (e.key === "ArrowRight") nextImage();
+      }
     });
 
-    // 初始化
     window.onload = loadData;
   </script>
 </body>
