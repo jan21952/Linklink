@@ -68,6 +68,16 @@
       text-align: center;
       margin-bottom: 20px;
     }
+
+    .top-pagination button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background: #f498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
     
     .result-list {
       max-width: 1200px;
@@ -111,6 +121,38 @@
       cursor: pointer;
     }
     .pagination button:disabled { background: #bdc3c7; cursor: not-allowed; }
+
+/*手動補充 */
+    .viewer {
+      text-align: center;
+      margin: 30px auto;
+      max-width: 900px;
+      display: none;
+    }
+    .viewer img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .multi-viewer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 8px 16px;
+      background: #95a5a6;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
 
     /* 小螢幕微調 */
     @media (max-width: 480px) {
