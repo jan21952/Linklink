@@ -533,7 +533,7 @@
     "guaName": "乾為天之夬",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "034.月破章"
   },
   {
     "filename": "1140902",
@@ -541,7 +541,7 @@
     "guaName": "艮為山之觀",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "034.月破章"
   },
   {
     "filename": "1140903",
@@ -549,7 +549,7 @@
     "guaName": "地澤臨",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "034.月破章"
   },
   {
     "filename": "1140904",
@@ -557,7 +557,7 @@
     "guaName": "山火賁",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140905",
@@ -565,7 +565,7 @@
     "guaName": "水山蹇",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140906",
@@ -573,7 +573,7 @@
     "guaName": "地風升",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140907",
@@ -581,7 +581,7 @@
     "guaName": "地雷復",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140908",
@@ -589,7 +589,7 @@
     "guaName": "山澤損",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140909",
@@ -597,7 +597,7 @@
     "guaName": "風山漸之巽",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140910",
@@ -605,7 +605,7 @@
     "guaName": "天山遯之姤",
     "nature": "自占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140911",
@@ -613,7 +613,7 @@
     "guaName": "天山遯之姤",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140912",
@@ -621,7 +621,7 @@
     "guaName": "火地晉之剝",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140913",
@@ -629,7 +629,7 @@
     "guaName": "澤水困之兌",
     "nature": "自占",
     "category": "官司",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140914",
@@ -637,7 +637,7 @@
     "guaName": "風地觀之萃",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "035.飛伏神章"
   },
   {
     "filename": "1140915",
@@ -645,7 +645,7 @@
     "guaName": "雷風恒之大過",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140916",
@@ -653,7 +653,7 @@
     "guaName": "水雷屯之節",
     "nature": "自占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140917",
@@ -661,7 +661,7 @@
     "guaName": "火雷噬嗑之比",
     "nature": "自占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140918",
@@ -669,7 +669,7 @@
     "guaName": "地水師之明夷",
     "nature": "自占",
     "category": "官司",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140919",
@@ -677,7 +677,7 @@
     "guaName": "水山蹇之旅",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140920",
@@ -685,7 +685,7 @@
     "guaName": "水澤節之需",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140921",
@@ -693,7 +693,7 @@
     "guaName": "天火同人之革",
     "nature": "自占",
     "category": "事業",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140922",
@@ -701,7 +701,7 @@
     "guaName": "澤天夬之大壯",
     "nature": "自占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140923",
@@ -709,7 +709,7 @@
     "guaName": "地澤臨之泰",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140924",
@@ -717,7 +717,7 @@
     "guaName": "乾為天之夬",
     "nature": "自占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140925",
@@ -725,7 +725,7 @@
     "guaName": "天火同人之解",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140926",
@@ -733,7 +733,7 @@
     "guaName": "澤地萃之否",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140927",
@@ -741,7 +741,7 @@
     "guaName": "澤水困之解",
     "nature": "自占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140928",
@@ -749,7 +749,7 @@
     "guaName": "澤雷隨之否",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140929",
@@ -757,7 +757,7 @@
     "guaName": "水雷屯之節",
     "nature": "自占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1140930",
@@ -765,55 +765,55 @@
     "guaName": "天澤履之兌",
     "nature": "他占",
     "category": "運勢",
-    "chapter": ""
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141001",
     "num": "095",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火天大有之睽",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141002",
     "num": "096",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷水解之困",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141003",
     "num": "097",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "兌為澤之訟",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141004",
     "num": "098",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火天大有之井",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141005",
     "num": "099",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火雷噬嗑之屯",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141006",
     "num": "100",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "兌為澤之豐",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "036.進神退神章"
   },
   {
     "filename": "1141007",
