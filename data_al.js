@@ -818,201 +818,201 @@
   {
     "filename": "1141007",
     "num": "101",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天火同人之離",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "037.隨鬼入墓章"
   },
   {
     "filename": "1141008",
     "num": "102",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷山小過之艮",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "037.隨鬼入墓章"
   },
   {
     "filename": "1141009",
     "num": "103",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷風恒",
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "037.隨鬼入墓章"
   },
   {
     "filename": "1141010",
     "num": "104",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "山風蠱之損",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "037.隨鬼入墓章"
   },
   {
     "filename": "1141011",
     "num": "105",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "山天大畜之泰",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "037.隨鬼入墓章"
   },
   {
     "filename": "1141012",
     "num": "106",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火天大有之離",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141013",
     "num": "107",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤火革之既濟",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141014",
     "num": "108",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天火同人之革",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141015",
     "num": "109",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風火家人之益",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141016",
     "num": "110",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火水未濟之蹇",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141017",
     "num": "111",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天風姤之無妄",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "038.獨發章"
   },
   {
     "filename": "1141018",
     "num": "112",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風天小畜",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "039.兩現章"
   },
   {
     "filename": "1141019",
     "num": "113",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地水師之渙",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "039.兩現章"
   },
   {
     "filename": "1141020",
     "num": "114",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷地豫之歸妹",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "039.兩現章"
   },
   {
     "filename": "1141021",
     "num": "115",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水地比",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四466"
   },
   {
     "filename": "1141022",
     "num": "116",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷風恒之升",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四477"
   },
   {
     "filename": "1141023",
     "num": "117",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤火革之既濟",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四500"
   },
   {
     "filename": "1141024",
     "num": "118",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天山遯",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四518"
   },
   {
     "filename": "1141025",
     "num": "119",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤水困之兌",
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四527"
   },
   {
     "filename": "1141026",
     "num": "120",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤地萃之否",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四535"
   },
   {
     "filename": "1141027",
     "num": "121",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地天泰",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四545"
   },
   {
     "filename": "1141028",
     "num": "122",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火澤睽之蠱",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四557"
   },
   {
     "filename": "1141029",
     "num": "123",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地雷復之謙",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四576"
   },
   {
     "filename": "1141030",
     "num": "124",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤地萃之比",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四585"
   },
   {
     "filename": "1141031",
     "num": "125",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水地比之咸",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四593"
   }
 ];
