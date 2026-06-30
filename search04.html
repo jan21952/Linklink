@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<!--
+1150608 v1初版 
+1150611 v2增加編號查詢 ,但是上一頁失效
+1150611 v3.1修正上一頁失效的問題
+1150611 v3.2增加編號補足3碼;點圖之後自動將畫面調到最下方
+1150616 v3.3若是同編號有2張圖，就一併顯示
+1150619 v3.4在清單上方也加入"上/下一頁"的按鈕 , 但是圖片的css不見了
+1150619 v3.4手動補上圖片的置中css，上方"上/下一頁"的按鈕加上顏色
+
+--!>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☯ 增刪卜易相簿 - 進階搜尋版</title>
+  <style>
+    body { 
+      font-family: "Microsoft JhengHei", Arial, sans-serif; 
+      margin: 0; padding: 20px; 
+      background: linear-gradient(135deg, #f4f6f9, #e8f0f7); 
+    }
+    h1 { text-align: center; color: #2c3e50; margin-bottom: 10px; }
+    .subtitle { text-align: center; color: #555; margin-bottom: 25px; }
+    
+    .controls {
+      max-width: 1200px;
+      margin: 0 auto 25px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 15px;
+    }
+    
+    .filter-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #34495e;
+    }
+    .filter-group input, .filter-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      align-self: end;
+    }
+    
+    .search-btn, .num-search-btn {
+      padding: 12px 20px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      flex: 1;
+    }
+    .search-btn { background: #27ae60; }
+    .num-search-btn { background: #e67e22; }
+    
+    .result-count {
+      text-align: center;
+      margin: 15px 0 10px 0;
+      font-size: 18px;
+      color: #2980b9;
+    }
+    
+    .top-pagination {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .top-pagination button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background: #f498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    
+    .result-list {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .result-item {
+      padding: 14px 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .result-item:hover {
+      background: #f8f9fa;
+      transform: translateX(5px);
+    }
+    .result-item:last-child { border-bottom: none; }
+    
+    .item-num { width: 80px; font-weight: bold; color: #e74c3c; }
+    .item-name { flex: 1; }
+    .item-gua { font-size: 15px; color: #2c3e50; }
+    .item-info { font-size: 14px; color: #7f8c8d; }
+    
+    .pagination {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .pagination button {
+      padding: 8px 16px;
+      margin: 0 5px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .pagination button:disabled { background: #bdc3c7; cursor: not-allowed; }
+
+/*手動補充 */
+    .viewer {
+      text-align: center;
+      margin: 30px auto;
+      max-width: 900px;
+      display: none;
+    }
+    .viewer img {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    
+    .multi-viewer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 8px 16px;
+      background: #95a5a6;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    /* 小螢幕微調 */
+    @media (max-width: 480px) {
+      .item-num { width: 56px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>☯ 增刪卜易相簿 - 進階搜尋版</h1>
+  <p class="subtitle">快速查詢卦象 • 支援同編號多圖 • 完整篩選功能</p>
+
+  <div class="controls">
+    <div class="filter-group">
+      <label>🔍 編號快速查詢（支援同編號多圖）</label>
+      <input type="text" id="quickNum" placeholder="輸入編號如 001、008 或 1140629" onkeypress="if(event.key==='Enter') quickSearch()">
+    </div>
+    
+    <div class="filter-group">
+      <label>卦名（可部分輸入）</label>
+      <input type="text" id="guaFilter" placeholder="例如：大過、坤為地" onkeypress="if(event.key==='Enter') applyFilters()">
+    </div>
+    
+    <div class="filter-group">
+      <label>性質</label>
+      <select id="natureFilter" onchange="applyFilters()">
+        <option value="">全部</option>
+        <option value="自占">自占</option>
+        <option value="他占">他占</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>類別</label>
+      <select id="categoryFilter" onchange="applyFilters()">
+        <option value="">全部</option>
+        <option value="健康">健康</option>
+        <option value="官司">官司</option>
+        <option value="財運">財運</option>
+        <option value="事業">事業</option>
+        <option value="運勢">運勢</option>
+      </select>
+    </div>
+    
+    <div class="btn-group">
+      <button class="num-search-btn" onclick="quickSearch()">📌 編號查詢</button>
+      <button class="search-btn" onclick="applyFilters()">🔍 篩選</button>
+    </div>
+  </div>
+
+  <div id="resultCount" class="result-count"></div>
+  <div id="topPagination" class="top-pagination"></div>
+  
+  <div class="result-list" id="resultList"></div>
+  <div class="pagination" id="pagination"></div>
+
+  <div class="viewer" id="viewerBox">
+    <a href="#" class="back-btn" onclick="hideViewer(); return false;">← 返回列表</a>
+    <div id="viewerContent"></div>
+    <div style="margin-top:15px; font-size:14px; color:#7f8c8d;" id="viewerInfo"></div>
+  </div>
+
+  <script src="data_al4.js"></script>
+  <script>
+    let allData = [];
+    let currentPage = 1;
+    const PAGE_SIZE = 20;
+    let currentFilterResults = [];
+
+    function loadData() {
+      allData = Array.isArray(window.iChingData) ? window.iChingData : [];
+      if (!allData.length) {
+        document.getElementById('resultList').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;">資料尚未載入或為空，請確認 data_al.js 是否正確提供資料。</div>';
+        return;
+      }
+      applyFilters();
+    }
+
+    // ==================== 修改後的 getImageUrl ====================
+    function getImageUrl(item) {
+      if (!item || !item.filename) return '';
+  
+      const folder = item.folder || '';
+      const filename = item.filename;
+  
+      if (folder) {
+        return `https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/${folder}/${filename}.jpg`;
+      } else {
+        // 相容舊資料
+        const yearMonth = filename.substring(0, 5);
+        const dir = `${yearMonth.substring(0,3)}Y${yearMonth.substring(3,5)}M`;
+        return `https://raw.githubusercontent.com/jan21952/Linklink/main/static/images/${dir}/${filename}.jpg`;
+      }
+    }
+
+    function quickSearch() {
+      let input = document.getElementById('quickNum').value.trim();
+      if (!input) {
+        alert('請輸入編號再查詢');
+        return;
+      }
+      if (/^\d+$/.test(input) && input.length < 3) {
+        input = input.padStart(3, '0');
+        document.getElementById('quickNum').value = input;
+      }
+      const matches = allData.filter(item => 
+        (item.num && item.num.toString() === input) ||
+        (item.filename && item.filename.toString() === input) ||
+        (item.id && item.id.toString() === input)
+      );
+      if (matches.length > 0) {
+        showImages(matches);
+      } else {
+        alert('找不到該編號的圖片，請確認後再試');
+      }
+    }
+
+    function applyFilters() {
+      const guaText = document.getElementById('guaFilter').value.toLowerCase().trim();
+      const nature = document.getElementById('natureFilter').value;
+      const category = document.getElementById('categoryFilter').value;
+
+      currentFilterResults = allData.filter(item => {
+        const matchGua = !guaText || (item.guaName && item.guaName.toLowerCase().includes(guaText)) || (item.filename && item.filename.toLowerCase().includes(guaText));
+        const matchNature = !nature || (item.nature === nature);
+        const matchCategory = !category || (item.category === category);
+        return matchGua && matchNature && matchCategory;
+      });
+
+      currentPage = 1;
+      renderResults();
+    }
+
+    function renderResults() {
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const pageItems = currentFilterResults.slice(start, end);
+      
+      const listEl = document.getElementById('resultList');
+      listEl.innerHTML = '';
+      
+      if (pageItems.length === 0) {
+        listEl.innerHTML = `<div style="padding:40px;text-align:center;color:#e74c3c;">沒有符合條件的結果</div>`;
+        document.getElementById('resultCount').textContent = `找到 ${currentFilterResults.length} 筆`;
+        document.getElementById('topPagination').innerHTML = '';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      
+      pageItems.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'result-item';
+        const numDiv = document.createElement('div');
+        numDiv.className = 'item-num';
+        numDiv.textContent = item.num || (item.id || '—');
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'item-name';
+        
+        const guaLine = document.createElement('div');
+        guaLine.className = 'item-gua';
+        guaLine.textContent = `${item.filename || ''}　${item.guaName || ''}`;
+        
+        const infoLine = document.createElement('div');
+        infoLine.className = 'item-info';
+        infoLine.textContent = `${item.nature || '—'}　|　${item.category || '—'}　|　${item.chapter || '未分類'}`;
+        
+        nameDiv.appendChild(guaLine);
+        nameDiv.appendChild(infoLine);
+        
+        div.appendChild(numDiv);
+        div.appendChild(nameDiv);
+        
+        div.onclick = () => showImages([item]);
+        listEl.appendChild(div);
+      });
+      
+      document.getElementById('resultCount').textContent = 
+        `找到 ${currentFilterResults.length} 筆結果（第 ${start+1} - ${Math.min(end, currentFilterResults.length)} 筆）`;
+      
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
+      if (totalPages <= 1) {
+        document.getElementById('topPagination').innerHTML = '';
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      const paginationHTML = `
+        <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一頁</button>
+        <span style="margin:0 15px;font-weight:bold;color:#2c3e50;">第 ${currentPage} / ${totalPages} 頁</span>
+        <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一頁</button>
+      `;
+
+      // 上方分頁
+      document.getElementById('topPagination').innerHTML = paginationHTML;
+      // 下方分頁（保留原本的）
+      document.getElementById('pagination').innerHTML = paginationHTML;
+    }
+
+    function goToPage(page) {
+      const totalPages = Math.ceil(currentFilterResults.length / PAGE_SIZE);
+      if (page < 1 || page > totalPages) return;
+      currentPage = page;
+      renderResults();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    let currentImages = [];
+    let currentImgIndex = 0;
+
+    function showImages(items) {
+      currentImages = items;
+      currentImgIndex = 0;
+      const viewerBox = document.getElementById('viewerBox');
+      const content = document.getElementById('viewerContent');
+      content.innerHTML = `
+        <div style="margin:15px 0;">
+          <button onclick="prevImage()" style="padding:8px 16px;margin-right:10px;">← 上一張</button>
+          <button onclick="nextImage()" style="padding:8px 16px;">下一張 →</button>
+          <span id="imgCounter" style="margin-left:15px;color:#666;">1 / ${items.length}</span>
+        </div>
+        <div id="imageContainer"></div>
+      `;
+
+      updateCurrentImage();
+      viewerBox.style.display = 'block';
+      setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200);
+    }
+
+    // ==================== 修改 updateCurrentImage ====================
+    function updateCurrentImage() {
+      const container = document.getElementById('imageContainer');
+      const item = currentImages[currentImgIndex];
+      const url = getImageUrl(item);   // ← 這裡改成傳入整個 item
+  
+      container.innerHTML = `
+        <img src="${url}" alt="${item.guaName || ''}" 
+             style="max-width:100%;max-height:75vh;border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,0.2);" 
+             onerror="this.alt='圖片載入失敗';this.style.opacity=0.6;">
+      `;
+  
+      document.getElementById('viewerInfo').innerHTML = `
+        <strong>${item.num || item.id || ''}　${item.guaName || ''}　（${currentImgIndex+1}/${currentImages.length}）</strong><br>
+        ${item.nature || '—'}　|　${item.category || '—'}　|　${item.chapter || '未分類'}
+      `;
+      document.getElementById('imgCounter').textContent = `${currentImgIndex+1} / ${currentImages.length}`;
+    }
+
+    function prevImage() {
+      if (currentImgIndex > 0) {
+        currentImgIndex--;
+        updateCurrentImage();
+      }
+    }
+
+    function nextImage() {
+      if (currentImgIndex < currentImages.length - 1) {
+        currentImgIndex++;
+        updateCurrentImage();
+      }
+    }
+
+    function hideViewer() {
+      document.getElementById('viewerBox').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") hideViewer();
+      if (document.getElementById('viewerBox').style.display === 'block') {
+        if (e.key === "ArrowLeft") prevImage();
+        if (e.key === "ArrowRight") nextImage();
+      }
+    });
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>
