@@ -1146,276 +1146,510 @@
     "folder": "114Y11M",
     "filename": "981822",
     "num": "126",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風天小畜之蠱",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四602"
   },
   {
     "folder": "114Y11M",
     "filename": "982216",
     "num": "127",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火水未濟之鼎",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "《黃金策千金賦》第三十四613"
   },
   {
     "folder": "114Y11M",
     "filename": "982743",
     "num": "128",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風雷益之家人",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四621"
   },
   {
     "folder": "114Y11M",
     "filename": "983288",
     "num": "129",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風雷益之家人",
+    "nature": "他占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四621"
   },
   {
     "folder": "114Y11M",
     "filename": "983969",
     "num": "130",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "火水未濟之睽",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "984432",
     "num": "131",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天風姤之大過",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四630"
   },
   {
     "folder": "114Y11M",
     "filename": "984907",
     "num": "132",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "山澤損之節",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四640"
   },
   {
     "folder": "114Y11M",
     "filename": "985436",
     "num": "133",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地天泰之豐",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四649"
   },
   {
     "folder": "114Y11M",
     "filename": "985880",
     "num": "134",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風雷益之蹇",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四665"
   },
   {
     "folder": "114Y11M",
     "filename": "986417",
     "num": "135",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坤為地之剝",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四673"
   },
   {
     "folder": "114Y11M",
     "filename": "986893",
     "num": "136",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "水雷屯之震",
+    "nature": "他占",
+    "category": "官司",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "987509",
     "num": "137",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "風雷益之萃",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "988061",
     "num": "138",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地風升之恒",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四694"
   },
   {
     "folder": "114Y11M",
     "filename": "S__29966384_13改",
-    "num": "139",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "138",
+    "guaName": "地風升之恒",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "988595",
-    "num": "140",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "139",
+    "guaName": "水火既濟之泰",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "989176",
-    "num": "141",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "140",
+    "guaName": "地澤臨之大壯",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "989668",
-    "num": "142",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "141",
+    "guaName": "地澤臨",
+    "nature": "他占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四708"
   },
   {
     "folder": "114Y11M",
     "filename": "990284",
-    "num": "143",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "142",
+    "guaName": "地天泰之明夷",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四717"
   },
   {
     "folder": "114Y11M",
     "filename": "990782",
-    "num": "144",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "143",
+    "guaName": "地山謙之明夷",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "991380",
-    "num": "145",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "144",
+    "guaName": "地山謙之蹇",
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四738"
   },
   {
     "folder": "114Y11M",
     "filename": "991883",
-    "num": "146",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "num": "145",
+    "guaName": "雷澤歸妹之解",
+    "nature": "自占",
+    "category": "官司",
     "chapter": ""
   },
   {
     "folder": "114Y11M",
     "filename": "992381",
-    "num": "147",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "146",
+    "guaName": "山天大畜之中孚",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四748"
   },
   {
     "folder": "114Y11M",
     "filename": "992925",
-    "num": "148",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "147",
+    "guaName": "地澤臨之節",
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四756"
   },
   {
     "folder": "114Y11M",
     "filename": "993441",
-    "num": "149",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "148",
+    "guaName": "火天大有之大壯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四765"
   },
   {
     "folder": "114Y11M",
     "filename": "994097",
-    "num": "150",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "149",
+    "guaName": "火天大有之大畜",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四773"
   },
   {
     "folder": "114Y11M",
     "filename": "994628",
-    "num": "151",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "150",
+    "guaName": "火天大有之大壯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四781"
   },
   {
     "folder": "114Y11M",
     "filename": "995167",
-    "num": "152",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "151",
+    "guaName": "離為火之震",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四789"
   },
   {
     "folder": "114Y11M",
     "filename": "messageImage_1764232969822",
-    "num": "153",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "152",
+    "guaName": "風山漸",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "797"
   },
   {
     "folder": "114Y11M",
     "filename": "996336",
-    "num": "154",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "num": "153",
+    "guaName": "火地晉",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "805"
   },
   {
     "folder": "114Y11M",
     "filename": "messageImage_1764381402787",
+    "num": "154",
+    "guaName": "雷風恒之大過",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "813"
+  },
+  {
+    "folder": "114Y11M",
+    "filename": "997508",
     "num": "155",
+    "guaName": "澤天夬之大壯",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "997917",
+    "num": "156",
     "guaName": "",
     "nature": "",
     "category": "",
     "chapter": ""
   },
   {
-    "folder": "114Y11M",
-    "filename": "997508",
-    "num": "156",
+    "folder": "114Y12M",
+    "filename": "998573",
+    "num": "157",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "messageImage_1764724855948",
+    "num": "158",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "messageImage_1764811355346",
+    "num": "159",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1003025",
+    "num": "160",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1003604",
+    "num": "161",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1004142",
+    "num": "162",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1004649",
+    "num": "163",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1005107",
+    "num": "164",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1005620",
+    "num": "165",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1006137",
+    "num": "166",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1006770",
+    "num": "167",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1007256",
+    "num": "168",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1007819",
+    "num": "169",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1008440",
+    "num": "170",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1009188",
+    "num": "171",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1009814",
+    "num": "172",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1010439",
+    "num": "173",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1010913",
+    "num": "174",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "messageImage_1766620985141",
+    "num": "175",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1012142",
+    "num": "176",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1012571",
+    "num": "177",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1013079",
+    "num": "178",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1013531",
+    "num": "179",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1014013",
+    "num": "180",
+    "guaName": "",
+    "nature": "",
+    "category": "",
+    "chapter": ""
+  },
+  {
+    "folder": "114Y12M",
+    "filename": "1014676",
+    "num": "181",
     "guaName": "",
     "nature": "",
     "category": "",
