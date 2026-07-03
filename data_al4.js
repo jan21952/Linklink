@@ -1185,7 +1185,7 @@
     "guaName": "火水未濟之睽",
     "nature": "自占",
     "category": "財運",
-    "chapter": ""
+    "chapter": "《黃金策千金賦》"
   },
   {
     "folder": "114Y11M",
@@ -1392,7 +1392,7 @@
     "guaName": "風山漸",
     "nature": "自占",
     "category": "事業",
-    "chapter": "797"
+    "chapter": "《黃金策千金賦》第三十四797"
   },
   {
     "folder": "114Y11M",
@@ -1401,7 +1401,7 @@
     "guaName": "火地晉",
     "nature": "自占",
     "category": "事業",
-    "chapter": "805"
+    "chapter": "《黃金策千金賦》第三十四805"
   },
   {
     "folder": "114Y11M",
@@ -1410,7 +1410,7 @@
     "guaName": "雷風恒之大過",
     "nature": "自占",
     "category": "事業",
-    "chapter": "813"
+    "chapter": "《黃金策千金賦》第三十四813"
   },
   {
     "folder": "114Y11M",
@@ -1419,240 +1419,240 @@
     "guaName": "澤天夬之大壯",
     "nature": "他占",
     "category": "健康",
-    "chapter": ""
+    "chapter": "《黃金策千金賦》"
   },
   {
     "folder": "114Y12M",
     "filename": "997917",
     "num": "156",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水火既濟之屯",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》"
   },
   {
     "folder": "114Y12M",
     "filename": "998573",
     "num": "157",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風雷益之中孚",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》"
   },
   {
     "folder": "114Y12M",
     "filename": "messageImage_1764724855948",
     "num": "158",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤雷隨之否,水山騫",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "《黃金策千金賦》第三十四825,833"
   },
   {
     "folder": "114Y12M",
     "filename": "messageImage_1764811355346",
     "num": "159",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水地比之咸",
+    "nature": "他占",
+    "category": "官司",
+    "chapter": "《黃金策千金賦》第三十四843"
   },
   {
     "folder": "114Y12M",
     "filename": "1003025",
     "num": "160",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天風姤之渙,天澤覆",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四853,860"
   },
   {
     "folder": "114Y12M",
     "filename": "1003604",
     "num": "161",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "水風井之升",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1004142",
     "num": "162",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "乾為天之家人",
+    "nature": "他占",
+    "category": "健康",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1004649",
     "num": "163",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤地萃之遯",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "《黃金策千金賦》第三十四870"
   },
   {
     "folder": "114Y12M",
     "filename": "1005107",
     "num": "164",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "艮為山",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四878"
   },
   {
     "folder": "114Y12M",
     "filename": "1005620",
     "num": "165",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "水天需",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1006137",
     "num": "166",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "風雷益之無妄",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1006770",
     "num": "167",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤山咸之大過",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "《黃金策千金賦》第三十四886"
   },
   {
     "folder": "114Y12M",
     "filename": "1007256",
     "num": "168",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天山遯之姤",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《黃金策千金賦》第三十四894"
   },
   {
     "folder": "114Y12M",
     "filename": "1007819",
     "num": "169",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "水地比之井",
+    "nature": "自占",
+    "category": "事業",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1008440",
     "num": "170",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水地比之蹇",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四903"
   },
   {
     "folder": "114Y12M",
     "filename": "1009188",
     "num": "171",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坤為地之比",
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四911"
   },
   {
     "folder": "114Y12M",
     "filename": "1009814",
     "num": "172",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "乾為天之需",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1010439",
     "num": "173",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坤為地之剝",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四919"
   },
   {
     "folder": "114Y12M",
     "filename": "1010913",
     "num": "174",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水火既濟之革",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "《黃金策千金賦》第三十四927"
   },
   {
     "folder": "114Y12M",
     "filename": "messageImage_1766620985141",
     "num": "175",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "天火同人之離",
+    "nature": "他占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1012142",
     "num": "176",
-    "guaName": "",
-    "nature": "",
-    "category": "",
+    "guaName": "離為火",
+    "nature": "自占",
+    "category": "財運",
     "chapter": ""
   },
   {
     "folder": "114Y12M",
     "filename": "1012571",
     "num": "177",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷天大壯之夬",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "041.天時章(941)"
   },
   {
     "folder": "114Y12M",
     "filename": "1013079",
     "num": "178",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷山小過之旅",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "041.天時章(950)"
   },
   {
     "folder": "114Y12M",
     "filename": "1013531",
     "num": "179",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地風升之恒",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "041.天時章(959)"
   },
   {
     "folder": "114Y12M",
     "filename": "1014013",
     "num": "180",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷風恒之大過",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "041.天時章(968)"
   },
   {
     "folder": "114Y12M",
     "filename": "1014676",
     "num": "181",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風地觀之比",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "041.天時章(987)"
   }
 ];
