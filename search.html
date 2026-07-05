@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-TW">
 <!--
 1150608 v1初版 
@@ -8,8 +8,10 @@
 1150616 v3.3若是同編號有2張圖，就一併顯示
 1150619 v3.4在清單上方也加入"上/下一頁"的按鈕 , 但是圖片的css不見了
 1150619 v3.4手動補上圖片的置中css，上方"上/下一頁"的按鈕加上顏色
+1150630 v4 修改圖片路徑規則，改從data_al4.js讀取
+1150705 v4.1 增加天氣,參考資料超連結,增加"首頁"及"末頁"的按鈕
 
---!>
+-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -172,7 +174,15 @@
 </head>
 <body>
   <h1>☯ 增刪卜易相簿 - 進階搜尋版</h1>
-  <p class="subtitle">快速查詢卦象 • 支援同編號多圖 • 完整篩選功能</p>
+  <p class="subtitle">快速查詢卦象 • 支援同編號多圖 • 完整篩選功能<br>
+參考網頁:<br>
+<a href="https://www.suanming.com.tw/book/zengshanbuyi">
+    算學網－增刪卜易(不含黃金策千金賦) 
+  </a><br>
+<a href="https://ctext.org/wiki.pl?if=gb&res=497805">
+      中國哲學書電子化計畫－增刪卜易   
+  </a>
+</p>
 
   <div class="controls">
     <div class="filter-group">
@@ -203,6 +213,7 @@
         <option value="財運">財運</option>
         <option value="事業">事業</option>
         <option value="運勢">運勢</option>
+        <option value="天氣">天氣</option>
       </select>
     </div>
     
@@ -234,7 +245,7 @@
     function loadData() {
       allData = Array.isArray(window.iChingData) ? window.iChingData : [];
       if (!allData.length) {
-        document.getElementById('resultList').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;">資料尚未載入或為空，請確認 data_al.js 是否正確提供資料。</div>';
+        document.getElementById('resultList').innerHTML = '<div style="padding:40px;text-align:center;color:#e74c3c;">資料尚未載入或為空，請確認 data_al04.js 是否正確提供資料。</div>';
         return;
       }
       applyFilters();
@@ -354,9 +365,11 @@
       }
 
       const paginationHTML = `
+        <button onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>首頁</button>
         <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一頁</button>
         <span style="margin:0 15px;font-weight:bold;color:#2c3e50;">第 ${currentPage} / ${totalPages} 頁</span>
         <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一頁</button>
+        <button onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>末頁</button>
       `;
 
       // 上方分頁

@@ -183,7 +183,7 @@
     "folder": "114Y07M",
     "filename": "1140717",
     "num": "020",
-    "guaName": "澤天夬履",
+    "guaName": "澤天夬之履",
     "nature": "他占",
     "category": "運勢",
     "chapter": "018.日辰章"
@@ -986,7 +986,7 @@
     "num": "108",
     "guaName": "天火同人之革",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "038.獨發章"
   },
   {
@@ -1256,7 +1256,7 @@
     "num": "138",
     "guaName": "地風升之恒",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "《黃金策千金賦》第三十四694"
   },
   {
@@ -1616,7 +1616,7 @@
     "num": "177",
     "guaName": "雷天大壯之夬",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "041.天時章(941)"
   },
   {
@@ -1625,7 +1625,7 @@
     "num": "178",
     "guaName": "雷山小過之旅",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "041.天時章(950)"
   },
   {
@@ -1634,7 +1634,7 @@
     "num": "179",
     "guaName": "地風升之恒",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "041.天時章(959)"
   },
   {
@@ -1643,7 +1643,7 @@
     "num": "180",
     "guaName": "雷風恒之大過",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "041.天時章(968)"
   },
   {
@@ -1652,286 +1652,286 @@
     "num": "181",
     "guaName": "風地觀之比",
     "nature": "自占",
-    "category": "運勢",
+    "category": "天氣",
     "chapter": "041.天時章(987)"
   },
   {
     "folder": "115Y01M",
     "filename": "1015610",
     "num": "182",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水雷屯之臨",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(996)"
   },
   {
     "folder": "115Y01M",
     "filename": "1016031",
     "num": "183",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤水困之比",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1016659",
     "num": "184",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水火既濟之蹇",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1008)"
   },
   {
     "folder": "115Y01M",
     "filename": "1017126",
     "num": "185",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地火明夷之艮",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1018)"
   },
   {
     "folder": "115Y01M",
     "filename": "1017549",
     "num": "186",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷天大壯之升",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1028)"
   },
   {
     "folder": "115Y01M",
     "filename": "1018043",
     "num": "187",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風澤中孚之小畜",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1043)"
   },
   {
     "folder": "115Y01M",
     "filename": "1018653",
     "num": "188",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤雷隨之震",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1055)"
   },
   {
     "folder": "115Y01M",
     "filename": "1019097",
     "num": "189",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "離為火",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1066)"
   },
   {
     "folder": "115Y01M",
     "filename": "1019613",
     "num": "190",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "震為雷之豫",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1075)"
   },
   {
     "folder": "115Y01M",
     "filename": "1020127",
     "num": "191",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水山蹇",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1087)"
   },
   {
     "folder": "115Y01M",
     "filename": "1020645",
     "num": "192",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "離為火之旅,離為火",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1096,1103)"
   },
   {
     "folder": "115Y01M",
     "filename": "1021151",
     "num": "193",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "艮為山之謙",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1103)"
   },
   {
     "folder": "115Y01M",
     "filename": "1021671",
     "num": "194",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坎為水之井",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1112)"
   },
   {
     "folder": "115Y01M",
     "filename": "1022283",
     "num": "195",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風水渙之坎",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1120)"
   },
   {
     "folder": "115Y01M",
     "filename": "1022738",
     "num": "196",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "火地晉之歸妹",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1129)"
   },
   {
     "folder": "115Y01M",
     "filename": "1023283",
     "num": "197",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "水雷屯之中孚",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1137)"
   },
   {
     "folder": "115Y01M",
     "filename": "1024003",
     "num": "198",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風地觀之升",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1146)"
   },
   {
     "folder": "115Y01M",
     "filename": "1024650",
     "num": "199",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷天大壯之震",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1155)"
   },
   {
     "folder": "115Y01M",
     "filename": "1025238",
     "num": "200",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天水訟之兌(訟之隨)",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1166)"
   },
   {
     "folder": "115Y01M",
     "filename": "1025767",
     "num": "201",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "地澤臨之蒙",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1174)"
   },
   {
     "folder": "115Y01M",
     "filename": "1026403",
     "num": "202",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "雷山小過之豐",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1182)"
   },
   {
     "folder": "115Y01M",
     "filename": "1026841",
     "num": "203",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "風天小畜之中孚,水雷屯之中孚",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1190)"
   },
   {
     "folder": "115Y01M",
     "filename": "1027310",
     "num": "204",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "天山遯之咸",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1199)"
   },
   {
     "folder": "115Y01M",
     "filename": "1027786",
     "num": "205",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "山水蒙之臨,雷天大壯之泰",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1208,1125)"
   },
   {
     "folder": "115Y01M",
     "filename": "1028610",
     "num": "206",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤雷隨之屯,火澤睽之履",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章(1122,1230)"
   },
   {
     "folder": "115Y01M",
     "filename": "1029235",
     "num": "207",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "巽為風之姤,天風姤之乾,天雷無妄",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1029753",
     "num": "208",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坎為水之節",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1030288",
     "num": "209",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤天夬之需",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1030619",
     "num": "210",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "澤天夬之大壯",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1031145",
     "num": "211",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "艮為山之乾",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   },
   {
     "folder": "115Y01M",
     "filename": "1031610",
     "num": "212",
-    "guaName": "",
-    "nature": "",
-    "category": "",
-    "chapter": ""
+    "guaName": "坤為地之師",
+    "nature": "自占",
+    "category": "天氣",
+    "chapter": "041.天時章"
   }
 ];
