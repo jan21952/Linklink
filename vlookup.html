@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>VLOOKUP練習 V11</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #title { font-size: 22px; font-weight: bold; margin-bottom: 15px; text-align: center; }
+    .container { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+    #data { flex: 1; min-width: 560px; }
+    table { border-collapse: collapse; margin: 10px 0; }
+    td, th { border: 1px solid black; padding: 8px; text-align: center; min-width: 100px; }
+    th { background-color: #f0f0f0; }
+    .header { background-color: #a8d4ff !important; font-weight: bold; }
+    .search-header { background-color: #ffd9b3 !important; font-weight: bold; }
+    .letter-header { background-color: #d3d3d3 !important; font-weight: bold; }
+    .option { 
+      margin: 12px 0; padding: 12px 15px; font-size: 16px; display: block; 
+      width: 100%; max-width: 700px; text-align: left; cursor: pointer; 
+      border: 1px solid #ccc; border-radius: 6px; background-color: #f9f9f9;
+    }
+    .option:hover { background-color: #e6f0ff; }
+    .option:disabled { opacity: 0.6; cursor: not-allowed; }
+    #question, #options { margin: 20px 0; }
+    #result { font-weight: bold; margin: 15px 0; padding: 12px; border-radius: 4px; min-height: 80px; }
+    .correct { background-color: #d4edda; color: #155724; }
+    .wrong { background-color: #f8d7da; color: #721c24; }
+    button { padding: 10px 20px; font-size: 16px; margin: 5px; }
+    .difficulty-btn { font-weight: bold; }
+    .active { background-color: #4CAF50; color: white; }
+  </style>
+</head>
+<body>
+  <div id="title">VLOOKUP 練習 V11</div>
+  
+  <div>
+    <button id="startBtn">開始測驗</button>
+    <button id="diff1" class="difficulty-btn active">難度1</button>
+    <button id="diff2" class="difficulty-btn">難度2</button>
+  </div>
+  <div class="container">
+    <div id="data"></div>
+  </div>
+  <div id="question"></div>
+  <div id="options"></div>
+  <div id="result"></div>
+  <div id="score"></div>
+  
+  <button id="nextBtn" style="display:none;">下一題</button>
+
+<script>
+//V11_1正常
+//V11_2手動修改錯誤答案選項
+
+let current = 0;
+let score = 0;
+let currentCorrect = "";
+let difficulty = 1;
+let buttonsDisabled = false;
+let currentColIndexGlobal = 2;
+
+const names = ["張三","李四","王五","劉六","大寶","二寶","三寶","小寶"];
+const categoryMap = {
+  "性別": ["男","女"], "學歷": ["國小","國中","高中","大學","碩士","博士"],
+  "職業": ["老師","農夫","工人","商人","居家","自由"],
+  "興趣": ["唱歌","跳舞","打牌","喝酒","睡覺","發呆"],
+  "住屋": ["小屋","木屋","草屋","鐵屋","泥屋","空地"],
+  "吃食": ["點心","火雞","中餐","西餐","啤酒","麵包"]
+};
+const categoryNames = Object.keys(categoryMap);
+
+// 切換難度
+document.getElementById("diff1").onclick = () => {
+  if (document.getElementById("startBtn").style.display !== "none") {
+    difficulty = 1; updateDifficultyUI();
+  }
+};
+document.getElementById("diff2").onclick = () => {
+  if (document.getElementById("startBtn").style.display !== "none") {
+    difficulty = 2; updateDifficultyUI();
+  }
+};
+
+function updateDifficultyUI() {
+  document.getElementById("diff1").classList.toggle("active", difficulty === 1);
+  document.getElementById("diff2").classList.toggle("active", difficulty === 2);
+}
+
+function generateData() {
+  let selectedCats = [];
+  let temp = [...categoryNames];
+  for (let i = 0; i < 3; i++) {
+    const idx = Math.floor(Math.random() * temp.length);
+    selectedCats.push(temp.splice(idx, 1)[0]);
+  }
+  const headers = ["姓名", selectedCats[0], selectedCats[1], selectedCats[2]];
+  let rows = [];
+  let usedNames = new Set();
+  while (rows.length < 4) {
+    const name = names[Math.floor(Math.random() * names.length)];
+    if (!usedNames.has(name)) {
+      usedNames.add(name);
+      rows.push({
+        name: name,
+        col1: categoryMap[selectedCats[0]][Math.floor(Math.random() * categoryMap[selectedCats[0]].length)],
+        col2: categoryMap[selectedCats[1]][Math.floor(Math.random() * categoryMap[selectedCats[1]].length)],
+        col3: categoryMap[selectedCats[2]][Math.floor(Math.random() * categoryMap[selectedCats[2]].length)]
+      });
+    }
+  }
+  const searchRow = Math.floor(Math.random() * 3) + 1;
+  const searchName = rows[searchRow].name;
+  const catIndex = Math.floor(Math.random() * 3);
+  currentColIndexGlobal = catIndex + 2;
+
+  let html = `<strong>資料表：</strong><br><table>`;
+  html += `<tr class="letter-header"><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td></tr>`;
+  html += `<tr><th class="header">${headers[0]}</th><th class="header">${headers[1]}</th><th class="header">${headers[2]}</th><th class="header">${headers[3]}</th><th class="search-header">搜尋準則(E)</th></tr>`;
+  html += `<tr><td>${rows[0].name}</td><td>${rows[0].col1}</td><td>${rows[0].col2}</td><td>${rows[0].col3}</td><td>${searchName}</td></tr>`;
+  html += `<tr><td>${rows[1].name}</td><td>${rows[1].col1}</td><td>${rows[1].col2}</td><td>${rows[1].col3}</td><td>${rows[0].col3}</td></tr>`;
+  html += `<tr><td>${rows[2].name}</td><td>${rows[2].col1}</td><td>${rows[2].col2}</td><td>${rows[2].col3}</td><td>請做答</td></tr>`;
+  html += `<tr><td>${rows[3].name}</td><td>${rows[3].col1}</td><td>${rows[3].col2}</td><td>${rows[3].col3}</td><td></td></tr>`;
+  html += `</table>`;
+  document.getElementById("data").innerHTML = html;
+  currentCorrect = `VLOOKUP(E2,A2:D5,${currentColIndexGlobal},0)`;
+}
+
+function generateQuestion() {
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("nextBtn").style.display = "none";
+  buttonsDisabled = false;
+  document.getElementById("options").innerHTML = "";
+
+  const noCorrectProb = difficulty === 1 ? 0.2 : 0.3;
+  let noCorrect = Math.random() < noCorrectProb;
+
+  function randomWrong() {
+    if (difficulty === 1) {
+      const wrongs = [
+        `VLOOKUP(A2,A2:D5,${currentColIndexGlobal=== 2 ? 3 : 2},0)`,
+        `VLOOKUP(A2,A2:D5,${currentColIndexGlobal=== 3 ? 4 : 3},0)`,
+        `VLOOKUP(A3,A2:D5,${currentColIndexGlobal},0)`,
+        `VLOOKUP(E2,B2:E5,${currentColIndexGlobal + 1},0)`,
+        `VLOOKUP(E2,A2:D5,5,0)`,
+        `VLOOKUP(E2,B2:E5,5,0)`,
+        `VLOOKUP(E2,A2:D4,${currentColIndexGlobal},1)`,
+        `VLOOKUP(E3,A2:D4,${currentColIndexGlobal},1)`
+      ];
+      return wrongs[Math.floor(Math.random()*wrongs.length)];
+    } else {
+      const wrongs = [
+        `VLOOKUP(E2,A2:D5,${currentColIndexGlobal === 2 ? 3 : 2},0)`,
+        `VLOOKUP(E2,A1:D6,${currentColIndexGlobal},0)`,
+        `VLOOKUP(E2,A2:D5,${currentColIndexGlobal + 1},0)`,
+        `VLOOKUP(E2,A2:D5,${currentColIndexGlobal - 1},0)`,
+        `VLOOKUP(E2,A2:D6,${currentColIndexGlobal},0)`,
+        `VLOOKUP(E2,B2:D6,${currentColIndexGlobal},0)`,
+        `VLOOKUP(E2,A2:D5,${currentColIndexGlobal})`
+      ];
+      return wrongs[Math.floor(Math.random()*wrongs.length)];
+    }
+  }
+
+  let options = [];
+  if (noCorrect) {
+    for (let i = 0; i < 4; i++) options.push(randomWrong());
+  } else {
+    options.push(currentCorrect);
+    for (let i = 0; i < 3; i++) options.push(randomWrong());
+  }
+  options.push("以上皆非");
+  options.sort(() => Math.random() - 0.5);
+
+  document.getElementById("question").innerHTML = `<strong>第 ${current + 1} 題：</strong> 請選擇正確的 VLOOKUP 公式：`;
+  
+  let optHtml = "";
+  options.forEach(o => {
+  //取消正確答案提示 const display = (o === currentCorrect) ? `** ${o} **` : o;
+    const display = o;
+    const escapedAns = o.replace(/'/g, "\\'");
+    const correctStr = noCorrect ? "以上皆非" : currentCorrect;
+    const escapedCorrect = correctStr.replace(/'/g, "\\'");
+    optHtml += `<button class="option" onclick="checkAnswer(this, '${escapedAns}', '${escapedCorrect}')">${display}</button>`;
+  });
+  
+  document.getElementById("options").innerHTML = optHtml;
+}
+
+function checkAnswer(btn, ans, correct) {
+  if (buttonsDisabled) return;
+  const resultEl = document.getElementById("result");
+  const allBtns = document.querySelectorAll('.option');
+  
+  if (ans === correct) {
+    resultEl.innerHTML = "✅ 答對了！"; resultEl.className = "correct"; score += 10;
+  } else {
+    resultEl.innerHTML = `❌ 錯誤！<br>正確公式應為：<br><strong>${correct}</strong>`; 
+    resultEl.className = "wrong";
+  }
+  
+  allBtns.forEach(b => b.disabled = true);
+  buttonsDisabled = true;
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+document.getElementById("nextBtn").onclick = function() {
+  current++;
+  if (current < 10) {
+    generateData();
+    generateQuestion();
+  } else {
+    finishQuiz();
+  }
+};
+
+function finishQuiz() {
+  document.getElementById("score").innerHTML = `<h3>測驗結束！</h3><p style="font-size:18px;">總成績： <strong>${score} / 100 分</strong></p>`;
+  document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("startBtn").style.display = "inline-block";
+  document.getElementById("diff1").disabled = false;
+  document.getElementById("diff2").disabled = false;
+}
+
+document.getElementById("startBtn").onclick = function() {
+  current = 0; score = 0; this.style.display = "none";
+  document.getElementById("score").innerHTML = "";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("diff1").disabled = true;
+  document.getElementById("diff2").disabled = true;
+  generateData();
+  generateQuestion();
+};
+</script>
+</body>
+</html>
