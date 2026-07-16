@@ -2174,7 +2174,7 @@
     "num": "239",
     "guaName": "地火明夷之豐",
     "nature": "自占",
-    "category": "運勢",
+    "category": "事業",
     "chapter": "《終身功名有無章》第三十八148"
   },
   {
@@ -2183,7 +2183,286 @@
     "num": "240",
     "guaName": "澤水困之兌",
     "nature": "自占",
-    "category": "運勢",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1047091",
+    "num": "241",
+    "guaName": "山風蠱",
+    "nature": "自占",
+    "category": "事業",
     "chapter": "044.終身功名有無章157"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1047630",
+    "num": "242",
+    "guaName": "雷地豫之萃",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1048077",
+    "num": "243",
+    "guaName": "火地晉之姤",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1048571",
+    "num": "244",
+    "guaName": "水地比之坤",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1048995",
+    "num": "245",
+    "guaName": "水天需",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章167"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1049418",
+    "num": "246",
+    "guaName": "火山旅",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章176"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1049863",
+    "num": "247",
+    "guaName": "澤風大過之井",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1050397",
+    "num": "248",
+    "guaName": "雷澤歸妹之震",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "044.終身功名有無章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1050812",
+    "num": "249",
+    "guaName": "風澤中孚",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《壽元章第三十九》186"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1051364",
+    "num": "250",
+    "guaName": "山澤損之復",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章194"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1051764",
+    "num": "251",
+    "guaName": "山天大畜之泰",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1052275",
+    "num": "252",
+    "guaName": "天風姤之小畜",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1052717",
+    "num": "253",
+    "guaName": "風澤中孚之睽",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章203"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1053221",
+    "num": "254",
+    "guaName": "山地剝之無妄",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章212"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1053751",
+    "num": "255",
+    "guaName": "地天泰之明夷",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1054138",
+    "num": "256",
+    "guaName": "水澤節之中孚",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1054544",
+    "num": "257",
+    "guaName": "兌為澤之隨",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1054991",
+    "num": "258",
+    "guaName": "天地否之遯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "7581",
+    "num": "259",
+    "guaName": "水地比之屯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "7588",
+    "num": "260",
+    "guaName": "山水蒙之臨",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "045.壽元章"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1056396",
+    "num": "261",
+    "guaName": "風雷益之中孚",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "《趨避章第四十》222"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1056940",
+    "num": "262",
+    "guaName": "風雷益之中孚",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章232"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1057355",
+    "num": "263",
+    "guaName": "水火既濟之臨",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章246(動爻不同)"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1057827",
+    "num": "264",
+    "guaName": "風山漸",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章254"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1058351",
+    "num": "265",
+    "guaName": "澤天夬",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章262"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1058747",
+    "num": "266",
+    "guaName": "天雷無妄",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章270"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1059236",
+    "num": "267",
+    "guaName": "水澤節之坎",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章278"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1059590",
+    "num": "268",
+    "guaName": "風雷益之中孚",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章287(多版本)"
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1059980",
+    "num": "269",
+    "guaName": "天澤履",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": ""
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1060463",
+    "num": "270",
+    "guaName": "火山旅",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": ""
+  },
+  {
+    "folder": "115Y03M",
+    "filename": "1060961",
+    "num": "271",
+    "guaName": "解之震",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "046.趨避章296"
   }
 ];
