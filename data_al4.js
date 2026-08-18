@@ -3013,5 +3013,275 @@
     "nature": "他占",
     "category": "事業",
     "chapter": "075.子佔父功名章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1088503",
+    "num": "333",
+    "guaName": "澤火革",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "求財章第六十八812"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1088918",
+    "num": "334",
+    "guaName": "火水未濟之歸妹",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "076.求財章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1089496",
+    "num": "335",
+    "guaName": "火地晉",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "076.求財章825"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1089939",
+    "num": "336",
+    "guaName": "水火既濟之渙",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "076.求財章833"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1090346",
+    "num": "337",
+    "guaName": "離為火之豐",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "076.求財章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1090782",
+    "num": "338",
+    "guaName": "地水師之坎",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "076.求財章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1091167",
+    "num": "339",
+    "guaName": "天火同人",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "卷四謁貴求財章第六十九8"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1091521",
+    "num": "340",
+    "guaName": "火雷噬嗑",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "077.謁貴求財章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1091948",
+    "num": "341",
+    "guaName": "山雷頤",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "囤貨賣貨章第七十三35"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1092335",
+    "num": "342",
+    "guaName": "雷澤歸妹之兌",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "081.囤買賣貨章47"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1092740",
+    "num": "343",
+    "guaName": "地雷復",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "081.囤買賣貨章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1093135",
+    "num": "344",
+    "guaName": "風火家人之小畜",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "081.囤買賣貨章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1093552",
+    "num": "345",
+    "guaName": "山火賁",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "081.囤買賣貨章56"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1094113",
+    "num": "346",
+    "guaName": "地澤臨",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "083.往何方買賣章73"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1094548",
+    "num": "347",
+    "guaName": "火山旅",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "084.買何貨為吉章83"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1094890",
+    "num": "348",
+    "guaName": "兌為澤之震",
+    "nature": "自占",
+    "category": "財運",
+    "chapter": "085.借貸章93"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1095442",
+    "num": "349",
+    "guaName": "火風鼎之大有",
+    "nature": "自占",
+    "category": "事業",
+    "chapter": "087.買賣六畜章105"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1095881",
+    "num": "350",
+    "guaName": "風山漸之巽",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "088.博戲章115"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1096285",
+    "num": "351",
+    "guaName": "地火明夷之豐",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "婚姻章第八十二"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1096974",
+    "num": "352",
+    "guaName": "雷風恆之鼎",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "091.婚姻章132"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1097370",
+    "num": "353",
+    "guaName": "地澤臨之既濟",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "091.婚姻章140"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1097697",
+    "num": "354",
+    "guaName": "雷風恆之晉",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "091.婚姻章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1098235",
+    "num": "355",
+    "guaName": "水天需之大過",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "091.婚姻章156"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1098570",
+    "num": "356",
+    "guaName": "澤水困之兌",
+    "nature": "自占",
+    "category": "官司",
+    "chapter": "091.婚姻章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1098971",
+    "num": "357",
+    "guaName": "地天泰",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "091.婚姻章166"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1099462",
+    "num": "358",
+    "guaName": "坤為地",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "091.婚姻章174"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1099890",
+    "num": "359",
+    "guaName": "澤火革之夬",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "092.此婚子嗣有無章187"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1100403",
+    "num": "360",
+    "guaName": "雷山小過之豫",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "胎孕章第八十七206"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1100771",
+    "num": "361",
+    "guaName": "艮為山之剝",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "097.胎孕章"
+  },
+  {
+    "folder": "115Y06M",
+    "filename": "1101159",
+    "num": "362",
+    "guaName": "雷火豐之小過",
+    "nature": "他占",
+    "category": "運勢",
+    "chapter": "098.產婦安危章217"
   }
 ];
