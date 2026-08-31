@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>數學練習網</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .menu-section, .quiz-section, .result-section {
+            display: none;
+        }
+        
+        .menu-section.active, .quiz-section.active, .result-section.active {
+            display: block;
+        }
+        
+        .option-group {
+            margin-bottom: 25px;
+        }
+        
+        .option-label {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .button-group.single {
+            grid-template-columns: 1fr;
+        }
+        
+        .option-btn {
+            padding: 16px 20px;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .option-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .start-btn {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            font-size: 22px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .question-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .question-number {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .answer-input {
+            flex: 1;
+            padding: 16px;
+            font-size: 32px;
+            text-align: center;
+            border: 3px solid #ddd;
+            border-radius: 12px;
+            font-weight: bold;
+            color: #333;
+            transition: border-color 0.3s;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .number-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .number-btn {
+            padding: 16px;
+            font-size: 24px;
+            border: 2px solid #ddd;
+            background: #f0f0f0;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .number-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+        
+        .number-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .control-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            padding: 14px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .clear-btn {
+            color: #f5576c;
+            border-color: #f5576c;
+        }
+        
+        .clear-btn:hover {
+            background: #ffe0e5;
+        }
+        
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+        
+        .submit-btn:hover {
+            background: #5568d3;
+        }
+        
+        .result-section {
+            text-align: center;
+        }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .score-number {
+            font-size: 80px;
+            font-weight: bold;
+        }
+        
+        .score-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .datetime-info {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .evaluation {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .evaluation.excellent {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #0d5f2d;
+        }
+        
+        .evaluation.good {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: #6d2800;
+        }
+        
+        .evaluation.fair {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2d5a5f;
+        }
+        
+        .evaluation.pass {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #5c3310;
+        }
+        
+        .evaluation.fail {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);
+            color: #fff;
+        }
+        
+        .screenshot-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+        }
+        
+        .screenshot-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .restart-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .restart-section button {
+            padding: 16px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .exit-btn {
+            background: white;
+            color: #666;
+            border-color: #ddd;
+        }
+        
+        .exit-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                min-height: 500px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .question-text {
+                font-size: 40px;
+            }
+            
+            .number-pad {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .score-circle {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .score-number {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 菜單頁面 -->
+        <div class="menu-section active">
+            <div class="header">
+                <h1>🎓</h1>
+                <h1>數學練習</h1>
+                <p>加加減減真有趣！</p>
+            </div>
+            
+            <div class="option-group">
+                <label class="option-label">選擇題目類別</label>
+                <div class="button-group">
+                    <button class="option-btn" data-type="addition">➕ 加法</button>
+                    <button class="option-btn" data-type="subtraction">➖ 減法</button>
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <label class="option-label">選擇難度</label>
+                <div class="button-group">
+                    <button class="option-btn" data-level="1">📍 個位數</button>
+                    <button class="option-btn" data-level="2">📍 兩位數</button>
+                </div>
+                <div class="button-group single">
+                    <button class="option-btn" data-level="3">📍 三位數</button>
+                </div>
+            </div>
+            
+            <button class="start-btn" id="startBtn" disabled>開始練習</button>
+            <button class="start-btn" style="background: #999; margin-top: 10px;" id="exitBtn">離開</button>
+        </div>
+        
+        <!-- 練習頁面 -->
+        <div class="quiz-section">
+            <div class="question-box">
+                <div class="question-number">第 <span id="currentQuestion">1</span> 題 / 10題</div>
+                <div class="question-text" id="questionText">0 + 0 = ?</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <input type="text" class="answer-input" id="answerInput" readonly placeholder="0">
+            </div>
+            
+            <div class="number-pad" id="numberPad"></div>
+            
+            <div class="control-buttons">
+                <button class="control-btn clear-btn" id="clearBtn">清除</button>
+                <button class="control-btn submit-btn" id="submitBtn">確定</button>
+            </div>
+        </div>
+        
+        <!-- 成績頁面 -->
+        <div class="result-section">
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0</div>
+                <div class="score-label">分數</div>
+            </div>
+            
+            <div class="datetime-info" id="datetimeInfo"></div>
+            
+            <div class="evaluation" id="evaluation"></div>
+            
+            <button class="screenshot-btn" id="screenshotBtn">📸 儲存成績為照片</button>
+            
+            <div class="restart-section">
+                <button class="restart-btn" id="restartBtn">再練習一次</button>
+                <button class="exit-btn" id="finalExitBtn">回首頁</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        let state = {
+            type: null,
+            level: null,
+            questions: [],
+            currentQuestionIndex: 0,
+            answers: [],
+            startTime: null,
+            endTime: null
+        };
+        
+        const container = document.querySelector('.container');
+        const menuSection = document.querySelector('.menu-section');
+        const quizSection = document.querySelector('.quiz-section');
+        const resultSection = document.querySelector('.result-section');
+        
+        // 菜單按鈕事件
+        document.querySelectorAll('[data-type]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                state.type = this.dataset.type;
+                checkMenuValid();
+            });
+        });
+        
+        document.querySelectorAll('[data-level]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-level]').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                state.level = parseInt(this.dataset.level);
+                checkMenuValid();
+            });
+        });
+        
+        function checkMenuValid() {
+            const startBtn = document.getElementById('startBtn');
+            startBtn.disabled = !(state.type && state.level);
+        }
+        
+        // 開始按鈕
+        document.getElementById('startBtn').addEventListener('click', startQuiz);
+        document.getElementById('exitBtn').addEventListener('click', () => {
+            alert('再見！加油練習喔！');
+            location.reload();
+        });
+        
+        function generateQuestions() {
+            state.questions = [];
+            const ranges = {
+                1: { min: 1, max: 9 },
+                2: { min: 10, max: 99 },
+                3: { min: 100, max: 999 }
+            };
+            
+            const range = ranges[state.level];
+            
+            for (let i = 0; i < 10; i++) {
+                let num1 = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+                let num2 = Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+                
+                let answer, question;
+                
+                if (state.type === 'addition') {
+                    answer = num1 + num2;
+                    question = `${num1} + ${num2}`;
+                } else {
+                    if (num1 < num2) [num1, num2] = [num2, num1];
+                    answer = num1 - num2;
+                    question = `${num1} - ${num2}`;
+                }
+                
+                state.questions.push({ question, answer });
+            }
+        }
+        
+        function startQuiz() {
+            generateQuestions();
+            state.currentQuestionIndex = 0;
+            state.answers = [];
+            state.startTime = new Date();
+            
+            menuSection.classList.remove('active');
+            quizSection.classList.add('active');
+            
+            showQuestion();
+            renderNumberPad();
+        }
+        
+        function renderNumberPad() {
+            const numberPad = document.getElementById('numberPad');
+            numberPad.innerHTML = '';
+            
+            for (let i = 1; i <= 9; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'number-btn';
+                btn.textContent = i;
+                btn.addEventListener('click', () => addNumber(i));
+                numberPad.appendChild(btn);
+            }
+            
+            // 0按鈕
+            const zeroBtn = document.createElement('button');
+            zeroBtn.className = 'number-btn';
+            zeroBtn.textContent = '0';
+            zeroBtn.addEventListener('click', () => addNumber(0));
+            zeroBtn.style.gridColumn = '1 / 3';
+            numberPad.appendChild(zeroBtn);
+            
+            // 退格按鈕
+            const backBtn = document.createElement('button');
+            backBtn.className = 'number-btn';
+            backBtn.textContent = '⌫';
+            backBtn.style.background = '#ffcccc';
+            backBtn.addEventListener('click', backspace);
+            numberPad.appendChild(backBtn);
+        }
+        
+        function showQuestion() {
+            const q = state.questions[state.currentQuestionIndex];
+            document.getElementById('questionText').textContent = q.question + ' = ?';
+            document.getElementById('currentQuestion').textContent = state.currentQuestionIndex + 1;
+            
+            const progress = ((state.currentQuestionIndex + 1) / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.getElementById('answerInput').value = '';
+            document.getElementById('answerInput').focus();
+        }
+        
+        function addNumber(num) {
+            const input = document.getElementById('answerInput');
+            const current = input.value;
+            if (current.length < 6) {
+                input.value = current + num;
+            }
+        }
+        
+        function backspace() {
+            const input = document.getElementById('answerInput');
+            input.value = input.value.slice(0, -1);
+        }
+        
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            document.getElementById('answerInput').value = '';
+        });
+        
+        document.getElementById('submitBtn').addEventListener('click', submitAnswer);
+        
+        function submitAnswer() {
+            const input = document.getElementById('answerInput');
+            const answer = input.value.trim();
+            
+            if (answer === '') {
+                alert('請先輸入答案！');
+                return;
+            }
+            
+            const correct = state.questions[state.currentQuestionIndex].answer;
+            state.answers.push({
+                question: state.questions[state.currentQuestionIndex].question,
+                userAnswer: parseInt(answer),
+                correctAnswer: correct,
+                isCorrect: parseInt(answer) === correct
+            });
+            
+            state.currentQuestionIndex++;
+            
+            if (state.currentQuestionIndex < 10) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function showResults() {
+            state.endTime = new Date();
+            
+            const correctCount = state.answers.filter(a => a.isCorrect).length;
+            const score = Math.round((correctCount / 10) * 100);
+            
+            quizSection.classList.remove('active');
+            resultSection.classList.add('active');
+            
+            document.getElementById('scoreNumber').textContent = score;
+            
+            // 時間和日期
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('zh-TW', { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit' 
+            });
+            const timeStr = now.toLocaleTimeString('zh-TW', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            document.getElementById('datetimeInfo').innerHTML = 
+                `📅 ${dateStr}<br>⏰ ${timeStr}`;
+            
+            // 評語
+            let evaluationText = '';
+            let evaluationClass = '';
+            
+            if (score === 100) {
+                evaluationText = '🌟 滿分！<br>太棒了！你是數學小天才！';
+                evaluationClass = 'excellent';
+            } else if (score >= 90) {
+                evaluationText = '🎉 優秀！<br>真的很不錯呢！再接再厲！';
+                evaluationClass = 'good';
+            } else if (score >= 80) {
+                evaluationText = '😊 不錯！<br>做得很好，加油繼續努力！';
+                evaluationClass = 'fair';
+            } else if (score >= 60) {
+                evaluationText = '👍 及格！<br>有進步喔，多練習會更棒！';
+                evaluationClass = 'pass';
+            } else {
+                evaluationText = '💪 加油！<br>再練習一次，你一定可以做得更好！';
+                evaluationClass = 'fail';
+            }
+            
+            const evaluation = document.getElementById('evaluation');
+            evaluation.innerHTML = evaluationText;
+            evaluation.className = 'evaluation ' + evaluationClass;
+        }
+        
+        document.getElementById('screenshotBtn').addEventListener('click', async () => {
+            try {
+                const btn = document.getElementById('screenshotBtn');
+                btn.textContent = '正在儲存...';
+                btn.disabled = true;
+                
+                // 只截圖成績部分
+                const resultCard = document.createElement('div');
+                resultCard.style.padding = '30px';
+                resultCard.style.background = 'white';
+                resultCard.style.borderRadius = '20px';
+                resultCard.innerHTML = resultSection.innerHTML;
+                
+                const canvas = await html2canvas(resultCard, { 
+                    backgroundColor: '#fff',
+                    scale: 2,
+                    logging: false
+                });
+                
+                canvas.toBlob(blob => {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `數學成績-${Date.now()}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    
+                    btn.textContent = '📸 儲存成績為照片';
+                    btn.disabled = false;
+                    alert('✅ 成績已儲存！');
+                });
+            } catch (err) {
+                console.error('截圖錯誤：', err);
+                document.getElementById('screenshotBtn').textContent = '📸 儲存成績為照片';
+                document.getElementById('screenshotBtn').disabled = false;
+                alert('⚠️ 儲存失敗，可用手機截圖功能保存成績');
+            }
+        });
+        
+        document.getElementById('restartBtn').addEventListener('click', () => {
+            menuSection.classList.add('active');
+            resultSection.classList.remove('active');
+            quizSection.classList.remove('active');
+            
+            state = {
+                type: null,
+                level: null,
+                questions: [],
+                currentQuestionIndex: 0,
+                answers: [],
+                startTime: null,
+                endTime: null
+            };
+            
+            document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('[data-level]').forEach(b => b.classList.remove('selected'));
+            checkMenuValid();
+        });
+        
+        document.getElementById('finalExitBtn').addEventListener('click', () => {
+            menuSection.classList.add('active');
+            resultSection.classList.remove('active');
+            quizSection.classList.remove('active');
+            
+            state = {
+                type: null,
+                level: null,
+                questions: [],
+                currentQuestionIndex: 0,
+                answers: [],
+                startTime: null,
+                endTime: null
+            };
+            
+            document.querySelectorAll('[data-type]').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('[data-level]').forEach(b => b.classList.remove('selected'));
+            checkMenuValid();
+        });
+    </script>
+</body>
+</html>
