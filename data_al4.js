@@ -27,6 +27,15 @@
     "chapter": "010.元神、忌神、衰旺章"
   },
   {
+    "folder": "114Y06M",
+    "filename": "1140630-3",
+    "num": "003",
+    "guaName": "離為火之大有",
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "010.元神、忌神、衰旺章"
+  },
+  {
     "folder": "114Y07M",
     "filename": "1140701",
     "num": "004",
@@ -2445,7 +2454,7 @@
     "guaName": "天澤履",
     "nature": "自占",
     "category": "運勢",
-    "chapter": "zz沒人有"
+    "chapter": "o\沒人有/o"
   },
   {
     "folder": "115Y03M",
@@ -2454,7 +2463,7 @@
     "guaName": "火山旅",
     "nature": "自占",
     "category": "運勢",
-    "chapter": "zz沒人有"
+    "chapter": "o\沒人有/o"
   },
   {
     "folder": "115Y03M",
@@ -3577,7 +3586,7 @@
     "filename": "1115222",
     "num": "395",
     "guaName": "澤風大過之困",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3586,7 +3595,7 @@
     "filename": "1115661",
     "num": "396",
     "guaName": "水地比之革",
-    "nature": "",
+    "nature": "自占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3595,7 +3604,7 @@
     "filename": "1116194",
     "num": "397",
     "guaName": "風澤中孚之兌",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3604,7 +3613,7 @@
     "filename": "1116633",
     "num": "398",
     "guaName": "坤為地之乾",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3613,7 +3622,7 @@
     "filename": "1117009",
     "num": "399",
     "guaName": "水澤節之中孚",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3622,7 +3631,7 @@
     "filename": "1117405",
     "num": "400",
     "guaName": "兌為澤",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3631,7 +3640,7 @@
     "filename": "1117783",
     "num": "401",
     "guaName": "澤風大過之渙",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3640,7 +3649,7 @@
     "filename": "1118436",
     "num": "402",
     "guaName": "地澤臨之師",
-    "nature": "",
+    "nature": "他占",
     "category": "健康",
     "chapter": "109.疾病章"
   },
@@ -3649,8 +3658,8 @@
     "filename": "1118749",
     "num": "403",
     "guaName": "雷水解之歸妹",
-    "nature": "",
-    "category": "",
+    "nature": "他占",
+    "category": "健康",
     "chapter": "109.疾病章"
   },
   {
@@ -3658,17 +3667,17 @@
     "filename": "1119178",
     "num": "404",
     "guaName": "水雷屯之中孚",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章370"
   },
   {
     "folder": "115Y08M",
     "filename": "1119513",
     "num": "405",
     "guaName": "山地剝之觀",
-    "nature": "",
-    "category": "",
+    "nature": "自占",
+    "category": "健康",
     "chapter": "114.醫佔往治章"
   },
   {
@@ -3676,81 +3685,81 @@
     "filename": "1119980",
     "num": "406",
     "guaName": "水澤節之比",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章379"
   },
   {
     "folder": "115Y08M",
     "filename": "1120371",
     "num": "407",
     "guaName": "雷水解之坎",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章387"
   },
   {
     "folder": "115Y08M",
     "filename": "1120828",
     "num": "408",
     "guaName": "坤為地",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章395"
   },
   {
     "folder": "115Y08M",
     "filename": "1121284",
     "num": "409",
     "guaName": "水風井之明夷",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章403"
   },
   {
     "folder": "115Y08M",
     "filename": "1121679",
     "num": "410",
     "guaName": "火天大有之大畜",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章411"
   },
   {
     "folder": "115Y08M",
     "filename": "1122011",
     "num": "411",
     "guaName": "澤地萃之否",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章420"
   },
   {
     "folder": "115Y08M",
     "filename": "1122440",
     "num": "412",
     "guaName": "澤天夬",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "他占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章429"
   },
   {
     "folder": "115Y08M",
     "filename": "1122960",
     "num": "413",
     "guaName": "天澤履之否",
-    "nature": "",
-    "category": "",
-    "chapter": "114.醫佔往治章"
+    "nature": "自占",
+    "category": "健康",
+    "chapter": "114.醫佔往治章437"
   },
   {
     "folder": "115Y08M",
     "filename": "1123354",
     "num": "414",
     "guaName": "乾為天之小畜",
-    "nature": "",
-    "category": "",
-    "chapter": "115.家宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "115.家宅章448"
   },
   {
     "folder": "115Y08M",
@@ -3759,78 +3768,78 @@
     "guaName": "澤地萃",
     "nature": "自占",
     "category": "運勢",
-    "chapter": "121章、入宅六親吉凶章"
+    "chapter": "121.入宅六親吉凶章479"
   },
   {
     "folder": "115Y08M",
     "filename": "1124480",
     "num": "416",
     "guaName": "澤火革之豐",
-    "nature": "",
-    "category": "",
-    "chapter": "121章、入宅六親吉凶章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "121.入宅六親吉凶章"
   },
   {
     "folder": "115Y08M",
     "filename": "1124786",
     "num": "417",
     "guaName": "革之夬",
-    "nature": "",
-    "category": "",
-    "chapter": "121章、入宅六親吉凶章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "121.入宅六親吉凶章"
   },
   {
     "folder": "115Y08M",
     "filename": "1125359",
     "num": "418",
     "guaName": "地水師之臨",
-    "nature": "",
-    "category": "",
-    "chapter": "123.舊宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "123.舊宅章493"
   },
   {
     "folder": "115Y08M",
     "filename": "1125811",
     "num": "419",
     "guaName": "天火同人",
-    "nature": "",
-    "category": "",
-    "chapter": "123.舊宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "123.舊宅章500"
   },
   {
     "folder": "115Y08M",
     "filename": "1126265",
     "num": "420",
     "guaName": "雷山小過之剝",
-    "nature": "",
-    "category": "",
-    "chapter": "123.舊宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "123.舊宅章507"
   },
   {
     "folder": "115Y08M",
     "filename": "1126770",
     "num": "421",
     "guaName": "火天大有之乾",
-    "nature": "",
-    "category": "",
-    "chapter": "123.舊宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "123.舊宅章518"
   },
   {
     "folder": "115Y08M",
     "filename": "1127178",
     "num": "422",
     "guaName": "雷澤歸妹之豫",
-    "nature": "",
-    "category": "",
-    "chapter": "123.舊宅章"
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "123.舊宅章525"
   },
   {
     "folder": "115Y08M",
     "filename": "1127569",
     "num": "423",
     "guaName": "水地比之蹇",
-    "nature": "",
-    "category": "",
+    "nature": "自占",
+    "category": "運勢",
     "chapter": "123.舊宅章"
   },
   {
@@ -3838,8 +3847,98 @@
     "filename": "1128118",
     "num": "424",
     "guaName": "火風鼎",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "126.衙宇章543"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1128644",
+    "num": "425",
+    "guaName": "火雷噬嗑之無妄",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "126.衙宇章551"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1129147",
+    "num": "426",
+    "guaName": "山雷頤之無妄",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "129.尋地章569"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1129600",
+    "num": "427",
+    "guaName": "山地剝",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "129.尋地章"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1130188",
+    "num": "428",
+    "guaName": "澤火革之既濟",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "129.尋地章"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1130548",
+    "num": "429",
+    "guaName": "巽為風之升",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "129.尋地章583"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1130903",
+    "num": "430",
+    "guaName": "澤山咸",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "130.佔地形勢章596"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1131360",
+    "num": "431",
+    "guaName": "地雷復之屯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "131.得地於何時章606"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1131836",
+    "num": "432",
+    "guaName": "雷天大壯",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "134.點穴章620"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1132359",
+    "num": "433",
+    "guaName": "澤地萃之革",
+    "nature": "自占",
+    "category": "運勢",
+    "chapter": "137.因何事所傷章(萃之明夷)"
+  },
+  {
+    "folder": "115Y09M",
+    "filename": "1132759",
+    "num": "434",
+    "guaName": "地雷復之坤",
     "nature": "",
-    "category": "",
-    "chapter": "126.衙宇章"
+    "category": "運勢",
+    "chapter": "140.新亡附葬祖墓章643"
   }
 ];
