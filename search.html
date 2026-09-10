@@ -10,6 +10,7 @@
 1150619 v3.4手動補上圖片的置中css，上方"上/下一頁"的按鈕加上顏色
 1150630 v4 修改圖片路徑規則，改從data_al4.js讀取
 1150705 v4.1 增加天氣,參考資料超連結,增加"首頁"及"末頁"的按鈕
+1150909 v5 修改卦名篩選的程式碼,免得不相關的也列出來了
 
 -->
 <head>
@@ -291,20 +292,35 @@
     }
 
     function applyFilters() {
-      const guaText = document.getElementById('guaFilter').value.toLowerCase().trim();
+      const guaText = document.getElementById('guaFilter').value.trim();
       const nature = document.getElementById('natureFilter').value;
       const category = document.getElementById('categoryFilter').value;
 
       currentFilterResults = allData.filter(item => {
-        const matchGua = !guaText || (item.guaName && item.guaName.toLowerCase().includes(guaText)) || (item.filename && item.filename.toLowerCase().includes(guaText));
+        const text = ((item.guaName || '') + ' ' + (item.filename || '')).toLowerCase();
+
+        let matchGua = true;
+        if (guaText) {
+          if (guaText.includes(' ')) {
+            // 有空格 → 表示多個字，任一即可
+            const keywords = guaText.split(/\s+/).map(k => k.toLowerCase());
+            matchGua = keywords.some(k => text.includes(k));
+          } else {
+            // 沒空格 → 必須完整包含整個字串
+            matchGua = text.includes(guaText.toLowerCase());
+          }
+        }
+
         const matchNature = !nature || (item.nature === nature);
         const matchCategory = !category || (item.category === category);
+
         return matchGua && matchNature && matchCategory;
       });
 
       currentPage = 1;
       renderResults();
     }
+
 
     function renderResults() {
       const start = (currentPage - 1) * PAGE_SIZE;
